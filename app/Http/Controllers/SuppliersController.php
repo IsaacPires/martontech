@@ -9,9 +9,16 @@ class SuppliersController extends Controller
 {
     public function index()
     {
-        $suppliers = Suppliers::all();
+        $suppliers = Suppliers::query()->paginate(5);
+        $message = session('success.message');
 
-        return view('suppliers.index')->with('suppliers', $suppliers);
+        $nextPage = $suppliers->nextPageUrl();
+        $previusPage = $suppliers->previousPageUrl();
+
+        return view('suppliers.index')->with('suppliers', $suppliers)
+            ->with('successMessage', $message)
+            ->with('nextPage', $nextPage)
+            ->with('previusPage', $previusPage);
     }
 
     public function create()
@@ -24,5 +31,13 @@ class SuppliersController extends Controller
         $supplier = Suppliers::create($request->except('_token'));
 
         return redirect('suppliers.index');
+    }
+
+    public function destroy(Suppliers $suppliers)
+    {
+        $suppliers->delete();
+
+        return redirect('/suppliers')
+            ->with("success.message", "Fornecedor '$suppliers->Name' removida com sucesso!");
     }
 }

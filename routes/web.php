@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function ()
 {
-    return view('welcome');
+    return view('suppliers.create');
 });
 
-Route::resource('/suppliers', SuppliersController::class)->only('index', 'create', 'store');
+Route::resource('/suppliers', SuppliersController::class)->except('show');
