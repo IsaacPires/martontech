@@ -19,7 +19,7 @@
                 <i class="fas fa-bars" id="menu-toggle-nav"></i>
             </a>
             <a href="#" class="brand-logo">
-                <span>Marton Tech</span>
+            <img src={{asset('img/logo.png')}}>
             </a>
         </header>
         <nav class="dashboard-nav-list">
