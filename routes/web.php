@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsersController;
+use App\Http\Middleware\Authenticator;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function ()
+{
     return view('suppliers.index');
-});
+})->middleware(Authenticator::class);
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('signin');
+Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::get('/register', [UsersController::class, 'create'])->name('users.create');
+Route::post('/register', [UsersController::class, 'store'])->name('users.store');
+Route::get('/users', [UsersController::class, 'index'])->name('users.index');
