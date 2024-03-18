@@ -27,3 +27,20 @@ Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/register', [UsersController::class, 'create'])->name('users.create');
 Route::post('/register', [UsersController::class, 'store'])->name('users.store');
 Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+Route::get('/suppliers', function () {
+    return view('suppliers.index');
+});
+
+Route::get('/', function () {
+    return view('dashboard.index');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard.index');
+});
+
+Route::get('/suppliers/report', function () {
+    return view('suppliers.report');
+});
+
+
