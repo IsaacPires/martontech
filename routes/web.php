@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/suppliers', function () {
     return view('suppliers.index');
 });
+
+Route::get('/', function () {
+    return view('dashboard.index');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard.index');
+});
+
+Route::get('/suppliers/report', function () {
+    return view('suppliers.report');
+});
+
+

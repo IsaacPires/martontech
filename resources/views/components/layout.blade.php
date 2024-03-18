@@ -23,7 +23,7 @@
             </a>
         </header>
         <nav class="dashboard-nav-list">
-            <a href="#" class="dashboard-nav-item active">
+            <a href={{asset('/dashboard')}} class="dashboard-nav-item active">
                 <i class="fas fa-tachometer-alt"></i> dashboard
             </a>
 
@@ -32,8 +32,8 @@
                     <i class="fas fa-truck"></i> Fornecedores 
                 </a>
                 <div class='dashboard-nav-dropdown-menu'>
-                    <a href="/" class="dashboard-nav-dropdown-item">Adicionar</a>
-                    <a href="/inter" class="dashboard-nav-dropdown-item">Relatório</a>
+                    <a href={{asset('/suppliers')}} class="dashboard-nav-dropdown-item">Adicionar</a>
+                    <a href={{asset('/suppliers/report')}} class="dashboard-nav-dropdown-item">Relatório</a>
                 </div>
             </div>
             <div class='dashboard-nav-dropdown'>
