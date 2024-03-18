@@ -34,8 +34,8 @@
                         <i class="fas fa-truck"></i> Fornecedores
                     </a>
                     <div class='dashboard-nav-dropdown-menu'>
-                        <a href={{asset('/suppliers')}} class="dashboard-nav-dropdown-item">Adicionar</a>
-                        <a href={{asset('/suppliers/report')}} class="dashboard-nav-dropdown-item">Relatório</a>
+                        <a href="{{route('suppliers.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>
+                        <a href="{{route('suppliers.index')}}" class="dashboard-nav-dropdown-item">Relatório</a>
                     </div>
                 </div>
                 <div class='dashboard-nav-dropdown'>
