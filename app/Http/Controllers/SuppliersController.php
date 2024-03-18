@@ -15,7 +15,8 @@ class SuppliersController extends Controller
         $nextPage = $suppliers->nextPageUrl();
         $previusPage = $suppliers->previousPageUrl();
 
-        return view('suppliers.index')->with('suppliers', $suppliers)
+        return view('suppliers.index')
+            ->with('suppliers', $suppliers)
             ->with('successMessage', $message)
             ->with('nextPage', $nextPage)
             ->with('previusPage', $previusPage);
@@ -30,14 +31,16 @@ class SuppliersController extends Controller
     {
         $supplier = Suppliers::create($request->except('_token'));
 
-        return redirect('suppliers.index');
+        return redirect('/')
+            ->with("success.message", "Fornecedor '$supplier->Name' adicionada com sucesso!");
     }
 
-    public function destroy(Suppliers $suppliers)
+    public function destroy(Request $request)
     {
-        $suppliers->delete();
+        $supplier = Suppliers::findOrFail($request->input('supplier_id'));
+        $supplier->delete();
 
         return redirect('/suppliers')
-            ->with("success.message", "Fornecedor '$suppliers->Name' removida com sucesso!");
+            ->with("success.message", "Fornecedor '$supplier->Name' removida com sucesso!");
     }
 }

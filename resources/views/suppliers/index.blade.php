@@ -39,11 +39,12 @@
                 <td>{{$supplier->ContactPhoneOne}}</td>
                 <td>{{$supplier->ContactEmailOne}}</td>
                 <td><a class="btn btn-primary btn-sm ms-2" href="{{ route('suppliers.edit', $supplier->id) }}">E</a></td>
-                <form action="{{route('suppliers.destroy', $supplier->id)}}" method="POST">
+                <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <td>
-                        <button class="btn btn-danger btn-sm  ms-2">X</button>
+                        <input type="hidden" name="supplier_id" value="{{ $supplier->id }}">
+                        <button class="btn btn-danger btn-sm ms-2">X</button>
                     </td>
                 </form>
             </tr>
