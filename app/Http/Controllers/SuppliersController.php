@@ -31,7 +31,7 @@ class SuppliersController extends Controller
     {
         $supplier = Suppliers::create($request->except('_token'));
 
-        return redirect('/')
+        return redirect('/suppliers')
             ->with("success.message", "Fornecedor '$supplier->Name' adicionada com sucesso!");
     }
 

@@ -16,6 +16,11 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+table {
+  border-collapse: separate;
+  border-spacing: 30px;
+}
+
 nav {
   display: block;
 }

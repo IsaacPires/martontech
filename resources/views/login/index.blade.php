@@ -1,18 +1,26 @@
-<x-layout title="Login">
-    <form method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" name="email" id="email" class="form-control">
+<x-basic title="Login - Marton Tech">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Login - Marton Tech</div>
+                    <div class="card-body">
+                        <form action="{{ route('login') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <button class="btn btn-primary mt-3">Entrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+</x-basic>
 
-        <div class="form-group">
-            <label for="password" class="form-label">Senha</label>
-            <input type="password" name="password" id="password" class="form-control">
-        </div>
-
-        <button class="btn btn-primary mt-3">Entrar</button>
-
-        <a class="btn btn-secondary mt-3" href="{{route('users.create')}}">Cadastrar</a>
-    </form>
-</x-layout>
