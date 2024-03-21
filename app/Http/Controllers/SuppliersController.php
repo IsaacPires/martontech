@@ -9,11 +9,33 @@ class SuppliersController extends Controller
 {
     public function index()
     {
-        $suppliers = Suppliers::query()->paginate(5);
-        $message = session('success.message');
+        $query = Suppliers::query();
+
+        if (!empty($_GET['SocialReason']))
+        {
+            $query->where('Name', 'like', '%' . $_GET['SocialReason'] . '%');
+        }
+
+        if (!empty($_GET['Segments']))
+        {
+            $query->where('Segments', 'like', '%' . $_GET['Segments'] . '%');
+        }
+
+        if (!empty($_GET['CNPJ']))
+        {
+            $query->where('Cnpj', 'like', '%' . $_GET['CNPJ'] . '%');
+        }
+
+        if (!empty($_GET['Name']))
+        {
+            $query->where('ContactNameOne', 'like', '%' . $_GET['Name'] . '%');
+        }
+
+        $suppliers = $query->paginate(15);
 
         $nextPage = $suppliers->nextPageUrl();
         $previusPage = $suppliers->previousPageUrl();
+        $message = session('success.message');
 
         return view('suppliers.index')
             ->with('suppliers', $suppliers)

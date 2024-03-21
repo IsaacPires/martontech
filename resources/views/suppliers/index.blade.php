@@ -1,38 +1,37 @@
 <x-layout title="Fornecedores - Relatório">
 
-   <!-- Filtro -->
-    <form>
-    <div class='row'>
-        <div class="col-md-4">
-            <label for="filtro" class="form-label">Razão Social:</label>
-            <input type="text" class="form-control" id="razaoSocial" placeholder="Digite para filtrar...">
+    <!-- Filtro -->
+    <form action="{{route('suppliers.index')}}" method="GET">
+        <div class='row'>
+            <div class="col-md-4">
+                <label for="SocialReason" class="form-label">Razão Social:</label>
+                <input type="text" class="form-control" id="SocialReason" name="SocialReason" placeholder="Digite para filtrar...">
+            </div>
+
+            <div class="col-md-4">
+                <label for="Segments" class="form-label">Segmento:</label>
+                <input type="text" class="form-control" id="Segments" name="Segments" placeholder="Digite para filtrar...">
+            </div>
+            <div class="col-md-3">
+                <label for="CNPJ" class="form-label">CNPJ:</label>
+                <input type="text" class="form-control" id="CNPJ" name="CNPJ" placeholder="Digite para filtrar...">
+            </div>
+            <div class="col-md-4">
+                <label for="Name" class="form-label">Nome contato:</label>
+                <input type="text" class="form-control" id="Name" name="Name" placeholder="Digite para filtrar...">
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <label for="filtro" class="form-label">Segmento:</label>
-            <input type="text" class="form-control" id="Segmento" placeholder="Digite para filtrar...">
+        <div style='margin-top: 20px;'>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="button" class="btn btn-success">Exportar</button>
         </div>
-        <div class="col-md-3">
-          <label for="filtro" class="form-label">CNPJ:</label>
-          <input type="text" class="form-control" id="CNPJ" placeholder="Digite para filtrar...">
-        </div>
-
-        <div class="col-md-4">
-          <label for="filtro" class="form-label">Nome:</label>
-          <input type="text" class="form-control" id="Nome" placeholder="Digite para filtrar...">
-        </div>
-      </div>
-
-      <div style='margin-top: 20px;'>
-        <button  type="button" class="btn btn-primary">Filtrar</button>
-        <button type="button" class="btn btn-success">Exportar</button>
-      </div>
     </form>
 
     <hr>
 
     <div class="table-responsive" style="overflow-x: auto;">
-    
+
 
 
         <table class="table">
@@ -58,7 +57,7 @@
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody class="table-group-divider table-data">
                 @foreach ($suppliers as $supplier)
                 <tr>
                     <td>{{$supplier->Name}}</td>
@@ -80,10 +79,10 @@
                         <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                                <input type="hidden" name="supplier_id" value="{{ $supplier->id }}">
-                                <button class="btn btn-danger btn-sm ms-2">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                            <input type="hidden" name="supplier_id" value="{{ $supplier->id }}">
+                            <button class="btn btn-danger btn-sm ms-2">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -96,17 +95,19 @@
 
         <nav style='margin:20px 0 0 0 ;'>
             <ul class="pagination justify-content-center">
-                <li class="page-item" >
+                <li class="page-item">
                     <a class="page-link" {{ !$previusPage ? 'hidden' : '' }} href="{{ $previusPage }}" tabindex="-1" aria-disabled="true">
-                    <i class="fas fa-caret-left"></i>
+                        <i class="fas fa-caret-left"></i>
                     </a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link"   {{ !$nextPage ? 'hidden' : '' }} href="{{ $nextPage }}">
-                    <i class="fas fa-caret-right"></i>
+                    <a class="page-link" {{ !$nextPage ? 'hidden' : '' }} href="{{ $nextPage }}">
+                        <i class="fas fa-caret-right"></i>
                     </a>
                 </li>
             </ul>
         </nav>
     </div>
 </x-layout>
+
+<script src="{{ asset('js/suppliers/index.js') }}"></script>
