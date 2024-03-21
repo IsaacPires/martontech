@@ -65,4 +65,20 @@ class SuppliersController extends Controller
         return redirect('/suppliers')
             ->with("success.message", "Fornecedor '$supplier->Name' removida com sucesso!");
     }
+
+    public function edit($id){
+        $supplier = Suppliers::find($id);
+
+        return view('suppliers.edit', ['supplier' => $supplier]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $supplier = Suppliers::findOrFail($id);
+        $supplier->update($request->all());
+        
+        return redirect('/suppliers')
+            ->with("success.message", "Fornecedor '$request->Name' atualizado com sucesso!");
+
+    }
 }
