@@ -5,7 +5,16 @@
                 <div class="card">
                     <div class="card-header">Login - Marton Tech</div>
                         <div class="card-body">
-                            <form action="{{ route('login') }}" method="POST">
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>

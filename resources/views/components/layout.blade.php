@@ -50,33 +50,44 @@
                         <a href="/" class="dashboard-nav-dropdown-item">Relatório</a>
                     </div>
                 </div>
-
-                <div class='dashboard-nav-dropdown'>
-                    <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-thumbs-up"></i> Aprovações
-                    </a>
-                    <div class='dashboard-nav-dropdown-menu'>
-                        <a href="/" class="dashboard-nav-dropdown-item">Pendentes</a>
-                        <a href="/" class="dashboard-nav-dropdown-item">Relatório</a>
+                @if(Auth::user()->permission == 'adm')
+                    <div class='dashboard-nav-dropdown'>
+                        <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-thumbs-up"></i> Aprovações
+                        </a>
+                        <div class='dashboard-nav-dropdown-menu'>
+                            <a href="/" class="dashboard-nav-dropdown-item">Pendentes</a>
+                            <a href="/" class="dashboard-nav-dropdown-item">Relatório</a>
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="nav-item-divider"></div>
-
-                <a href="{{route('users.index')}}" class="dashboard-nav-item"><i class="fas fa-users"></i> Usuários </a>
-                @auth
-                <a href="{{route('logout')}}" class="dashboard-nav-item"><i class="fas fa-sign-out-alt"></i> Logout </a>
-                @endauth
-                @guest
-                <a href="{{route('login')}}" class="dashboard-nav-item"><i class="fas fa-sign-out-alt"></i> Logout </a>
-                @endguest
+                @if(Auth::user()->permission == 'adm')
+                    <div class='dashboard-nav-dropdown'>
+                        <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-users"></i>
+                            Usuários
+                        </a>
+                        <div class='dashboard-nav-dropdown-menu'>
+                            <a href="{{route('users.create')}}" class="dashboard-nav-dropdown-item">Criar</a>
+                            <a href="/users" class="dashboard-nav-dropdown-item">Relatório</a>
+                        </div>
+                    </div>
+                @endif
             </nav>
         </div>
         <div class='dashboard-app'>
-            <header class='dashboard-toolbar'>
+            <header class="dashboard-toolbar d-flex justify-content-between align-items-center">
                 <a href="#!" class="menu-toggle">
-                    <i class="fas fa-bars " id='menu-toggle-app'></i>
+                    <i class="fas fa-bars" id="menu-toggle-app"></i>
                 </a>
+                <div class="ml-auto d-flex align-items-center">
+                    <p style="margin: 10px 0">{{ Auth::user()->name }}</p>
+                    @auth
+                        <a href="{{ route('logout') }}" class="dashboard-nav-item ml-2"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    @endauth
+                </div>
             </header>
+
             <div class='dashboard-content'>
                 <div class='container'>
                     <div class='card'>
