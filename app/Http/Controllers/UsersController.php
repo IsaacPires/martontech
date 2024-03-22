@@ -36,9 +36,7 @@ class UsersController
 
         $data['password'] = Hash::make($data['password']);
 
-        $user = User::create($data);
-
-        Auth::login($user);
+        User::create($data);
 
         return redirect('/users')
         ->with("success.message", "Usuário '{$request['name']}' adicionado com sucesso!"); 
