@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController
 {
     public function index()
     {
-        $query = User::query();
-        $users = $query->paginate(15);
+        $users = DB::table('users')
+        ->selectRaw('id, Name as "Nome",
+        email,
+        permission as Permissão, 
+        position as Cargo
+        ')
+        ->orderBy('created_at', 'desc');
+        $users = $users->paginate(15);
 
         $nextPage = $users->nextPageUrl();
         $previusPage = $users->previousPageUrl();
@@ -39,13 +46,36 @@ class UsersController
         User::create($data);
 
         return redirect('/users')
-        ->with("success.message", "Usuário '{$request['name']}' adicionado com sucesso!"); 
+        ->with("success.message", "Usuário '{$request['name']}' adicionado com sucesso!")
+        ->with("teste", "teste"); 
+
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('Users.edit', ['user' => $user]);
+    }
+
+
+    public function update(Request $request, $id)
+    {   
+        $user = User::findOrFail($id);
+
+        $data = $request->except(['_token', '_method']);
+        $data['password'] = Hash::make($data['password']);
+
+        $user->update($data);
+        
+        return redirect('/users')
+            ->with("success.message", "Usuário '$request->name' atualizado com sucesso!");
+
     }
 
 
     public function destroy(Request $request)
-    {
-        $user = User::findOrFail($request->input('users_id'));
+    {   
+        $user = User::findOrFail($request->input('delete_id'));
         $name = $user['name'];
 
         $user->delete();

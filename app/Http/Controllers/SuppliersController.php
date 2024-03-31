@@ -3,42 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Suppliers;
+use App\Repositories\SuppliersRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SuppliersController extends Controller
 {
+    private $suppliers;
+    public function __construct(SuppliersRepository $suppliers)
+    {
+        $this->suppliers = $suppliers;        
+    }
+
     public function index()
     {
-        $query = Suppliers::query();
 
-        if (!empty($_GET['SocialReason']))
-        {
-            $query->where('Name', 'like', '%' . $_GET['SocialReason'] . '%');
-        }
-
-        if (!empty($_GET['Segments']))
-        {
-            $query->where('Segments', 'like', '%' . $_GET['Segments'] . '%');
-        }
-
-        if (!empty($_GET['CNPJ']))
-        {
-            $query->where('Cnpj', 'like', '%' . $_GET['CNPJ'] . '%');
-        }
-
-        if (!empty($_GET['Name']))
-        {
-            $query->where('ContactNameOne', 'like', '%' . $_GET['Name'] . '%');
-        }
-
-        $suppliers = $query->paginate(15);
+        $suppliers = $this->suppliers->supplierReport();
+        
+        $suppliers = $suppliers->paginate(15);
 
         $nextPage = $suppliers->nextPageUrl();
         $previusPage = $suppliers->previousPageUrl();
         $message = session('success.message');
 
+        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null ;
+        $exportCsvUrl = route('suppliers.csv', $params);
+
         return view('suppliers.index')
             ->with('suppliers', $suppliers)
+            ->with('exportCsvUrl', $exportCsvUrl)
             ->with('successMessage', $message)
             ->with('nextPage', $nextPage)
             ->with('previusPage', $previusPage);
@@ -59,7 +52,7 @@ class SuppliersController extends Controller
 
     public function destroy(Request $request)
     {
-        $supplier = Suppliers::findOrFail($request->input('supplier_id'));
+        $supplier = Suppliers::findOrFail($request->input('delete_id'));
         $supplier->delete();
 
         return redirect('/suppliers')
@@ -80,5 +73,53 @@ class SuppliersController extends Controller
         return redirect('/suppliers')
             ->with("success.message", "Fornecedor '$request->Name' atualizado com sucesso!");
 
+    }
+
+
+    public function csv()
+    {
+        $suppliers = Suppliers::query();
+    
+        if (!empty($_GET['SocialReason']))
+        {  
+            $suppliers->where('Name', 'like', '%' . $_GET['SocialReason'] . '%');
+        }
+
+        if (!empty($_GET['Segments']))
+        {
+            $suppliers->where('Segments', 'like', '%' . $_GET['Segments'] . '%');
+        }
+    
+        if (!empty($_GET['CNPJ']))
+        {
+            $suppliers->where('Cnpj', 'like', '%' . $_GET['CNPJ'] . '%');
+        }
+    
+        if (!empty($_GET['Name']))
+        {
+            $suppliers->where('ContactNameOne', 'like', '%' . $_GET['Name'] . '%');
+        }
+
+        $suppliers = $suppliers->get();
+    
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="suppliers.csv"',
+        ];
+    
+        $callback = function () use ($suppliers) {
+            $file = fopen('php://output', 'w');
+            $headers = array_keys($suppliers->first()->getAttributes());
+            $headers[] = 'Ações';
+            fputcsv($file, $headers);
+            foreach ($suppliers as $supplier) {
+                $row = $supplier->toArray();
+                $row[] = '';
+                fputcsv($file, $row);
+            }
+            fclose($file);
+        };
+    
+        return response()->stream($callback, 200, $headers);
     }
 }

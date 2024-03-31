@@ -26,6 +26,7 @@ Route::middleware([Authenticator::class])->group(function () {
     Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
     Route::get('/register', [UsersController::class, 'create'])->name('users.create');
     Route::post('/register', [UsersController::class, 'store'])->name('users.store');
+    Route::get('/users/{id}/edit', [UsersController::class, 'edit'])->middleware(AuthenticatorPage::class);
 
     Route::view('/', 'dashboard.index');
     Route::view('/dashboard', 'dashboard.index');
@@ -37,5 +38,5 @@ Route::middleware([Authenticator::class])->group(function () {
 
     Route::resource('/suppliers', SuppliersController::class)->except('show');
     Route::get('/suppliers/{id}/edit', [SuppliersController::class, 'edit']);
-
+    Route::get('/suppliers/csv/{request?}', [SuppliersController::class, 'csv'])->name('suppliers.csv');
 });
