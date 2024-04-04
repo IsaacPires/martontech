@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SaleProductsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\Authenticator;
 use App\Http\Middleware\AuthenticatorPage;
@@ -46,4 +47,7 @@ Route::middleware([Authenticator::class])->group(function ()
 
     // Rotas para os produtos
     Route::resource('/products', ProductsController::class)->except('show');
+
+    // Rotas para as vendas
+    Route::resource('/sales_products', SaleProductsController::class)->except('show');
 });
