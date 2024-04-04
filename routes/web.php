@@ -50,4 +50,7 @@ Route::middleware([Authenticator::class])->group(function ()
 
     // Rotas para as vendas
     Route::resource('/sales_products', SaleProductsController::class)->except('show');
+
+    // Rotas para as NF
+    Route::resource('/invoices', SaleProductsController::class)->except('show');
 });
