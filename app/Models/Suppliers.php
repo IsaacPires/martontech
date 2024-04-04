@@ -29,6 +29,11 @@ class Suppliers extends Model
         'ContactEmailTwo',
     ];
 
+    public function products()
+    {
+        return $this->hasMany(Products::class, 'suppliers_id');
+    }
+
     public static function booted()
     {
         self::addGlobalScope('ordered', function (Builder $queryBuilder)
