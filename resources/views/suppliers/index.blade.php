@@ -24,11 +24,11 @@
 
         <div style='margin-top: 20px;'>
             <button type="submit" class="btn btn-primary">Filtrar</button>
-            <a type="button" target="_blank" class="btn btn-success"  href="{{ $exportCsvUrl }}">Exportar</a>
+            <a type="button" target="_blank" class="btn btn-success" href="{{ $exportCsvUrl }}">Exportar</a>
         </div>
     </form>
 
-    <x-grid :successMessage="$successMessage" :suppliers="$suppliers" rota="suppliers" :nextPage="$nextPage" :previusPage="$previusPage">
+    <x-grid :successMessage="$successMessage" :data="$suppliers" :suppliers="$suppliers" rota="suppliers" :nextPage="$nextPage" :previusPage="$previusPage">
     </x-grid>
 
 </x-layout>

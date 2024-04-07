@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Middleware\Authenticator;
 use App\Http\Middleware\AuthenticatorPage;
 use App\Http\Controllers\SuppliersController;
+use App\Models\Products;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,9 @@ Route::middleware([Authenticator::class])->group(function ()
 
     // Rotas para os produtos
     Route::resource('/products', ProductsController::class)->except('show');
+    Route::get('/products/{id}/edit', [ProductsController::class, 'edit']);
+    Route::get('/products/report', [ProductsController::class, 'report']);
+    Route::get('/products/csv/{request?}', [ProductsController::class, 'csv'])->name('products.csv');
 
     // Rotas para as vendas
     Route::resource('/sales_products', SaleProductsController::class)->except('show');

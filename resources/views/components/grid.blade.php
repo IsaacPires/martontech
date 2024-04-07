@@ -8,38 +8,37 @@
         </div>
         @endisset
 
-<thead>
-    <tr class="text-nowrap">
-        @foreach (array_keys((array) $suppliers->first()) as $key)
-            <th scope="col">{{$key}}</th>
-        @endforeach
-        <th scope="col">Ações</th>
-    </tr>
-</thead>
+        <thead>
+            <tr class="text-nowrap">
+                @foreach (array_keys((array) $data->first()) as $key)
+                <th scope="col">{{$key}}</th>
+                @endforeach
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
 
+        @foreach ($data as $d)
+        <tbody class="table-group-divider table-data">
+            <tr>
+                @foreach ($d as $value)
+                <td>{{$value}}</td>
+                @endforeach
+                <td>
 
-        @foreach ($suppliers as $supplier)
-          <tbody class="table-group-divider table-data">
-              <tr>
-                  @foreach ($supplier as $value)
-                      <td>{{$value}}</td>
-                  @endforeach
-                  <td>
-
-                      <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $supplier->id) }}'>
-                          <i class="fas fa-pencil-alt"></i>
-                      </a>
-                      <form action='{{ route("$rota.destroy", $supplier->id) }}' method="POST">
-                          @csrf
-                          @method('DELETE')
-                          <input type="hidden" name="delete_id" value="{{ $supplier->id }}">
-                          <button class="btn btn-danger btn-sm ms-2">
-                              <i class="fas fa-trash-alt"></i>
-                          </button>
-                      </form>
-                  </td>
-              </tr>
-          </tbody>
+                    <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <form action='{{ route("$rota.destroy", $d->id) }}' method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="delete_id" value="{{ $d->id }}">
+                        <button class="btn btn-danger btn-sm ms-2">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
         @endforeach
     </table>
 
