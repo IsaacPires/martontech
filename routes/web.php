@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SaleProductsController;
@@ -56,5 +57,8 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::resource('/sales_products', SaleProductsController::class)->except('show');
 
     // Rotas para as NF
-    Route::resource('/invoices', SaleProductsController::class)->except('show');
+    Route::resource('/invoices', InvoicesController::class)->except('show');
+    Route::get('/invoices/{id}/edit', [InvoicesController::class, 'edit']);
+    Route::get('/invoices/report', [InvoicesController::class, 'report']);
+    Route::get('/invoices/csv/{request?}', [InvoicesController::class, 'csv'])->name('invoices.csv');
 });

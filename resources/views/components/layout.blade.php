@@ -47,8 +47,8 @@
                         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i <i class="far fa-file-alt"></i> Notas Fiscais
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
-                            <a href="/" class="dashboard-nav-dropdown-item">Adicionar</a>
-                            <a href="/" class="dashboard-nav-dropdown-item">Relatório</a>
+                            <a href="{{route('invoices.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>
+                            <a href="{{route('invoices.index')}}" class="dashboard-nav-dropdown-item">Relatório</a>
                         </div>
                     </div>
                     @if(Auth::user()->permission == 'adm')
