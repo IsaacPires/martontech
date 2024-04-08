@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-4">
                 <label for="NumberInvoiceMarton" class="form-label">Número da Nota Marton</label>
-                <input type="date" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" required>
+                <input type="text" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" required>
             </div>
             <div class="col-md-4">
                 <label for="FinalTransport" class="form-label">Transporte Final</label>

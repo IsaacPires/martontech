@@ -5,10 +5,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SaleProductsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\RequestController;
 use App\Http\Middleware\Authenticator;
 use App\Http\Middleware\AuthenticatorPage;
 use App\Http\Controllers\SuppliersController;
-use App\Models\Products;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,4 +62,14 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/invoices/{id}/edit', [InvoicesController::class, 'edit']);
     Route::get('/invoices/report', [InvoicesController::class, 'report']);
     Route::get('/invoices/csv/{request?}', [InvoicesController::class, 'csv'])->name('invoices.csv');
+
+
+    // request routes
+    Route::resource('/request', RequestController::class);
+
+    // order routes
+    Route::resource('/order', OrderController::class);
+    Route::get('/order/csv/{request?}', [OrderController::class, 'csv'])->name('orders.csv');
+
+
 });

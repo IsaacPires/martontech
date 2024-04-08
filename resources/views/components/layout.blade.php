@@ -39,8 +39,8 @@
                         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-money-check-alt"></i> Requisição
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
-                            <a href="/" class="dashboard-nav-dropdown-item">Adicionar</a>
-                            <a href="/" class="dashboard-nav-dropdown-item">Relatório</a>
+                            <a href="{{route('request.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>
+                            <a href="{{route('order.index')}}" class="dashboard-nav-dropdown-item">Relatório</a>
                         </div>
                     </div>
                     <div class='dashboard-nav-dropdown'>

@@ -53,7 +53,7 @@ class ProductsController extends Controller
         $products = Products::create($request->except('_token'));
 
         return redirect('/products')
-            ->with("success.message", "Fornecedor '$products->Name' adicionada com sucesso!");;
+            ->with("success.message", "Fornecedor '$products->Name' adicionada com sucesso!");
     }
 
     public function destroy(Request $request)

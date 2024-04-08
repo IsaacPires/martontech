@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-4">
                 <label for="Material" class="form-label">Material</label>
-                <input type="text" class="form-control" id="Material" name="Material" value='{{$invoices->Material}}' required>
+                <input type="number" class="form-control" id="Material" name="Material" value='{{$invoices->Material}}' required>
             </div>
             <div class="col-md-4">
                 <label for="DepartureDate" class="form-label">Data de Saída</label>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-4">
                 <label for="NumberInvoiceMarton" class="form-label">Número da Nota Marton</label>
-                <input type="date" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" value='{{$invoices->NumberInvoiceMarton}}' required>
+                <input type="text" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" value='{{$invoices->NumberInvoiceMarton}}' required>
             </div>
             <div class="col-md-4">
                 <label for="FinalTransport" class="form-label">Transporte Final</label>
