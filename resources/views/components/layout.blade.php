@@ -36,6 +36,15 @@
                         </div>
                     </div>
                     <div class='dashboard-nav-dropdown'>
+                        <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                            <i class="fas fa-archive"></i> Vendas
+                        </a>
+                        <div class='dashboard-nav-dropdown-menu'>
+                            <a href="{{route('sale_products.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>
+                            <a href="{{route('sale_products.index')}}" class="dashboard-nav-dropdown-item">Relatório</a>
+                        </div>
+                    </div>
+                    <div class='dashboard-nav-dropdown'>
                         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-money-check-alt"></i> Requisição
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>

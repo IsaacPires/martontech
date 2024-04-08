@@ -9,6 +9,17 @@ class SaleProducts extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'products_id',
+        'SellerName',
+        'WithdrawalAmount',
+        'FabricationOrder',
+        'TypeProduction',
+        'UnitPrice',
+        'TotalPrice',
+    ];
+
     public function products()
     {
         return $this->belongsTo(Products::class);

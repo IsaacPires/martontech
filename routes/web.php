@@ -72,4 +72,9 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/order/csv/{request?}', [OrderController::class, 'csv'])->name('orders.csv');
 
 
+    // Rotas para as vendas
+    Route::resource('/sale_products', SaleProductsController::class)->except('show');
+    Route::get('/sale_products/{id}/edit', [SaleProductsController::class, 'edit']);
+    Route::get('/sale_products/report', [SaleProductsController::class, 'report']);
+    Route::get('/sale_products/csv/{request?}', [SaleProductsController::class, 'csv'])->name('sale_products.csv');
 });
