@@ -19,4 +19,9 @@ class Request extends Model
         'totalValue',
         'order_id'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Products::class, 'product_id');
+    }
 }

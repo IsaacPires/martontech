@@ -24,7 +24,7 @@
         </div>
     </form>
 
-    <x-grid :successMessage="$successMessage" :suppliers="$users" rota="users" :nextPage="$nextPage" :previusPage="$previusPage">
+    <x-grid :successMessage="$successMessage" :data="$users" rota="users" :nextPage="$nextPage" :previusPage="$previusPage">
     </x-grid>
     <div class="ms-2">
 

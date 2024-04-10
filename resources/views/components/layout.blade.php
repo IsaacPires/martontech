@@ -65,8 +65,7 @@
                         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-thumbs-up"></i> Aprovações
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
-                            <a href="/" class="dashboard-nav-dropdown-item">Pendentes</a>
-                            <a href="/" class="dashboard-nav-dropdown-item">Relatório</a>
+                            <a href="/pending" class="dashboard-nav-dropdown-item">Pendentes</a>
                         </div>
                     </div>
                     @endif

@@ -10,6 +10,7 @@ use App\Http\Middleware\Authenticator;
 use App\Http\Middleware\AuthenticatorPage;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PendingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,4 +78,9 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/sale_products/{id}/edit', [SaleProductsController::class, 'edit']);
     Route::get('/sale_products/report', [SaleProductsController::class, 'report']);
     Route::get('/sale_products/csv/{request?}', [SaleProductsController::class, 'csv'])->name('sale_products.csv');
+
+    //pending Routes
+    Route::resource('/pending', PendingController::class);
+    Route::get('/pending/csv/{request?}', [PendingController::class, 'csv'])->name('pending.csv');
+
 });

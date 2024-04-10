@@ -11,12 +11,13 @@ use Illuminate\Http\Request;
 class RequestController extends Controller
 {
     public function create(){
+        
         $successMessage = session('successMessage');
         $orders = orders::where('status', 'A')->latest()->first();
         $requests = '';
         
         if(!empty($orders)){
-            $requests = ModelsRequest::where('order_id', $orders->id)->get();
+            $requests = ModelsRequest::with('product')->where('order_id', $orders->id)->get();
         }
 
         $suppliers = Suppliers::all();
@@ -58,6 +59,21 @@ class RequestController extends Controller
 
         return redirect('/request/create')
         ->with("successMessage", "Pedido de compra adicionado com sucesso!");
+
+    }
+
+    public function destroy(Request $request){
+
+        $request = ModelsRequest::findOrFail($request->input('delete_id'));
+        $order = orders::findOrFail($request->order_id);
+
+        $order->totalValue -= $request->totalValue ;
+
+        $order->save();
+        $request->delete();
+
+        return redirect('/request/create')
+            ->with("successMessage", "Requsição removida com sucesso!");
 
     }
 }

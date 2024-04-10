@@ -50,7 +50,7 @@
         <br>
         <button type="submit" class="btn btn-primary">Adicionar o pedido</button>
     </form>
-    @if(!empty($orders))
+    @if(!empty($orders) && !empty($requests))
 
         <hr>
 
@@ -61,13 +61,24 @@
                     <th>Produto<th>
                     <th>Quantidade<th>
                     <th>Valor<th>
+                    <th>Ação<th>
+
                 <tr>
                 @foreach ($requests as $request )
-                
                     <tr>
-                        <td>{{$request->product_id}}<td>
+                        <td>{{$request->product->Name}}<td>
                         <td>{{$request->quantity}}<td>
                         <td>R${{number_format($request->totalValue, 2, ',', '.')}}<td>
+                        <td> 
+                            <form action='{{ route("request.destroy", $request->id) }}' method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="delete_id" value="{{ $request->id }}">
+                                <button class="btn btn-danger btn-sm ms-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        <td>
                     <tr>
                 @endforeach
                 <tr>

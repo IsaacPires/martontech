@@ -24,18 +24,31 @@
                 <td>{{$value}}</td>
                 @endforeach
                 <td>
+                    @if(!isset($pending))
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <form action='{{ route("$rota.destroy", $d->id) }}' method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="delete_id" value="{{ $d->id }}">
+                            <button class="btn btn-danger btn-sm ms-2">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    @endif
 
-                    <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                    <form action='{{ route("$rota.destroy", $d->id) }}' method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="delete_id" value="{{ $d->id }}">
-                        <button class="btn btn-danger btn-sm ms-2">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </form>
+                    @if(isset($pending))
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
+                            <i class="fas fa-file-alt"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm ms-2 " href='{{ route("$rota.edit", $d->id) }}'>
+                            <i class="fas fa-times "></i>
+                        </a>
+                    @endif
                 </td>
             </tr>
         </tbody>
