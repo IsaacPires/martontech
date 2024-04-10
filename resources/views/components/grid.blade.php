@@ -39,13 +39,13 @@
                     @endif
 
                     @if(isset($pending))
-                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.accept", $d->id) }}'>
                             <i class="fas fa-check"></i>
                         </a>
-                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.list", $d->id) }}'>
                             <i class="fas fa-file-alt"></i>
                         </a>
-                        <a class="btn btn-danger btn-sm ms-2 " href='{{ route("$rota.edit", $d->id) }}'>
+                        <a class="btn btn-danger btn-sm ms-2 " href='{{ route("$rota.deny", $d->id) }}'>
                             <i class="fas fa-times "></i>
                         </a>
                     @endif

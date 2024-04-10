@@ -82,5 +82,8 @@ Route::middleware([Authenticator::class])->group(function ()
     //pending Routes
     Route::resource('/pending', PendingController::class);
     Route::get('/pending/csv/{request?}', [PendingController::class, 'csv'])->name('pending.csv');
+    Route::get('/pending/{id}/accept', [PendingController::class, 'accept'])->name('pending.accept');
+    Route::get('/pending/{id}/deny', [PendingController::class, 'deny'])->name('pending.deny');
+    Route::get('/pending/{id}/list', [PendingController::class, 'list'])->name('pending.list');
 
 });

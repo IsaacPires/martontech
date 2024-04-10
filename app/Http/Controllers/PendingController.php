@@ -25,13 +25,7 @@ class PendingController extends Controller
 
             ")
             ->orderBy('orders.created_at', 'desc')
-            ->where('orders.status', '!=', 'A');
-
-            
-        if (!empty($_GET['status']))
-        {
-            $orders->where('orders.status', '=',  $_GET['status'] );
-        }
+            ->where('orders.status', '=', 'E');
 
         $orders = $orders->paginate(15);
 
@@ -52,6 +46,39 @@ class PendingController extends Controller
             ->with('previusPage', $previusPage)
             ->with('exportCsvUrl', $exportCsvUrl)
             ->with('successMessage', $successMessage);
+
+    }
+
+    public function accept(Request $request){
+
+        $order = Orders::where('id', $request->id)->first();
+        $order->status = 'AP';
+
+        if($order->save()){
+            $message = 'Pedido de compra aprovado com sucesso!';
+        }else{
+            $message = 'Ocorreu um erro!';
+
+        }
+
+        return redirect('/pending')->with('successMessage', $message);
+
+    }
+
+
+    public function deny(Request $request){
+
+        $order = Orders::where('id', $request->id)->first();
+        $order->status = 'N';
+
+        if($order->save()){
+            $message = 'Pedido de compra negado com sucesso!';
+        }else{
+            $message = 'Ocorreu um erro!';
+
+        }
+
+        return redirect('/pending')->with('successMessage', $message);
 
     }
 

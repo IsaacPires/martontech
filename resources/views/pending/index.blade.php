@@ -19,6 +19,6 @@
         </div>
     </form>
 
-    <x-grid :successMessage="$successMessage" :pending='true' :data="$orders" rota="order" :nextPage="$nextPage" :previusPage="$previusPage">
+    <x-grid :successMessage="$successMessage" :pending='true' :data="$orders" rota="pending" :nextPage="$nextPage" :previusPage="$previusPage">
     </x-grid>
 </x-layout>
