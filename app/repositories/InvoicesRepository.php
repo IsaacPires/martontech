@@ -12,15 +12,20 @@ class InvoicesRepository
             ->selectRaw("
                 i.id,
                 i.Client AS 'Cliente',
-                i.ReceivingDate AS 'Date Recebimento',
-                i.InvoiceDate AS 'Data NF',
+                DATE_FORMAT(i.ReceivingDate, '%d/%m/%Y')  AS 'Date Recebimento',
+                DATE_FORMAT(i.InvoiceDate, '%d/%m/%Y') AS 'Data NF',
                 i.NumberInvoice AS 'Número NF',
                 i.Material AS 'Material',
-                i.DepartureDate AS 'Data de Saída',
+                DATE_FORMAT(i.DepartureDate, '%d/%m/%Y') AS 'Data de Saída',
                 i.NumberInvoiceMarton AS 'Número NF Marton',
                 i.FinalTransport AS 'Transporte Final'
             ")
             ->orderBy('i.created_at', 'desc');
+
+        if (!empty($_GET['Client']))
+        {
+            $invoices->where('i.Client', 'like', '%' . $_GET['Client'] . '%');
+        }
 
         return $invoices;
     }

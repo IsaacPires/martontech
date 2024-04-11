@@ -77,6 +77,11 @@ class InvoicesController extends Controller
     {
         $invoices = Invoices::query();
 
+        if (!empty($_GET['Client']))
+        {
+            $invoices->where('i.Client', 'like', '%' . $_GET['Client'] . '%');
+        }
+
         $invoices = $invoices->get();
 
         $headers = [
