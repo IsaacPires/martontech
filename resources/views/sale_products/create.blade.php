@@ -40,3 +40,4 @@
     </form>
 
 </x-layout>
+<script src="{{ asset('js/sale_products/script.js') }}"></script>

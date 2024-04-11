@@ -22,6 +22,11 @@ class SaleProductsRepository
             ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
             ->orderBy('sp.created_at', 'desc');
 
+        if (!empty($_GET['SellerName']))
+        {
+            $saleProducts->where('sp.SellerName', 'like', '%' . $_GET['SellerName'] . '%');
+        }
+
         return $saleProducts;
     }
 }

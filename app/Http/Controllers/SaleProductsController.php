@@ -82,6 +82,11 @@ class SaleProductsController extends Controller
     {
         $saleProducts = SaleProducts::query();
 
+        if (!empty($_GET['SellerName']))
+        {
+            $saleProducts->where('SellerName', 'like', '%' . $_GET['SellerName'] . '%');
+        }
+
         $saleProducts = $saleProducts->get();
 
         $headers = [

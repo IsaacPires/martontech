@@ -2,8 +2,8 @@
     <form action="{{route('sale_products.index')}}" method="GET">
         <div class='row'>
             <div class="col-md-4">
-                <label for="Client" class="form-label">Cliente</label>
-                <input type="text" class="form-control" id="Client" name="Client" placeholder="Digite para filtrar...">
+                <label for="SellerName" class="form-label">Vendedor</label>
+                <input type="text" class="form-control" id="SellerName" name="SellerName" placeholder="Digite para filtrar...">
             </div>
         </div>
 
