@@ -9,7 +9,7 @@
                         <i class="fas fa-money-bill-wave"></i>
                         <b>Total de Compras</b>
                       </h4>
-                      <h5><i>R$ 1000,00</i></h5>
+                      <h5><i>R$ {{$totalValue}}</i></h5>
                   </div>
               </div>
             </div>
@@ -23,28 +23,25 @@
                           <i class="fas fa-exclamation-circle"></i>
                           <b>Itens Critícos</b>
                         </h4>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Produto</th>
-                                    <th>Quantidade</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Produto X</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>Produto Y</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Produto Z</td>
-                                    <td>4</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Quantidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ( $alertItens as $alertItem )
+                                    <tr>
+                                        <td>{{$alertItem->Name}}</td>
+                                        <td>{{$alertItem->StockQuantity}}</td>                               
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @if(empty($alertItens))
+                            Nenhum produto em alerta.
+                        @endif
                     </div>
                 </div>
             </div>
@@ -65,21 +62,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Produto X</td>
-                                    <td>R$4.203,07</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <td>Produto Y</td>
-                                    <td>R$2.301,20</td>
-                                    <td>13</td>
-                                </tr>
-                                <tr>
-                                    <td>Produto Z</td>
-                                    <td>R$7.314,90</td>
-                                    <td>34</td>
-                                </tr>
+                                @foreach ( $mostUseds as $mostUsed )
+                                    <tr>
+                                        <td>{{$mostUsed->Name}}</td>
+                                        <td>R$ {{number_format($mostUsed->total_value, 2, ',', '.') }}</td>                               
+                                        <td>{{$mostUsed->total_quantity}}</td>                               
+                                    </tr>
+                                @endforeach
                             </tbody>
                           </table>
                     </div>
@@ -99,28 +88,19 @@
                             <thead>
                                 <tr>
                                     <th>Produto</th>
-                                    <th>Data de Entrada</th>
+                                    <th>última Venda</th>
                                     <th>Quantidade</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Produto X</td>
-                                    <td>01/01/2023</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>Produto Y</td>
-                                    <td>02/01/2023</td>
-                                    <td>87</td>
-
-                                </tr>
-                                <tr>
-                                    <td>Produto Z</td>
-                                    <td>03/01/2023</td>
-                                    <td>28</td>
-
-                                </tr>
+                                 <tbody>
+                                @foreach ( $agings as $aging )
+                                    <tr>
+                                        <td>{{$aging->Name}}</td>
+                                        <td>{{!empty($aging->last_sold) ? $aging->last_sold : 'N/I' }}</td>                               
+                                        <td>{{$aging->StockQuantity}}</td>                               
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

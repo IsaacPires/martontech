@@ -57,16 +57,10 @@ class OrderController extends Controller
     }
     
     public function update(Orders $order){
-        
-        if($order->status != 'AP'){
-            $order->status = 'E';
-            $order->save();
-            $message = 'Requisição de compra criada com sucesso';
-        }else{
-            $message = 'Está requisição já foi aprovada.';
-        }
 
-
+        $order->status = 'E';
+        $order->save();
+        $message = 'Requisição de compra criada com sucesso';
 
         //add logica de disparo de email
     
@@ -94,8 +88,15 @@ class OrderController extends Controller
 
     public function edit(Orders $order)
     {
-        $order->status = 'A';
-        $order->save();
+
+        if($order->status != 'AP'){
+            $order->status = 'A';
+            $order->save();
+        }else{
+
+            return redirect('/order')
+            ->with("successMessage", "Está requisição já foi aprovada.");
+        }
 
         return redirect('/request/create')
             ->with("successMessage", "Requisição reaberta.");

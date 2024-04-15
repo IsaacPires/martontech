@@ -11,6 +11,7 @@ use App\Http\Middleware\AuthenticatorPage;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PendingController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,8 +39,11 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::resource('/users', UsersController::class)->middleware(AuthenticatorPage::class);
 
     // Rotas para o dashboard
-    Route::view('/', 'dashboard.index');
-    Route::view('/dashboard', 'dashboard.index');
+    Route::resource('/dashboard', DashboardController::class);
+
+
+    Route::resource('/dashboard', DashboardController::class);
+    Route::get('/', [DashboardController::class, 'index']);
 
     // Rotas para relatório csv
     Route::get('/suppliers/report', [SuppliersController::class, 'report']);
