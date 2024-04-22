@@ -15,7 +15,7 @@
 
             <div class="col-md-4">
                 <label for="Cnpj" class="form-label">CNPJ</label>
-                <input type="text" class="form-control" id="Cnpj" name="Cnpj" required>
+                <input type="text" class="form-control" maxlength='14' id="Cnpj" name="Cnpj" required>
             </div>
         </div>
         </br>
@@ -24,13 +24,18 @@
         <div class="row">
 
             <div class="col-md-4">
+                <label for="AddressZipCode" class="form-label">CEP</label>
+                <input type="text" class="form-control" maxlength='8' id="AddressZipCode" name="AddressZipCode" required>
+            </div>
+            
+            <div class="col-md-4">
                 <label for="AddressStreet" class="form-label">Rua</label>
                 <input type="text" class="form-control" id="AddressStreet" name="AddressStreet" required>
             </div>
 
             <div class="col-md-4">
                 <label for="AddressNumber" class="form-label">Número</label>
-                <input type="text" class="form-control" id="AddressNumber" name="AddressNumber" required>
+                <input type="number" class="form-control" id="AddressNumber" name="AddressNumber" required>
             </div>
 
             <div class="col-md-4">
@@ -44,13 +49,8 @@
             </div>
 
             <div class="col-md-4">
-                <label for="AddressState" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="AddressState" name="AddressState" required>
-            </div>
-
-            <div class="col-md-4">
-                <label for="AddressZipCode" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="AddressZipCode" name="AddressZipCode" required>
+                <label for="AddressState" class="form-label">Estado(UF)</label>
+                <input type="text" class="form-control" maxlength='2' id="AddressState" name="AddressState" required>
             </div>
 
         </div>
@@ -98,3 +98,4 @@
     </form>
 
 </x-layout>
+<script src="{{ asset('js/suppliers/script.js') }}"></script>

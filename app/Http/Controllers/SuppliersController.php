@@ -44,6 +44,8 @@ class SuppliersController extends Controller
 
     public function store(Request $request)
     {
+        $request['Cnpj'] =  str_replace(['.', '/', '-'], '', $request['Cnpj']);
+
         $supplier = Suppliers::create($request->except('_token'));
 
         return redirect('/suppliers')
