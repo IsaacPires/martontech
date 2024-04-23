@@ -13,7 +13,7 @@ function buscarEndereco(cep) {
 
 
   document.getElementById('AddressZipCode').addEventListener('blur', function() {
-    var cep = this.value.replace(/\D/g, '');
+    let cep = this.value.replace(/\D/g, '');
     if (cep.length === 8) {
         buscarEndereco(cep); 
     }

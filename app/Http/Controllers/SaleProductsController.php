@@ -46,6 +46,8 @@ class SaleProductsController extends Controller
 
     public function store(Request $request)
     {
+        $request['UnitPrice'] = str_replace(',', '.', $request['UnitPrice']);
+
         SaleProducts::create($request->except('_token'));
 
         return redirect('/sale_products')

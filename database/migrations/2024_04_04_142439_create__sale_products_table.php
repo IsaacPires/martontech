@@ -21,8 +21,8 @@ class CreateSaleProductsTable extends Migration
             $table->integer('WithdrawalAmount');
             $table->string('FabricationOrder');
             $table->integer('TypeProduction');
-            $table->integer('UnitPrice');
-            $table->integer('TotalPrice');
+            $table->decimal('UnitPrice', 8, 2);            
+            $table->decimal('TotalPrice', 8, 2);
             $table->timestamps();
         });
     }
