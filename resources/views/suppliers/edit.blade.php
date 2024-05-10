@@ -80,7 +80,7 @@
 
             <div class="col-md-4">
                 <label for="ContactNameTwo" class="form-label">Nome 2 </label>
-                <input type="text" class="form-control" id="ContactNameTwo" name="ContactNameTwo" value='{{$supplier->ContactNameTwo}}' required>
+                <input type="text" class="form-control" id="ContactNameTwo" name="ContactNameTwo" value='{{$supplier->ContactNameTwo}}'>
             </div>
 
             <div class="col-md-4">

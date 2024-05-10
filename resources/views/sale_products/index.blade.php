@@ -1,8 +1,8 @@
-<x-layout title="Vendas - Relatório">
+<x-layout title="Retiradas - Relatório">
     <form action="{{route('sale_products.index')}}" method="GET">
         <div class='row'>
             <div class="col-md-4">
-                <label for="SellerName" class="form-label">Vendedor</label>
+                <label for="SellerName" class="form-label">Colaborador</label>
                 <input type="text" class="form-control" id="SellerName" name="SellerName" placeholder="Digite para filtrar...">
             </div>
         </div>

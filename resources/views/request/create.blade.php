@@ -8,21 +8,24 @@
                     {{$successMessage}}
                 </div>
             @endisset
+
             <div class="col-md-4">
-                <label for="product_id" class="form-label">Produto</label>
-                <select class="form-control" name="product_id" id="product_id">
-                    @foreach ($products as $product)
-                    <option value="{{$product->id}}">{{ $product->Name }}</option>
+                <label for="suppliers_id" class="form-label">Fornecedor</label>
+                <select class="form-control" name="suppliers_id" id="suppliers_id" required>
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="col-md-4">
-                <label for="suppliers_id" class="form-label">Fornecedor</label>
-                <select class="form-control" name="suppliers_id" id="suppliers_id">
-                    @foreach ($suppliers as $supplier)
-                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
-                    @endforeach
+                <label for="product_id" class="form-label">Produto</label>
+                <select class="form-control" name="product_id" id="product_id">
+                    <option value="">-- Selecione --</option>
+{{--                     @foreach ($products as $product)
+                    <option value="{{$product->id}}">{{ $product->Name }}</option>
+                    @endforeach --}}
                 </select>
             </div>
 

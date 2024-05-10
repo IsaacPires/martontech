@@ -11,10 +11,10 @@
                 <label for="AlertQuantity" class="form-label">Quantidade em Alerta</label>
                 <input type="number" class="form-control" id="AlertQuantity" name="AlertQuantity" value='{{$products->AlertQuantity}}' required>
             </div>
-            <div class="col-md-4">
+{{--             <div class="col-md-4">
                 <label for="StockQuantity" class="form-label">Quatidade em Estoque</label>
                 <input type="number" class="form-control" id="StockQuantity" name="StockQuantity" value='{{$products->StockQuantity}}' required>
-            </div>
+            </div> --}}
             <div class="col-md-4">
                 <label for="suppliers_id" class="form-label">Fornecedor</label>
                 <select class="form-control" name="suppliers_id" id="suppliers_id">

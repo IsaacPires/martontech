@@ -12,16 +12,27 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="SellerName" class="form-label">Vendedor</label>
+                <label for="SellerName" class="form-label">Colaborador</label>
                 <input type="text" class="form-control" id="SellerName" name="SellerName" value='{{$saleProducts->SellerName}}' required>
             </div>
             <div class="col-md-4">
                 <label for="FabricationOrder" class="form-label">Tipo de pedido</label>
-                <input type="text" class="form-control" id="FabricationOrder" name="FabricationOrder" value='{{$saleProducts->FabricationOrder}}' required>
+                <select class="form-control" name="FabricationOrder"  id="FabricationOrder" required>
+                    <option value="">-- Selecione --</option>
+                    <option {{$saleProducts->FabricationOrder == "Produto Novo" ? 'selected' : ''; }} value="Produto Novo">Produto Novo</option>
+                    <option {{$saleProducts->FabricationOrder == "Reforma" ? 'selected' : ''; }}value="Reforma">Reforma</option>
+                </select>
             </div>
             <div class="col-md-4">
                 <label for="TypeProduction" class="form-label">Tipo de produção</label>
-                <input type="text" class="form-control" id="TypeProduction" name="TypeProduction" value='{{$saleProducts->TypeProduction}}' required>
+                <select class="form-control" id="TypeProduction" name="TypeProduction" required>
+                    <option {{$saleProducts->TypeProduction == "Telescópica" ? 'selected' : ''; }} value="Telescópica">Telescópica</option>
+                    <option {{$saleProducts->TypeProduction == "Sanfonada" ? 'selected' : ''; }} value="Sanfonada">Sanfonada</option>
+                    <option {{$saleProducts->TypeProduction == "Transportador de Cavaco" ? 'selected' : ''; }} value="Transportador de Cavaco">Transportador de Cavaco</option>
+                    <option {{$saleProducts->TypeProduction == "Esteira" ? 'selected' : ''; }} value="Esteira">Esteira</option>
+                    <option {{$saleProducts->TypeProduction == "Rolo cortina" ? 'selected' : ''; }} value="Rolo cortina">Rolo cortina</option>
+                    <option {{$saleProducts->TypeProduction == "Outros" ? 'selected' : ''; }} value="Outros">Outros</option>
+                </select>
             </div>
             <div class="col-md-4">
                 <label for="UnitPrice" class="form-label">Preço por unidade</label>

@@ -71,8 +71,9 @@ Route::middleware([Authenticator::class])->group(function ()
 
     // request routes
     Route::resource('/request', RequestController::class);
+    Route::get('/products-by-supplier/{id}', [RequestController::class, 'getProductsBySupplier']);
 
-    // order routes
+
     Route::resource('/order', OrderController::class);
     Route::get('/order/csv/{request?}', [OrderController::class, 'csv'])->name('orders.csv');
 

@@ -7,7 +7,7 @@
                   <div class="card-body">
                       <h4 class="card-title">
                         <i class="fas fa-money-bill-wave"></i>
-                        <b>Total de Compras</b>
+                        <b>Total de Compras do mês</b>
                       </h4>
                       <h5><i>R$ {{$totalValue}}</i></h5>
                   </div>
@@ -51,7 +51,7 @@
                     <div class="card-body">
                         <h4 class="card-title">
                           <i class="fas fa-box"></i>
-                          <b> Mais Utilizados</b>
+                          <b> Mais Utilizados deste mês</b>
                         </h4>
                           <table class="table">
                             <thead>

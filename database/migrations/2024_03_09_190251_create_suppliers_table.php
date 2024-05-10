@@ -27,11 +27,11 @@ class CreateSuppliersTable extends Migration
             $table->string('AddressState', 2);
             $table->string('AddressZipCode', 9);
             $table->string('ContactNameOne', 128);
-            $table->string('ContactNameTwo');
+            $table->string('ContactNameTwo')->nullable();
             $table->integer('ContactPhoneOne');
-            $table->integer('ContactPhoneTwo');
+            $table->integer('ContactPhoneTwo')->nullable();
             $table->string('ContactEmailOne');
-            $table->string('ContactEmailTwo');
+            $table->string('ContactEmailTwo')->nullable();
         });
     }
 

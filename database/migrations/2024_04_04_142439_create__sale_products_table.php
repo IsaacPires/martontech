@@ -20,7 +20,7 @@ class CreateSaleProductsTable extends Migration
             $table->string('SellerName', 128);
             $table->integer('WithdrawalAmount');
             $table->string('FabricationOrder');
-            $table->integer('TypeProduction');
+            $table->string('TypeProduction');
             $table->decimal('UnitPrice', 8, 2);            
             $table->decimal('TotalPrice', 8, 2);
             $table->timestamps();

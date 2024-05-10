@@ -76,4 +76,11 @@ class RequestController extends Controller
             ->with("successMessage", "Requsição removida com sucesso!");
 
     }
+
+    public function getProductsBySupplier($id)
+    {
+        $products = Products::where('suppliers_id', $id)->get();
+
+        return response()->json($products);
+    }
 }

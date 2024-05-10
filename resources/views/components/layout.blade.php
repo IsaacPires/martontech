@@ -37,7 +37,7 @@
                     </div>
                     <div class='dashboard-nav-dropdown'>
                         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-                            <i class="fas fa-money-bill"></i> Vendas
+                            <i class="fas fa-money-bill"></i> Retirada
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
                             <a href="{{route('sale_products.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>

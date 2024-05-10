@@ -12,10 +12,10 @@ class SaleProductsRepository
             ->selectRaw("
                 sp.id,
                 p.Name AS 'Produto',
-                sp.SellerName AS 'Vendedor',
+                sp.SellerName AS 'Colaborador',
                 sp.WithdrawalAmount AS 'Quantidade vendida',
                 sp.FabricationOrder AS 'Pedido de fabricação',
-                sp.TypeProduction AS 'Tipo de produção',
+                sp.TypeProduction AS 'Tipo de Produto',
                 sp.UnitPrice AS 'Preço por unidade',
                 sp.TotalPrice AS 'Preço total'
             ")

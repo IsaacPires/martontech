@@ -65,7 +65,7 @@
 
             <div class="col-md-4">
                 <label for="ContactPhoneOne" class="form-label">Telefone 1</label>
-                <input type="tel" class="form-control" id="ContactPhoneOne" name="ContactPhoneOne" required>
+                <input type="tel" maxlength='11' class="form-control" id="ContactPhoneOne" name="ContactPhoneOne" required>
             </div>
 
             <div class="col-md-4">
@@ -79,12 +79,12 @@
 
             <div class="col-md-4">
                 <label for="ContactNameTwo" class="form-label">Nome 2 </label>
-                <input type="text" class="form-control" id="ContactNameTwo" name="ContactNameTwo" required>
+                <input type="text" class="form-control" id="ContactNameTwo" name="ContactNameTwo">
             </div>
 
             <div class="col-md-4">
                 <label for="ContactPhoneTwo" class="form-label">Telefone 2</label>
-                <input type="tel" class="form-control" id="ContactPhoneTwo" name="ContactPhoneTwo">
+                <input type="tel" maxlength='11' class="form-control" id="ContactPhoneTwo" name="ContactPhoneTwo">
             </div>
 
             <div class="col-md-4">

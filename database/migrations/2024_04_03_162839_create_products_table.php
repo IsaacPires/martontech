@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('Name', 128);
             $table->integer('AlertQuantity');
-            $table->integer('StockQuantity');
+            $table->integer('StockQuantity')->default(0);
             $table->foreignId('suppliers_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
