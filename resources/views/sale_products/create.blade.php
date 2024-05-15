@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-4">
                 <label for="products_id" class="form-label">Produto</label>
-                <select class="form-control" name="products_id" id="products_id" required>
+                <select class="form-control select2" name="products_id" id="products_id" required>
                     <option value="" >-- Selecione --</option>
                     @foreach ($products as $product)
                     <option value="{{$product->id}}">{{ $product->Name }}</option>
@@ -16,16 +16,16 @@
                 <input type="text" class="form-control" id="SellerName" name="SellerName" required>
             </div>
             <div class="col-md-4">
-                <label for="FabricationOrder" class="form-label">Tipo de pedido</label>
-                <select class="form-control" name="FabricationOrder"  id="FabricationOrder" required>
-                    <option value="" selected>-- Selecione --</option>
-                    <option value="Produto Novo">Produto Novo</option>
-                    <option value="Reforma">Reforma</option>
-                </select>
-            </div>
+    <label for="FabricationOrder" class="form-label">Tipo de pedido</label>
+    <select class="form-control select2" name="FabricationOrder" id="FabricationOrder" required>
+        <option value="" selected>-- Selecione --</option>
+        <option value="Produto Novo">Produto Novo</option>
+        <option value="Reforma">Reforma</option>
+    </select>
+</div>
             <div class="col-md-4">
                 <label for="TypeProduction" class="form-label">Tipo de produção</label>
-                <select class="form-control" id="TypeProduction" name="TypeProduction" required>
+                <select class="form-control select2" id="TypeProduction" name="TypeProduction" required>
                     <option value="" selected>-- Selecione --</option>
                     <option value="Telescópica">Telescópica</option>
                     <option value="Sanfonada">Sanfonada</option>
@@ -45,7 +45,7 @@
             </div>
             <div class="col-md-4">
                 <label for="TotalPrice" class="form-label">Preço final</label>
-                <input type="text" class="form-control" id="TotalPrice" name="TotalPrice" required>
+                <input type="text" class="form-control" id="TotalPrice" name="TotalPrice" readonly required >
             </div>
         </div>
         <br>

@@ -1,6 +1,11 @@
 const mobileScreen = window.matchMedia("(max-width: 990px)");
 
 document.addEventListener("DOMContentLoaded", function() {
+
+    $('.select2').select2({
+        tags: true
+    });
+
     const dashboardNavDropdownToggles = document.querySelectorAll(".dashboard-nav-dropdown-toggle");
     dashboardNavDropdownToggles.forEach(function(toggle) {
         toggle.addEventListener("click", function() {
@@ -36,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
     });
+    
 });
 
 

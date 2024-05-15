@@ -7,6 +7,7 @@ use App\Models\Products;
 use App\Models\Request as ModelsRequest;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequestController extends Controller
 {
@@ -82,5 +83,22 @@ class RequestController extends Controller
         $products = Products::where('suppliers_id', $id)->get();
 
         return response()->json($products);
+    }
+
+    public function atualizarPreco($id)
+    { 
+        $produto = DB::table('requests')
+        ->select('currentPrice')
+        ->orderBy('created_at', 'desc')
+        ->where('product_id', $id)
+        ->first();
+
+        if ($produto) {
+            $preco = $produto->currentPrice;
+        } else {
+            $preco = '0.00';
+        }
+
+        return response()->json($preco);
     }
 }

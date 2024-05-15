@@ -113,4 +113,6 @@ class SaleProductsController extends Controller
 
         return response()->stream($callBack, 200, $headers);
     }
+
+   
 }

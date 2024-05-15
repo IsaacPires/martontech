@@ -11,7 +11,7 @@
 
             <div class="col-md-4">
                 <label for="suppliers_id" class="form-label">Fornecedor</label>
-                <select class="form-control" name="suppliers_id" id="suppliers_id" required>
+                <select class="form-control select2" name="suppliers_id" id="suppliers_id" required>
                     <option value="">-- Selecione --</option>
                     @foreach ($suppliers as $supplier)
                     <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
@@ -21,7 +21,7 @@
 
             <div class="col-md-4">
                 <label for="product_id" class="form-label">Produto</label>
-                <select class="form-control" name="product_id" id="product_id">
+                <select class="form-control select2" name="product_id" id="product_id">
                     <option value="">-- Selecione --</option>
 {{--                     @foreach ($products as $product)
                     <option value="{{$product->id}}">{{ $product->Name }}</option>
@@ -98,3 +98,4 @@
     @endif
 
 </x-layout>
+<script src={{asset('/js/request/script.js')}}></script>

@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-4">
                 <label for="Supplier" class="form-label">Fornecedor</label>
-                <select class="form-control" data-live-search="true" name="Supplier" id="Supplier">
+                <select class="form-control select2" data-live-search="true" name="Supplier" id="Supplier">
                     <option value="">-- Selecione --</option>
                     @foreach ($suppliers as $supplier)
                     <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
