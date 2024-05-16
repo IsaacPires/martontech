@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Orders;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Request as ModelsRequest;
@@ -21,6 +22,7 @@ class OrderController extends Controller
                     when orders.status = 'E' THEN 'Enviado'
                     when orders.status = 'A' THEN 'Aberto'
                     when orders.status = 'N' THEN 'Negado'
+                    when orders.status = 'AC' THEN 'Aguardado Confirmação'
                     when orders.status = 'AP' THEN 'Aprovado'
                     Else 'N/i'
                 end as Status,
@@ -54,6 +56,33 @@ class OrderController extends Controller
             ->with('nextPage', $nextPage)
             ->with('previusPage', $previusPage);
 
+    }
+    
+    public function accept($id)
+    {
+        try {
+            $orders = Orders::find($id);
+        
+            $mRequests = ModelsRequest::where('order_id', $id)->get();
+
+            foreach ($mRequests as $mRequest )
+            {
+                $product = Products::find($mRequest->product_id);
+                var_dump($mRequest->product_id);
+                 $product->StockQuantity += $mRequest->quantity;
+                $product->save(); 
+            }
+             $orders->status = 'AP';
+            $orders->save();
+    
+            $message = 'Estoque atualizado com sucesso';
+        } catch (\Throwable $th) {
+            $message = "Erro encontrado no sistema: ". $th->getMessage();
+        }
+        
+    
+        return redirect('/order')
+            ->with("successMessage", $message);
     }
     
     public function update(Orders $order){

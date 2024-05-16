@@ -17,6 +17,7 @@ class PendingController extends Controller
                     when orders.status = 'E' THEN 'Enviado'
                     when orders.status = 'A' THEN 'Aberto'
                     when orders.status = 'N' THEN 'Negado'
+                    when orders.status = 'AC' THEN 'Aguardando Confirmação'
                     when orders.status = 'AP' THEN 'Aprovado'
                     Else 'N/i'
                 end as Status,
@@ -24,8 +25,15 @@ class PendingController extends Controller
                 DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação' 
 
             ")
-            ->orderBy('orders.created_at', 'desc')
-            ->where('orders.status', '=', 'E');
+            ->orderBy('orders.created_at', 'desc');
+
+        if(isset($_GET['status']) && !empty($_GET['status']))
+        {
+            $orders->where('orders.status', '=', $_GET['status']);
+        }else{
+            $orders->where('orders.status', '=', 'E');
+
+        }
 
         $orders = $orders->paginate(15);
 
@@ -52,7 +60,7 @@ class PendingController extends Controller
     public function accept(Request $request){
 
         $order = Orders::where('id', $request->id)->first();
-        $order->status = 'AP';
+        $order->status = 'AC';
 
         if($order->save()){
             $message = 'Pedido de compra aprovado com sucesso!';

@@ -77,6 +77,7 @@ Route::middleware([Authenticator::class])->group(function ()
 
     Route::resource('/order', OrderController::class);
     Route::get('/order/csv/{request?}', [OrderController::class, 'csv'])->name('orders.csv');
+    Route::get('/order/accept/{id}', [OrderController::class, 'accept'])->name('order.accept');
 
 
     // Rotas para as vendas
