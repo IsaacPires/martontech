@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\orders;
+use App\Models\Orders;
 use App\Models\Products;
 use App\Models\Request as ModelsRequest;
 use App\Models\Suppliers;

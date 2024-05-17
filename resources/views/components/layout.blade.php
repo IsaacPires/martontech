@@ -94,7 +94,7 @@
                     <div class="ml-auto d-flex align-items-center">
                         <p style="margin: 10px 0">{{ Auth::user()->name }}</p>
                         @auth
-                        <a href="{{ route('logout') }}" class="dashboard-nav-item ml-2"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a href="{{ route('logout') }}" style='color:##e93334' class="dashboard-nav-item ml-2"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         @endauth
                     </div>
                 </header>
