@@ -49,6 +49,11 @@ class SaleProductsController extends Controller
     {
         $request['UnitPrice'] = str_replace(',', '.', $request['UnitPrice']);
 
+        $products = Products::findOrFail($request->products_id);
+        $products->StockQuantity -= $request->WithdrawalAmount;
+
+        $products->update($request->all());
+
         SaleProducts::create($request->except('_token'));
 
         return redirect('/sale_products')
