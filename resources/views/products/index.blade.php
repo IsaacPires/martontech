@@ -10,8 +10,17 @@
                 <select class="form-control select2" data-live-search="true" name="Supplier" id="Supplier">
                     <option value="">-- Selecione --</option>
                     @foreach ($suppliers as $supplier)
-                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    <option {{ isset($_GET['Supplier']) && $_GET['Supplier'] == $supplier->id ? 'Selected' : ''}} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
                     @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="ordenacao" class="form-label">Ordenar</label>
+                <select class="form-control select2" data-live-search="true" name="ordenacao" id="ordenacao">
+                    <option value="">-- Selecione --</option>
+                    <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Aging' ? 'Selected' : ''}} value="Aging">Ordenção Aging</option>
+                    <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Utilizados' ? 'Selected' : ''}} value="Utilizados">Mais Utilizados</option>
+                    <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Critícos' ? 'Selected' : ''}} value="Critícos">Itens Critícos</option>
                 </select>
             </div>
         </div>

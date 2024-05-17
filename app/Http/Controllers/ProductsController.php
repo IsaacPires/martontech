@@ -22,6 +22,12 @@ class ProductsController extends Controller
 
         $products = $products->paginate(15);
 
+        foreach ($products as $product) {
+            if (is_null($product->Retirada)) {
+                $product->Retirada = 'N/I';
+            }
+        }
+
         $suppliers = Suppliers::all();
 
         $nextPage = $products->nextPageUrl();

@@ -88,7 +88,7 @@
                             <thead>
                                 <tr>
                                     <th>Produto</th>
-                                    <th>última Venda</th>
+                                    <th>Retirada</th>
                                     <th>Quantidade</th>
                                 </tr>
                             </thead>

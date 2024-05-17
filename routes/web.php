@@ -85,6 +85,7 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/sale_products/{id}/edit', [SaleProductsController::class, 'edit']);
     Route::get('/sale_products/report', [SaleProductsController::class, 'report']);
     Route::get('/sale_products/csv/{request?}', [SaleProductsController::class, 'csv'])->name('sale_products.csv');
+    Route::get('/sale_products/all', [SaleProductsController::class, 'all'])->name('sale_products.all');
 
     //pending Routes
     Route::resource('/pending', PendingController::class);

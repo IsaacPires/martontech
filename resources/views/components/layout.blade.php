@@ -37,11 +37,13 @@
                     </div>
                     <div class='dashboard-nav-dropdown'>
                         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-                            <i class="fas fa-money-bill"></i> Retirada
+                         <i class="fas fa-exchange-alt"></i>Movimentações
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
-                            <a href="{{route('sale_products.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>
-                            <a href="{{route('sale_products.index')}}" class="dashboard-nav-dropdown-item">Relatório</a>
+                            <a href="{{route('sale_products.create')}}" class="dashboard-nav-dropdown-item">Retirar</a>
+                            <a href="{{route('sale_products.index')}}" class="dashboard-nav-dropdown-item">Retiradas</a>
+                            <a href="{{route('sale_products.all')}}" class="dashboard-nav-dropdown-item">Movimentações</a>
+
                         </div>
                     </div>
                     <div class='dashboard-nav-dropdown'>

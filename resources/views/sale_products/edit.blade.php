@@ -1,4 +1,4 @@
-<x-layout title="Vendas - Adicionar">
+<x-layout title="Retirada - Editar">
     <form action='{{route("sale_products.update", ["sale_product" => $saleProducts->id])}}' method="POST">
         @csrf
         @method('PUT')

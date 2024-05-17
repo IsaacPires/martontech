@@ -6,6 +6,7 @@ use App\Models\Products;
 use App\Models\SaleProducts;
 use App\Repositories\SaleProductsRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleProductsController extends Controller
 {
@@ -51,7 +52,7 @@ class SaleProductsController extends Controller
         SaleProducts::create($request->except('_token'));
 
         return redirect('/sale_products')
-            ->with("success.message", "Venda gerada com sucesso");
+            ->with("success.message", "Retirada realizada com sucesso");
     }
 
     public function destroy(Request $request)
@@ -60,7 +61,7 @@ class SaleProductsController extends Controller
         $saleProducts->delete();
 
         return redirect('/sale_products')
-            ->with("success.message", "Venda removida com sucesso");
+            ->with("success.message", "Retirada removida com sucesso");
     }
 
     public function edit($id)
@@ -77,7 +78,7 @@ class SaleProductsController extends Controller
         $saleProducts->update($request->all());
 
         return redirect('/sale_products')
-            ->with("success.message", "Venda atualizada com sucesso");
+            ->with("success.message", "Retirada atualizada com sucesso");
     }
 
     public function csv()
@@ -112,6 +113,10 @@ class SaleProductsController extends Controller
         };
 
         return response()->stream($callBack, 200, $headers);
+    }
+
+    public function all(){
+        dd('here');
     }
 
    

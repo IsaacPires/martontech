@@ -26,7 +26,7 @@
                 <td>
 
                     @if(!isset($pending))
-                        @if($d->Status == 'Aguardado Confirmação')
+                        @if(isset($d->Status) && $d->Status == 'Aguardado Confirmação')
                             <a class="btn btn-primary btn-sm ms-2" title='Confirmar entrada no estoque.' href='{{ route("$rota.accept", $d->id) }}'>
                                 <i class="fas fa-check"></i>
                             </a>
