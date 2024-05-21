@@ -2,6 +2,27 @@
 
     <div class="container">
         <div class='row'>
+         <div class="col-md-12">
+              <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-filter"></i>
+                        <b>Filtros</b>
+                    </h4>
+                         <form action="{{ route('dashboard.index') }}" method="GET">
+                            <label for="filter_date">Selecione o período de:</label>
+                            <input value="{{isset($_GET['data_de']) && !empty($_GET['data_de']) ? $_GET['data_de'] : $firstDayOfMonth  }}" class="form-control" type="date" id="data_de" name="data_de">
+                            <label for="filter_date">Até:</label>
+                            <input value="{{isset($_GET['data_ate']) && !empty($_GET['data_ate']) ? $_GET['data_ate'] : $lastDayOfMonth  }}" class="form-control" type="date" id="data_ate" name="data_ate">
+
+                            <button class="btn btn-primary mt-3" type="submit">Filtrar</button>
+                        </form>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class='row'>
              <div class="col-md-12">
               <div class="card">
                   <div class="card-body">
@@ -21,7 +42,7 @@
                     <div class="card-body">
                         <h4 class="card-title">
                           <i class="fas fa-exclamation-circle"></i>
-                          <b>Itens Critícos</b>
+                          <a style='color:red' href="{{ url('/products?ProductName=&Supplier=&ordenacao=Criticos') }}"> <b>Itens Critícos</b> </a>
                         </h4>
                             <table class="table">
                                 <thead>

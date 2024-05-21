@@ -34,7 +34,7 @@ class ProductsRepository
                 case 'Aging':
                     $products->orderBy('Retirada');
                     break;
-                case 'Critícos':
+                case 'Criticos':
                     $products->whereraw('StockQuantity <= AlertQuantity');
                     break;
                 case 'Utilizados':

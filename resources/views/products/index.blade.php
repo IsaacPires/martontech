@@ -20,7 +20,7 @@
                     <option value="">-- Selecione --</option>
                     <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Aging' ? 'Selected' : ''}} value="Aging">Ordenção Aging</option>
                     <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Utilizados' ? 'Selected' : ''}} value="Utilizados">Mais Utilizados</option>
-                    <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Critícos' ? 'Selected' : ''}} value="Critícos">Itens Critícos</option>
+                    <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Criticos' ? 'Selected' : ''}} value="Criticos">Itens Critícos</option>
                 </select>
             </div>
         </div>

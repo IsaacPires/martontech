@@ -21,7 +21,7 @@
         <tbody class="table-group-divider table-data">
             <tr>
                 @foreach ($d as $value)
-                <td>{{$value}}</td>
+                <td style='min-width: 200px'>{{$value}}</td>
                 @endforeach
                 <td>
 

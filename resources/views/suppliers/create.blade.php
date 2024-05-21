@@ -15,7 +15,7 @@
 
             <div class="col-md-4">
                 <label for="Cnpj" class="form-label">CNPJ</label>
-                <input type="text" class="form-control" maxlength='14' id="Cnpj" name="Cnpj" required>
+                <input type="text" class="form-control" maxlength='18' id="Cnpj" name="Cnpj" required>
             </div>
         </div>
         </br>
@@ -25,7 +25,7 @@
 
             <div class="col-md-4">
                 <label for="AddressZipCode" class="form-label">CEP</label>
-                <input type="text" class="form-control" maxlength='8' id="AddressZipCode" name="AddressZipCode" required>
+                <input type="text" class="form-control" maxlength='9' id="AddressZipCode" name="AddressZipCode" required>
             </div>
             
             <div class="col-md-4">
@@ -59,13 +59,13 @@
         <hr>
         <div class="row">
             <div class="col-md-4">
-                <label for="ContactNameOne" class="form-label">Nome 1</label>
-                <input type="text" class="form-control" id="ContactNameOne" name="ContactNameOne" required>
+                <label for="ContactNameOne" class="form-label">Contato 1</label>
+                <input type="text" maxlength='50' class="form-control" id="ContactNameOne" name="ContactNameOne" required>
             </div>
 
             <div class="col-md-4">
                 <label for="ContactPhoneOne" class="form-label">Telefone 1</label>
-                <input type="tel" maxlength='11' class="form-control" id="ContactPhoneOne" name="ContactPhoneOne" required>
+                <input type="tel" maxlength='15' class="form-control" id="ContactPhoneOne" name="ContactPhoneOne" required>
             </div>
 
             <div class="col-md-4">
@@ -78,13 +78,13 @@
         <div class="row">
 
             <div class="col-md-4">
-                <label for="ContactNameTwo" class="form-label">Nome 2 </label>
-                <input type="text" class="form-control" id="ContactNameTwo" name="ContactNameTwo">
+                <label for="ContactNameTwo" class="form-label">Contato 2 </label>
+                <input type="text" maxlength='50' class="form-control" id="ContactNameTwo" name="ContactNameTwo">
             </div>
 
             <div class="col-md-4">
                 <label for="ContactPhoneTwo" class="form-label">Telefone 2</label>
-                <input type="tel" maxlength='11' class="form-control" id="ContactPhoneTwo" name="ContactPhoneTwo">
+                <input type="tel" maxlength='15' class="form-control" id="ContactPhoneTwo" name="ContactPhoneTwo">
             </div>
 
             <div class="col-md-4">

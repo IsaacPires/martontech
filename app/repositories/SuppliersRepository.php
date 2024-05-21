@@ -10,18 +10,29 @@ class SuppliersRepository
   public function supplierReport(){
     
     $suppliers = DB::table('suppliers')
-    ->selectRaw('id, Name as "Razão Social",
+    ->selectRaw('
+    id, 
+    Name as "Fornecedor",
     Segments as Segmento,
     Cnpj, 
     AddressNumber as "Número do endereço", 
     AddressNeighborhood as Bairro, 
+    AddressStreet as Rua,
     AddressCity as Cidade, 
     AddressState as Estado, 
-    ContactNameOne as Nome,
+    ContactNameOne as Contato,
     ContactPhoneOne as Telefone,
     ContactEmailOne as Email
-    ')
-    ->orderBy('created_at', 'desc');
+    ');
+
+    if (!empty($_GET['ordenacao']))
+    {
+        $suppliers->orderBy('Name', $_GET['ordenacao']);
+    }else{
+      $suppliers->orderBy('created_at', 'desc');
+    }
+
+
 
     if (!empty($_GET['SocialReason']))
     {

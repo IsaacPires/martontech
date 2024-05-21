@@ -46,6 +46,12 @@ class SuppliersController extends Controller
     {
         $request['Cnpj'] =  str_replace(['.', '/', '-'], '', $request['Cnpj']);
 
+        $request['ContactPhoneOne'] =  str_replace(['.', '/', '-',' ', '(', ')'], '', $request['ContactPhoneOne']);
+        if(isset($request['ContactPhoneTwo']) && !empty($request['ContactPhoneTwo']) ){
+            $request['ContactPhoneTwo'] =  str_replace(['.', '/', '-',' ', '(', ')'], '', $request['ContactPhoneTwo']);
+
+        }
+
         $supplier = Suppliers::create($request->except('_token'));
 
         return redirect('/suppliers')

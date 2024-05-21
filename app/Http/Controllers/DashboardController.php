@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use App\Models\Products;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,23 +13,29 @@ class DashboardController extends Controller
   public function index()
   {
 
-    $totalValue = $this->totalValue();
+    $firstDayOfMonth =  isset($_GET['data_de']) && !empty($_GET['data_de']) ? Carbon::parse($_GET['data_de'])->startOfDay() : Carbon::now()->startOfMonth();
+    $lastDayOfMonth =   isset($_GET['data_ate']) && !empty($_GET['data_de']) ? Carbon::parse($_GET['data_ate'])->endOfDay() : Carbon::now()->endOfMonth();
+    
+    $totalValue = $this->totalValue($firstDayOfMonth, $lastDayOfMonth);
     $alertItens = $this->alertItens();
     $agings     = $this->agings();
-    $mostUseds  = $this->mostUsedProducts();
+    $mostUseds  = $this->mostUsedProducts($firstDayOfMonth, $lastDayOfMonth);
 
     return view('dashboard.index')
         ->with('totalValue', number_format($totalValue, 2, ',', '.'))
         ->with('alertItens', $alertItens->toarray())
+        ->with('firstDayOfMonth', $firstDayOfMonth->format('Y-m-d'))
+        ->with('lastDayOfMonth', $lastDayOfMonth->format('Y-m-d'))
         ->with('agings', $agings->toarray())
         ->with('mostUseds', $mostUseds->toarray());
 
 
   }
 
-  private function totalValue()
+  private function totalValue($firstDayOfMonth, $lastDayOfMonth)
   {
-    $totalValue = Orders::whereMonth('created_at', now()->month)
+ 
+    $totalValue = Orders::whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
         ->where('status', 'AP')
         ->sum('totalValue');
 
@@ -58,12 +65,12 @@ class DashboardController extends Controller
     return $agings;
   }
 
-  private function mostUsedProducts()
+  private function mostUsedProducts($firstDayOfMonth, $lastDayOfMonth)
   {
       $mostUsed = DB::table('requests')
           ->select('product_id', 'products.Name', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(totalValue) as total_value'))
           ->leftJoin('products', 'requests.product_id', '=', 'products.id')
-          ->whereBetween('requests.created_at', [now()->startOfMonth(), now()])
+          ->whereBetween('requests.created_at', [$firstDayOfMonth, $lastDayOfMonth])
           ->groupBy('product_id', 'products.Name')
           ->orderByDesc('total_quantity')
           ->take(3)

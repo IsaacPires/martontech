@@ -14,7 +14,7 @@
                 </header>
                 <nav class="dashboard-nav-list">
                     <a href="/" class="dashboard-nav-item active">
-                        <i class="fas fa-tachometer-alt"></i> dashboard
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
 
                     <div class='dashboard-nav-dropdown'>
