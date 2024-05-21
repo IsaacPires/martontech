@@ -24,15 +24,15 @@
             </div>
             <div class="col-md-4">
                 <label for="DepartureDate" class="form-label">Data de Saída</label>
-                <input type="date" class="form-control" id="DepartureDate" name="DepartureDate" required>
+                <input type="date" class="form-control" id="DepartureDate" name="DepartureDate">
             </div>
             <div class="col-md-4">
                 <label for="NumberInvoiceMarton" class="form-label">Número da Nota Marton</label>
-                <input type="text" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" required>
+                <input type="text" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" >
             </div>
             <div class="col-md-4">
                 <label for="FinalTransport" class="form-label">Transporte Final</label>
-                <input type="text" class="form-control" id="FinalTransport" name="FinalTransport" required>
+                <input type="text" class="form-control" id="FinalTransport" name="FinalTransport">
             </div>
         </div>
         <br>

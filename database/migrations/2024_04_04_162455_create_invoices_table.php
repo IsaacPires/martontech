@@ -16,12 +16,12 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table)
         {
             $table->id();
-            $table->date('ReceivingDate')->nullable();
-            $table->date('InvoiceDate');
+            $table->timestamp('ReceivingDate')->nullable();
+            $table->timestamp('InvoiceDate');
             $table->string('Client', 128);
             $table->string('NumberInvoice');
-            $table->integer('Material');
-            $table->date('DepartureDate');
+            $table->string('Material');
+            $table->timestamp('DepartureDate')->nullable(); 
             $table->string('NumberInvoiceMarton')->nullable();
             $table->string('FinalTransport')->nullable();
             $table->timestamps();
