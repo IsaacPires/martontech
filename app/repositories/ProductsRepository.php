@@ -11,26 +11,31 @@ class ProductsRepository
     {
 
         $products = DB::table('products')
-        ->selectRaw("
+            ->selectRaw("
             products.id, 
             products.Name as 'Nome Produto',
             products.AlertQuantity as 'Quantidade em Alerta',
-            products.StockQuantity as 'Quatidade em Estoque', 
-            DATE_FORMAT(MAX(sale_products.created_at), '%d/%m/%Y') as Retirada,
-            suppliers.Name as 'Fornecedor'
+            products.StockQuantity as 'Quatidade em Estoque',
+            s.Name as 'Fornecedor um',
+            s2.Name as 'Fornecedor dois'
         ")
-        ->leftJoin('suppliers', 'products.suppliers_id', '=', 'suppliers.id')
-        ->leftJoin('sale_products', 'products.id', '=', 'sale_products.products_id')
-        ->leftJoin('requests', 'products.id', '=', 'requests.product_id')
-        ->groupBy(
-            'products.id', 
-            'products.Name',
-            'products.AlertQuantity',
-            'products.StockQuantity',
-            'suppliers.Name'
-        );
-        if(isset($_GET['ordenacao']) && !empty($_GET['ordenacao']) ){
-            switch ($_GET['ordenacao']) {
+            ->leftJoin('suppliers AS s', 'products.primary_suppliers_id', '=', 's.id')
+            ->leftJoin('suppliers AS s2', 'products.secondary_supplier_id', '=', 's2.id')
+            ->leftJoin('sale_products', 'products.id', '=', 'sale_products.products_id')
+            ->leftJoin('requests', 'products.id', '=', 'requests.product_id')
+            ->groupBy(
+                'products.id',
+                'products.Name',
+                'products.AlertQuantity',
+                'products.StockQuantity',
+                's.Name',
+                's2.Name'
+            );
+
+        if (isset($_GET['ordenacao']) && !empty($_GET['ordenacao']))
+        {
+            switch ($_GET['ordenacao'])
+            {
                 case 'Aging':
                     $products->orderBy('Retirada');
                     break;
@@ -40,13 +45,14 @@ class ProductsRepository
                 case 'Utilizados':
                     $products->whereBetween('requests.created_at', [now()->startOfMonth(), now()]);
                     break;
-                
-                default:
-                $products->orderBy('products.created_at', 'desc');
-                break;
-            }
 
-        }else{
+                default:
+                    $products->orderBy('products.created_at', 'desc');
+                    break;
+            }
+        }
+        else
+        {
             $products->orderBy('products.created_at', 'desc');
         }
 
@@ -59,7 +65,12 @@ class ProductsRepository
 
         if (!empty($_GET['Supplier']))
         {
-            $products->where('products.suppliers_id', '=', $_GET['Supplier']);
+            $supplierId = $_GET['Supplier'];
+            $products->where(function ($query) use ($supplierId)
+            {
+                $query->where('products.primary_suppliers_id', '=', $supplierId)
+                    ->orWhere('products.secondary_supplier_id', '=', $supplierId);
+            });
         }
 
         return $products;

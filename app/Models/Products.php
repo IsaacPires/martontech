@@ -13,7 +13,8 @@ class Products extends Model
         'Name',
         'AlertQuantity',
         'StockQuantity',
-        'suppliers_id',
+        'primary_suppliers_id',
+        'secondary_supplier_id',
     ];
 
     public function supliers()

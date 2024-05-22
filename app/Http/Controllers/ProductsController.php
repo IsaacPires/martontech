@@ -22,12 +22,6 @@ class ProductsController extends Controller
 
         $products = $products->paginate(15);
 
-        foreach ($products as $product) {
-            if (is_null($product->Retirada)) {
-                $product->Retirada = 'N/I';
-            }
-        }
-
         $suppliers = Suppliers::all();
 
         $nextPage = $products->nextPageUrl();
@@ -100,7 +94,12 @@ class ProductsController extends Controller
 
         if (!empty($_GET['Supplier']))
         {
-            $products->where('supplier_id', 'like', '%' . $_GET['Supplier'] . '%');
+            $supplierId = $_GET['Supplier'];
+            $products->where(function ($query) use ($supplierId)
+            {
+                $query->where('products.primary_suppliers_id', '=', $supplierId)
+                    ->orWhere('products.secondary_supplier_id', '=', $supplierId);
+            });
         }
 
         $products = $products->get();

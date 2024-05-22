@@ -10,13 +10,21 @@
                 <label for="AlertQuantity" class="form-label">Quantidade de Alerta</label>
                 <input type="number" class="form-control" maxlength="11" id="AlertQuantity" name="AlertQuantity" required>
             </div>
-           {{--  <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <label for="StockQuantity" class="form-label">Quatidade em Estoque</label>
                 <input type="number" class="form-control" maxlength="11" id="StockQuantity" name="StockQuantity" required step="1">
             </div> --}}
             <div class="col-md-4">
-                <label for="suppliers_id" class="form-label">Fornecedor</label>
-                <select class="form-control select2" name="suppliers_id" id="suppliers_id">
+                <label for="primary_suppliers_id" class="form-label">Fornecedor 1</label>
+                <select class="form-control select2" name="primary_suppliers_id" id="primary_suppliers_id">
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="secondary_supplier_id" class="form-label">Fornecedor 2</label>
+                <select class="form-control select2" name="secondary_supplier_id" id="secondary_supplier_id">
                     @foreach ($suppliers as $supplier)
                     <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
                     @endforeach
