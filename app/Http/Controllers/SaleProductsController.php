@@ -61,8 +61,14 @@ class SaleProductsController extends Controller
     }
 
     public function destroy(Request $request)
-    {
+    {   
         $saleProducts = SaleProducts::findOrFail($request->input('delete_id'));
+
+        $product = Products::findOrFail($saleProducts->products_id);
+
+        $product->StockQuantity += $saleProducts->WithdrawalAmount;
+        $product->save();
+
         $saleProducts->delete();
 
         return redirect('/sale_products')
@@ -80,6 +86,18 @@ class SaleProductsController extends Controller
     public function update(Request $request, $id)
     {
         $saleProducts = SaleProducts::findOrFail($id);
+        $product = Products::findOrFail($saleProducts->products_id);
+
+        $result =  $request->WithdrawalAmount - $saleProducts->WithdrawalAmount;
+
+        if($result < 0){
+           $product->StockQuantity -= $result;
+           $product->save();
+        }else{
+            $product->StockQuantity -= $result;
+            $product->save();
+        }
+
         $saleProducts->update($request->all());
 
         return redirect('/sale_products')
@@ -121,7 +139,7 @@ class SaleProductsController extends Controller
     }
 
     public function all(){
-        dd('here');
+        dd('Em andamento');
     }
 
    

@@ -90,6 +90,11 @@ class PendingController extends Controller
 
     }
 
+    public function list()
+    {
+        dd('em andamento');
+    }
+
     public function csv()
     {
         $orders = Orders::where('status', 'E')->paginate(15);

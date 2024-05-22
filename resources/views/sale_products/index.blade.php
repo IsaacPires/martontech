@@ -1,4 +1,4 @@
-<x-layout title="Retirada - Relatório">
+<x-layout title="Saídas - Relatório">
     <form action="{{route('sale_products.index')}}" method="GET">
         <div class='row'>
             <div class="col-md-4">

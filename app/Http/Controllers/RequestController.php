@@ -80,8 +80,12 @@ class RequestController extends Controller
 
     public function getProductsBySupplier($id)
     {
-        $products = Products::where('suppliers_id', $id)->get();
+        $products = Products::where('primary_suppliers_id', $id)->get();
 
+        if(empty($products)){
+            $products = Products::where('secondary_supplier_id', $id)->get();
+        }
+        
         return response()->json($products);
     }
 

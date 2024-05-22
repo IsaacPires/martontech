@@ -58,6 +58,7 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/products/{id}/edit', [ProductsController::class, 'edit']);
     Route::get('/products/report', [ProductsController::class, 'report']);
     Route::get('/products/csv/{request?}', [ProductsController::class, 'csv'])->name('products.csv');
+    Route::delete('/products/{id}', 'ProductsController@destroy')->name('ProductsController.destroy');
 
     // Rotas para as vendas
     Route::resource('/sales_products', SaleProductsController::class)->except('show');
@@ -86,6 +87,7 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/sale_products/report', [SaleProductsController::class, 'report']);
     Route::get('/sale_products/csv/{request?}', [SaleProductsController::class, 'csv'])->name('sale_products.csv');
     Route::get('/sale_products/all', [SaleProductsController::class, 'all'])->name('sale_products.all');
+    Route::delete('/sale_products/{id}', 'SaleProductsController@destroy')->name('sale_products.destroy');
 
     //pending Routes
     Route::resource('/pending', PendingController::class);

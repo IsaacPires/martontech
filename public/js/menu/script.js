@@ -41,7 +41,35 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
     });
+
+    var deleteButtons = document.querySelectorAll('.delete-button');
+    var deleteModal = document.getElementById('deleteModal');
+    var deleteForm = document.getElementById('deleteForm');
+    var deleteIdInput = document.getElementById('deleteId');
+    var path = window.location.pathname;
+    
+    if (path.charAt(0) === '/') {
+        path = path.substring(1);
+    }    
+    
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var productId = this.getAttribute('data-id');
+            var url = '/'+ path +'/' + productId;
+            deleteIdInput.value = productId;
+            deleteForm.setAttribute('action', url);
+            deleteModal.style.display = 'block';
+        });
+    });
+    
+    var closeButtons = document.querySelectorAll('.close');
+    closeButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            deleteModal.style.display = 'none';
+        });
+    });
     
 });
+
 
 

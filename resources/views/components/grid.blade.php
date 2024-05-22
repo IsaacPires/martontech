@@ -35,14 +35,16 @@
                         <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <form action='{{ route("$rota.destroy", $d->id) }}' method="POST">
+{{--                         <form action='{{ route("$rota.destroy", $d->id) }}' method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="delete_id" value="{{ $d->id }}">
-                            <button class="btn btn-danger btn-sm ms-2">
+                            <button class="btn btn-danger btn-sm ms-2  delete-button" data-id="{{ $d->id }}">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
-                        </form>
+                        </form> --}}
+                        <button class="btn btn-danger delete-button btn-sm ms-2" data-id="{{ $d->id }}"><i class="fas fa-trash-alt"></i></button>
+
                     @endif
 
                     @if(isset($pending))
@@ -78,4 +80,21 @@
             </li>
         </ul>
     </nav>
+</div>
+
+<div id="deleteModal" class="modal" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content" style='padding: 20px'>
+            <p>Esta ação é irreversível. Você tem certeza?</p>
+            <form id="deleteForm" method="POST" action="">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" id="deleteId" name="delete_id">
+                <button type="submit" class="btn btn-danger ms-2">
+                    <i class="fas fa-trash-alt"></i> Excluir
+                </button>
+                <button type="button" class="btn btn-secondary close ms-2">Cancelar</button>
+            </form>
+        </div>
+    </div>
 </div>

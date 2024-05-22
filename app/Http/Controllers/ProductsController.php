@@ -62,7 +62,7 @@ class ProductsController extends Controller
         $products->delete();
 
         return redirect('/products')
-            ->with("success.message", "Fornecedor '$products->Name' removida com sucesso!");
+            ->with("success.message", "'$products->Name' removida com sucesso!");
     }
 
     public function edit($id)

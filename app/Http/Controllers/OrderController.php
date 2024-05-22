@@ -86,49 +86,67 @@ class OrderController extends Controller
     }
     
     public function update(Orders $order){
+        try {
+            $order->status = 'E';
+            $order->save();
+            $message = 'Requisição de compra criada com sucesso';
 
-        $order->status = 'E';
-        $order->save();
-        $message = 'Requisição de compra criada com sucesso';
-
-        //add logica de disparo de email
-    
-        return redirect('/order')
+            //add logica de disparo de email
+            return redirect('/order')
             ->with("successMessage", $message);
+
+        } catch (\Throwable $th) {
+            return redirect('/order')
+            ->with("successMessage", 'Falha ao atualizar requisição');
+        }
+       
     }
 
     
     public function destroy(Request $request){
 
-        $orders = Orders::findOrFail($request->input('delete_id'));
 
-        $request = ModelsRequest::where('order_id', $request->input('delete_id'));
+        try {
+            $orders = Orders::findOrFail($request->input('delete_id'));
 
-        if(!empty($request)){
-            $request->delete();
+            $request = ModelsRequest::where('order_id', $request->input('delete_id'));
+    
+            if(!empty($request)){
+                $request->delete();
+            }
+    
+            $orders->delete();
+    
+            return redirect('/order')
+                ->with("successMessage", "Requisição removida com sucesso!");
+        } catch (\Throwable $th) {
+            return redirect('/order')
+            ->with("successMessage", "Falha na remoção da requisição.");
         }
-
-        $orders->delete();
-
-        return redirect('/order')
-            ->with("successMessage", "Requisição removida com sucesso!");
+       
 
     }
 
     public function edit(Orders $order)
     {
 
-        if($order->status != 'AP'){
-            $order->status = 'A';
-            $order->save();
-        }else{
-
-            return redirect('/order')
-            ->with("successMessage", "Está requisição já foi aprovada.");
+        try {
+            if($order->status != 'AP'){
+                $order->status = 'A';
+                $order->save();
+            }else{
+    
+                return redirect('/order')
+                ->with("successMessage", "Está requisição já foi aprovada.");
+            }
+    
+            return redirect('/request/create')
+                ->with("successMessage", "Requisição reaberta.");
+        } catch (\Throwable $th) {
+            return redirect('/request/create')
+            ->with("successMessage", "Falha ao reabrir a requisição.");
         }
-
-        return redirect('/request/create')
-            ->with("successMessage", "Requisição reaberta.");
+       
 
     }
 

@@ -15,10 +15,7 @@ class InvoicesRepository
                 DATE_FORMAT(i.ReceivingDate, '%d/%m/%Y')  AS 'Date Recebimento',
                 DATE_FORMAT(i.InvoiceDate, '%d/%m/%Y') AS 'Data NF',
                 i.NumberInvoice AS 'Número NF',
-                i.Material AS 'Material',
-                DATE_FORMAT(i.DepartureDate, '%d/%m/%Y') AS 'Data de Saída',
-                i.NumberInvoiceMarton AS 'Número NF Marton',
-                i.FinalTransport AS 'Transporte Final'
+                i.Material AS 'Material'
             ")
             ->orderBy('i.created_at', 'desc');
 

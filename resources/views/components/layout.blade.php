@@ -41,8 +41,8 @@
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
                             <a href="{{route('sale_products.create')}}" class="dashboard-nav-dropdown-item">Retirar</a>
-                            <a href="{{route('sale_products.index')}}" class="dashboard-nav-dropdown-item">Retiradas</a>
-                            <a href="{{route('sale_products.all')}}" class="dashboard-nav-dropdown-item">Movimentações</a>
+                            <a href="{{route('sale_products.index')}}" class="dashboard-nav-dropdown-item">Saídas</a>
+                            <a href="{{route('sale_products.all')}}" class="dashboard-nav-dropdown-item">Entradas</a>
 
                         </div>
                     </div>

@@ -42,19 +42,33 @@ class InvoicesController extends Controller
 
     public function store(Request $request)
     {
-        Invoices::create($request->except('_token'));
 
-        return redirect('/invoices')
-            ->with("success.message", "NF gerada com sucesso");
+        try {
+            Invoices::create($request->except('_token'));
+
+            return redirect('/invoices')
+                ->with("success.message", "NF gerada com sucesso");
+        } catch (\Throwable $th) {
+            return redirect('/invoices')
+            ->with("success.message", "Erro ao adicionar a nota fiscal.");
+        }
+      
     }
 
     public function destroy(Request $request)
     {
-        $invoices = Invoices::findOrFail($request->input('delete_id'));
-        $invoices->delete();
 
-        return redirect('/invoices')
+        try {
+            $invoices = Invoices::findOrFail($request->input('delete_id'));
+            $invoices->delete();
+
+            return redirect('/invoices')
             ->with("success.message", "Invoice removida com sucesso");
+        } catch (\Throwable $th) {
+            return redirect('/invoices')
+            ->with("success.message", "Erro ao apagar registro");
+        }
+        
     }
 
     public function edit($id)
@@ -66,11 +80,17 @@ class InvoicesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $invoices = Invoices::findOrFail($id);
-        $invoices->update($request->all());
-
-        return redirect('/invoices')
-            ->with("success.message", "NF atualizada com sucesso");
+        try {
+            $invoices = Invoices::findOrFail($id);
+            $invoices->update($request->all());
+    
+            return redirect('/invoices')
+                ->with("success.message", "NF atualizada com sucesso");
+        } catch (\Throwable $th) {
+            return redirect('/invoices')
+                ->with("success.message", "Nota fiscal não pode ser atualizada.");
+        }
+       
     }
 
     public function csv()
