@@ -74,6 +74,7 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::resource('/request', RequestController::class);
     Route::get('/products-by-supplier/{id}', [RequestController::class, 'getProductsBySupplier']);
     Route::get('/request/atualizar-preco/{id}', [RequestController::class, 'atualizarPreco']);
+    Route::get('/get-request-info/{id}', [RequestController::class, 'getRequestInfo']);
 
 
     Route::resource('/order', OrderController::class);

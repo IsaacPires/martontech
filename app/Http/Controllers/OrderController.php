@@ -18,6 +18,7 @@ class OrderController extends Controller
         $orders = DB::table('orders')
             ->selectRaw("
                 orders.id, 
+                suppliers.Name as Fornecedor,
                 case
                     when orders.status = 'E' THEN 'Enviado'
                     when orders.status = 'A' THEN 'Aberto'
@@ -30,6 +31,8 @@ class OrderController extends Controller
                 DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação' 
 
             ")
+            ->join('requests', 'orders.id', '=', 'requests.order_id')
+            ->join('suppliers', 'suppliers.id', '=', 'requests.suppliers_id') // Adiciona o inner join aqui
             ->orderBy('orders.created_at', 'desc');
 
             

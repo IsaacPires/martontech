@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    $('#suppliers_id').select2();
+/*     $('#suppliers_id').select2();
 
     $('#suppliers_id').on('select2:select', function (e) {
         let supplierId = e.params.data.id;
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-
+ */
     
     $('#product_id').select2();
 

@@ -1,4 +1,5 @@
 <hr>
+
 <div class="table-responsive" style="overflow-x: auto;">
 
     <table class="table">
@@ -11,7 +12,7 @@
         <thead>
             <tr class="text-nowrap">
                 @foreach (array_keys((array) $data->first()) as $key)
-                <th scope="col">{{$key}}</th>
+                <th style='white-space: nowrap;' scope="col">{{$key}}</th>
                 @endforeach
                 <th scope="col">Ações</th>
             </tr>
@@ -21,9 +22,9 @@
         <tbody class="table-group-divider table-data">
             <tr>
                 @foreach ($d as $value)
-                <td style='min-width: 200px'>{{$value}}</td>
+                <td style='white-space: nowrap;' >{{$value}}</td>
                 @endforeach
-                <td>
+                <td style='white-space: nowrap;' scope="col">
 
                     @if(!isset($pending))
                         @if(isset($d->Status) && $d->Status == 'Aguardado Confirmação')
@@ -48,15 +49,18 @@
                     @endif
 
                     @if(isset($pending))
-                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.accept", $d->id) }}'>
-                            <i class="fas fa-check"></i>
-                        </a>
-                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.list", $d->id) }}'>
+                        <button class="showNamesButton btn btn-primary btn-sm ms-2" data-id="{{$d->id}}">
                             <i class="fas fa-file-alt"></i>
-                        </a>
-                        <a class="btn btn-danger btn-sm ms-2 " href='{{ route("$rota.deny", $d->id) }}'>
-                            <i class="fas fa-times "></i>
-                        </a>
+                        </button>
+                        @if($d->Status == 'Enviado')
+
+                            <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.accept", $d->id) }}'>
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm ms-2 " href='{{ route("$rota.deny", $d->id) }}'>
+                                <i class="fas fa-times "></i>
+                            </a>
+                        @endif
                     @endif
                 </td>
             </tr>
@@ -98,3 +102,25 @@
         </div>
     </div>
 </div>
+
+<div id="namesModal" class="modal" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="padding: 20px">
+            <h5>Produtos da Requisição</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Valor Atual</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody id="namesList">
+                    <!-- Dados serão inseridos aqui -->
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-secondary closeNamesModal ms-2">Fechar</button>
+        </div>
+    </div>
+</div>
+

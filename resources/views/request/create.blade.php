@@ -9,23 +9,23 @@
                 </div>
             @endisset
 
-            <div class="col-md-4">
+            <div  style="{{ isset($SupRequests) && !empty($SupRequests) ? 'pointer-events: none; opacity: 1;' : '' }}"  class='col-md-4'>
                 <label for="suppliers_id" class="form-label">Fornecedor</label>
-                <select class="form-control select2" name="suppliers_id" id="suppliers_id" required>
+                <select style="pointer-events: none; opacity: 1;" class="form-control select2" name="suppliers_id" id="suppliers_id" required>
                     <option value="">-- Selecione --</option>
                     @foreach ($suppliers as $supplier)
-                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    <option {{$SupRequests == $supplier->id ? 'selected' : '' }} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="col-md-4">
                 <label for="product_id" class="form-label">Produto</label>
-                <select class="form-control select2" name="product_id" id="product_id">
+                <select class="form-control select2" name="product_id" id="product_id" required>
                     <option value="">-- Selecione --</option>
-{{--                     @foreach ($products as $product)
-                    <option value="{{$product->id}}">{{ $product->Name }}</option>
-                    @endforeach --}}
+                    @foreach ($products as $product)
+                        <option value="{{$product->id}}">{{ $product->Name }}</option>
+                    @endforeach
                 </select>
             </div>
 

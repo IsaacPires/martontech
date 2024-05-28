@@ -11,35 +11,36 @@ use Illuminate\Support\Facades\DB;
 
 class RequestController extends Controller
 {
-    public function create(){
-        
+    public function create()
+    {
         $successMessage = session('successMessage');
         $orders = orders::where('status', 'A')->latest()->first();
         $requests = '';
-        
-        if(!empty($orders)){
+        $SupRequests = '';
+
+        if(!empty($orders) && $orders->totalValue > '0'){
             $requests = ModelsRequest::with('product')->where('order_id', $orders->id)->get();
+            $SupRequests = isset($requests[0]->suppliers_id) ? $requests[0]->suppliers_id : $requests;
         }
 
         $suppliers = Suppliers::all();
         $products = Products::all();
-
 
         return view('request.create')
             ->with('suppliers', $suppliers)
             ->with('products', $products)
             ->with('orders', $orders)
             ->with('successMessage', $successMessage)
-            ->with('requests', $requests);
+            ->with('requests', $requests)
+            ->with('SupRequests', $SupRequests);
 
     }
 
-    public function store(Request $request){
-
+    public function store(Request $request)
+    {
         $order = orders::where('status', 'A')->latest()->first();
 
         if(empty($order)){
-
             $newOrder = [
                 'status'=> 'A',
                 'totalValue' => (float) $request->totalValue
@@ -77,7 +78,7 @@ class RequestController extends Controller
             ->with("successMessage", "Requsição removida com sucesso!");
 
     }
-
+/* 
     public function getProductsBySupplier($id)
     {
         $products = Products::where('primary_suppliers_id', $id)->get();
@@ -87,7 +88,7 @@ class RequestController extends Controller
         }
         
         return response()->json($products);
-    }
+    } */
 
     public function atualizarPreco($id)
     { 
@@ -105,4 +106,18 @@ class RequestController extends Controller
 
         return response()->json($preco);
     }
+
+    public function getRequestInfo($order_id)
+    {
+        // Buscando os campos suppliers_id, currentPrice e quantity baseado no order_id fornecido
+        $requests = DB::table('requests')
+            ->select('products.Name', 'requests.currentPrice', 'requests.quantity')
+            ->join('products', 'requests.id', '=', 'products.id')
+            ->where('requests.order_id', $order_id)
+            ->orderBy('requests.created_at', 'desc')
+            ->get();
+
+        return response()->json($requests);
+    }
+
 }

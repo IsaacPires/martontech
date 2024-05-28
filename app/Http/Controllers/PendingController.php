@@ -30,9 +30,6 @@ class PendingController extends Controller
         if(isset($_GET['status']) && !empty($_GET['status']))
         {
             $orders->where('orders.status', '=', $_GET['status']);
-        }else{
-            $orders->where('orders.status', '=', 'E');
-
         }
 
         $orders = $orders->paginate(15);

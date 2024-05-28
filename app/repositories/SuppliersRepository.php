@@ -15,7 +15,7 @@ class SuppliersRepository
     Name as "Fornecedor",
     Segments as Segmento,
     Cnpj, 
-    AddressNumber as "Número do endereço", 
+    AddressNumber as "N° do endereço", 
     AddressNeighborhood as Bairro, 
     AddressStreet as Rua,
     AddressCity as Cidade, 

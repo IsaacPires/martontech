@@ -14,8 +14,8 @@ class ProductsRepository
             ->selectRaw("
             products.id, 
             products.Name as 'Nome Produto',
-            products.AlertQuantity as 'Quantidade em Alerta',
-            products.StockQuantity as 'Quatidade em Estoque',
+            products.AlertQuantity as 'Qntd. em Alerta',
+            products.StockQuantity as 'Qntd. em Estoque',
             s.Name as 'Fornecedor um',
             s2.Name as 'Fornecedor dois'
         ")
