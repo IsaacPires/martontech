@@ -45,7 +45,6 @@
                             </button>
                         </form> --}}
                         <button class="btn btn-danger delete-button btn-sm ms-2" data-id="{{ $d->id }}"><i class="fas fa-trash-alt"></i></button>
-
                     @endif
 
                     @if(isset($pending))
