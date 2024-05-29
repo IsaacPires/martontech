@@ -130,13 +130,14 @@ class OrderController extends Controller
 
     public function edit(Orders $order)
     {
-
+        
         try {
             if($order->status != 'AP'){
+               
                 $order->status = 'A';
                 $order->save();
             }else{
-    
+                dd($order->status);
                 return redirect('/order')
                 ->with("successMessage", "Está requisição já foi aprovada.");
             }

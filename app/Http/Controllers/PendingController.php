@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orders;
+use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -71,7 +72,8 @@ class PendingController extends Controller
     }
 
 
-    public function deny(Request $request){
+    public function deny(Request $request)
+    {
 
         $order = Orders::where('id', $request->id)->first();
         $order->status = 'N';
@@ -85,11 +87,6 @@ class PendingController extends Controller
 
         return redirect('/pending')->with('successMessage', $message);
 
-    }
-
-    public function list()
-    {
-        dd('em andamento');
     }
 
     public function csv()

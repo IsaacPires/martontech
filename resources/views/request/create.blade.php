@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-4">
                 <label for="lastPrice" class="form-label">Último preço</label>
-                <input type="float" class="form-control" id="lastPrice" name="lastPrice" required>
+                <input style="pointer-events: none; opacity: 1;" type="float" class="form-control" id="lastPrice" name="lastPrice" required>
             </div>
              <div class="col-md-4">
                 <label for="currentPrice" class="form-label">Preço Atual</label>

@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    ///////////////////// Modal De request /////////////////
+    /* ///////////////////// Modal De request /////////////////
 
     var showNamesButtons = document.querySelectorAll('.showNamesButton');
     var namesModal = document.getElementById('namesModal');
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (event.target === namesModal) {
             namesModal.style.display = 'none';
         }
-    });
+    }); */
 });
 
 

@@ -12,12 +12,13 @@
         <thead>
             <tr class="text-nowrap">
                 @foreach (array_keys((array) $data->first()) as $key)
-                <th style='white-space: nowrap;' scope="col">{{$key}}</th>
+                    <th style='white-space: nowrap;' scope="col">{{$key}}</th>
                 @endforeach
-                <th scope="col">Ações</th>
+                @if (!isset($requestButton))
+                    <th scope='col'>Ações</th>
+                @endif
             </tr>
         </thead>
-
         @foreach ($data as $d)
         <tbody class="table-group-divider table-data">
             <tr>
@@ -31,8 +32,12 @@
                             <a class="btn btn-primary btn-sm ms-2" title='Confirmar entrada no estoque.' href='{{ route("$rota.accept", $d->id) }}'>
                                 <i class="fas fa-check"></i>
                             </a>
+
+          
                         @endif
-                    
+
+                        @if (!isset($requestButton))
+
                         <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
                             <i class="fas fa-pencil-alt"></i>
                         </a>
@@ -45,12 +50,20 @@
                             </button>
                         </form> --}}
                         <button class="btn btn-danger delete-button btn-sm ms-2" data-id="{{ $d->id }}"><i class="fas fa-trash-alt"></i></button>
-                    @endif
+                        @endif
 
-                    @if(isset($pending))
-                        <button class="showNamesButton btn btn-primary btn-sm ms-2" data-id="{{$d->id}}">
+                    @endif
+                    @if(isset($showList))
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("request.index", $d->id) }}'>
                             <i class="fas fa-file-alt"></i>
-                        </button>
+                        </a>
+                    @endif
+                    @if(isset($pending))
+
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("request.index", $d->id) }}'>
+                            <i class="fas fa-file-alt"></i>
+                        </a>
+
                         @if($d->Status == 'Enviado')
 
                             <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.accept", $d->id) }}'>
@@ -68,6 +81,7 @@
     </table>
 
 </div>
+
 <div class="ms-2">
     <nav style='margin:20px 0 0 0 ;'>
         <ul class="pagination justify-content-center">

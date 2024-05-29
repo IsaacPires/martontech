@@ -20,6 +20,6 @@
         </div>
     </form>
 
-    <x-grid :successMessage="$successMessage" :data="$orders" rota="order" :nextPage="$nextPage" :previusPage="$previusPage">
+    <x-grid :showList='true' :successMessage="$successMessage" :data="$orders" rota="order" :nextPage="$nextPage" :previusPage="$previusPage">
     </x-grid>
 </x-layout>

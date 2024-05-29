@@ -76,11 +76,13 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/products-by-supplier/{id}', [RequestController::class, 'getProductsBySupplier']);
     Route::get('/request/atualizar-preco/{id}', [RequestController::class, 'atualizarPreco']);
     Route::get('/get-request-info/{id}', [RequestController::class, 'getRequestInfo']);
+    Route::get('/request/{id}/index', [RequestController::class, 'index'])->name('request.index');
 
 
     Route::resource('/order', OrderController::class);
     Route::get('/order/csv/{request?}', [OrderController::class, 'csv'])->name('orders.csv');
     Route::get('/order/accept/{id}', [OrderController::class, 'accept'])->name('order.accept');
+    Route::get('/order/deny/{id}', [OrderController::class, 'deny'])->name('order.deny');
 
 
     // Rotas para as vendas
@@ -96,7 +98,6 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/pending/csv/{request?}', [PendingController::class, 'csv'])->name('pending.csv');
     Route::get('/pending/{id}/accept', [PendingController::class, 'accept'])->name('pending.accept');
     Route::get('/pending/{id}/deny', [PendingController::class, 'deny'])->name('pending.deny');
-    Route::get('/pending/{id}/list', [PendingController::class, 'list'])->name('pending.list');
 
     Route::resource('/entry_products', EntryProductsController::class)->except('show');
     Route::get('/entry_products/{id}/edit', [EntryProductsController::class, 'edit']);

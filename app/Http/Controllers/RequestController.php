@@ -11,6 +11,39 @@ use Illuminate\Support\Facades\DB;
 
 class RequestController extends Controller
 {
+
+
+    public function index($id)
+    {  
+        $requests = DB::table('requests')
+        ->selectRaw("
+            requests.id,
+            requests.product_id as 'Produto',
+            requests.suppliers_id as Fornecedor,
+            FORMAT(requests.lastPrice, 2) as 'último Valor',
+            FORMAT(requests.currentPrice, 2) as 'Valor Atual',
+            requests.quantity as Qntd,
+            requests.totalValue as 'Valor Total'
+        ")
+        ->where('requests.order_id', '=', $id)
+        ->orderBy('requests.created_at', 'desc')  
+        ->paginate(15);
+
+        $nextPage = $requests->nextPageUrl();
+        $previusPage = $requests->previousPageUrl();
+        $successMessage = session('successMessage');
+
+        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $exportCsvUrl = route('pending.csv', $params);
+
+        return view('request.index')
+            ->with('requests', $requests)
+            ->with('nextPage', $nextPage)
+            ->with('previusPage', $previusPage)
+            ->with('exportCsvUrl', $exportCsvUrl)
+            ->with('successMessage', $successMessage);
+    }
+
     public function create()
     {
         $successMessage = session('successMessage');
@@ -53,6 +86,8 @@ class RequestController extends Controller
             $order->totalValue = $newTotalValue;
             $order->save(); 
         }
+        $request['currentPrice'] = str_replace(',', '.', $request['currentPrice']);
+        $request['totalValue'] = str_replace(',', '.', $request['totalValue']);
 
         $requestData = $request->except('_token');
         $requestData['order_id'] = $order->id;

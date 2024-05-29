@@ -48,6 +48,7 @@ class SaleProductsController extends Controller
     public function store(Request $request)
     {
         $request['UnitPrice'] = str_replace(',', '.', $request['UnitPrice']);
+        $request['TotalPrice'] = str_replace(',', '.', $request['TotalPrice']);
 
         $products = Products::findOrFail($request->products_id);
         $products->StockQuantity -= $request->WithdrawalAmount;
