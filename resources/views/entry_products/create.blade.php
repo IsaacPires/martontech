@@ -1,5 +1,5 @@
-<x-layout title="Retiradas - registrar">
-    <form action="{{route('sale_products.store')}}" method="POST">
+<x-layout title="Entrada de produtos - Adicionar">
+    <form action="{{route('entry_products.store')}}" method="POST">
         @csrf
         <div class="row">
             <div class="col-md-4">
@@ -16,31 +16,11 @@
                 <input type="text" class="form-control" id="SellerName" name="SellerName" required>
             </div>
             <div class="col-md-4">
-                <label for="FabricationOrder" class="form-label">Tipo de pedido</label>
-                <select class="form-control select2" name="FabricationOrder" id="FabricationOrder" required>
-                    <option value="" selected>-- Selecione --</option>
-                    <option value="Produto Novo">Produto Novo</option>
-                    <option value="Reforma">Reforma</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="TypeProduction" class="form-label">Tipo de produção</label>
-                <select class="form-control select2" id="TypeProduction" name="TypeProduction" required>
-                    <option value="" selected>-- Selecione --</option>
-                    <option value="Telescópica">Telescópica</option>
-                    <option value="Sanfonada">Sanfonada</option>
-                    <option value="Transportador de Cavaco">Transportador de Cavaco</option>
-                    <option value="Esteira">Esteira</option>
-                    <option value="Rolo cortina">Rolo cortina</option>
-                    <option value="Outros">Outros</option>
-                </select>
-            </div>
-            <div class="col-md-4">
                 <label for="UnitPrice" class="form-label">Preço por unidade</label>
                 <input type="text" class="form-control" id="UnitPrice" name="UnitPrice" required>
             </div>
             <div class="col-md-4">
-                <label for="WithdrawalAmount" class="form-label">Quatidade de retirada</label>
+                <label for="WithdrawalAmount" class="form-label">Quatidade de entrada</label>
                 <input type="text" class="form-control" id="WithdrawalAmount" name="WithdrawalAmount" required>
             </div>
             <div class="col-md-4">
@@ -51,6 +31,5 @@
         <br>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
-
 </x-layout>
 <script src="{{ asset('js/sale_products/script.js') }}"></script>

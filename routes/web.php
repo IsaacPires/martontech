@@ -12,6 +12,7 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EntryProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,4 +98,7 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/pending/{id}/deny', [PendingController::class, 'deny'])->name('pending.deny');
     Route::get('/pending/{id}/list', [PendingController::class, 'list'])->name('pending.list');
 
+    Route::resource('/entry_products', EntryProductsController::class)->except('show');
+    Route::get('/entry_products/{id}/edit', [EntryProductsController::class, 'edit']);
+    Route::get('/entry_products/csv/{request?}', [EntryProductsController::class, 'csv'])->name('entry_products.csv');
 });
