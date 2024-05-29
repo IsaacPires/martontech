@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-4">
                 <label for="WithdrawalAmount" class="form-label">Quantidade de entrada</label>
-                <input type="text" class="form-control" id="WithdrawalAmount" name="WithdrawalAmount" value='{{ $entryProducts->WithdrawalAmount }}' required>
+                <input type="number" class="form-control" id="WithdrawalAmount" name="WithdrawalAmount" value='{{ $entryProducts->WithdrawalAmount }}' required>
             </div>
             <div class="col-md-4">
                 <label for="TotalPrice" class="form-label">Preço final</label>

@@ -61,7 +61,9 @@ class EntryProductsController extends Controller
 
     public function store(Request $request)
     {
-        $entryProducts = EntryProducts::create($request->except('_token'));
+        $request['TotalPrice'] = str_replace(',', '.', $request['TotalPrice']);
+
+        EntryProducts::create($request->except('_token'));
 
         return redirect('/entry_products')
             ->with("success.message", "Entrada adicionada com sucesso!");
