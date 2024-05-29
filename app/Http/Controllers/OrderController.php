@@ -108,8 +108,15 @@ class OrderController extends Controller
 
 
         try {
-            $orders = Orders::findOrFail($request->input('delete_id'));
 
+            $orders = Orders::findOrFail($request->input('delete_id'));
+            
+            if($orders->status == 'AP'){
+                return redirect('/order')
+                ->with("successMessage", "Está requisição já foi aprovada.");
+            }
+        
+    
             $request = ModelsRequest::where('order_id', $request->input('delete_id'));
     
             if(!empty($request)){
@@ -137,7 +144,6 @@ class OrderController extends Controller
                 $order->status = 'A';
                 $order->save();
             }else{
-                dd($order->status);
                 return redirect('/order')
                 ->with("successMessage", "Está requisição já foi aprovada.");
             }
