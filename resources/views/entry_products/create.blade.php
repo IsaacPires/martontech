@@ -29,7 +29,7 @@
             </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <button type="submit" class="btn btn-primary">Adicionar o item</button>
     </form>
 </x-layout>
 <script src="{{ asset('js/sale_products/script.js') }}"></script>
