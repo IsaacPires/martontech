@@ -16,33 +16,31 @@ class OrderController extends Controller
         $successMessage = session('successMessage');
 
         $orders = DB::table('orders')
-            ->selectRaw("
-                orders.id, 
-                suppliers.Name as Fornecedor,
-                case
-                    when orders.status = 'E' THEN 'Enviado'
-                    when orders.status = 'A' THEN 'Aberto'
-                    when orders.status = 'N' THEN 'Negado'
-                    when orders.status = 'AC' THEN 'Aguardado Confirmação'
-                    when orders.status = 'AP' THEN 'Aprovado'
-                    Else 'N/i'
-                end as Status,
-                FORMAT(orders.totalValue, 2) as 'Valor total',
-                DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação' 
-
-            ")
-            ->join('requests', 'orders.id', '=', 'requests.order_id')
-            ->join('suppliers', 'suppliers.id', '=', 'requests.suppliers_id') // Adiciona o inner join aqui
-            ->orderBy('orders.created_at', 'desc');
-
-            
-        if (!empty($_GET['status']))
-        {
-            $orders->where('orders.status', '=',  $_GET['status'] );
+        ->selectRaw("
+            orders.id, 
+            suppliers.Name as Fornecedor,
+            case
+                when orders.status = 'E' THEN 'Enviado'
+                when orders.status = 'A' THEN 'Aberto'
+                when orders.status = 'N' THEN 'Negado'
+                when orders.status = 'AC' THEN 'Aguardado Confirmação'
+                when orders.status = 'AP' THEN 'Aprovado'
+                Else 'N/i'
+            end as Status,
+            REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',') as 'Valor total',
+            DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação'
+        ")
+        ->join('requests', 'orders.id', '=', 'requests.order_id')
+        ->join('suppliers', 'suppliers.id', '=', 'requests.suppliers_id')
+        ->orderBy('orders.created_at', 'desc')
+        ->groupBy('orders.id', 'suppliers.Name', 'orders.status');
+    
+        if (!empty($_GET['status'])) {
+            $orders->where('orders.status', '=', $_GET['status']);
         }
-
+    
         $orders = $orders->paginate(15);
-
+    
 
         $nextPage = $orders->nextPageUrl();
         $previusPage = $orders->previousPageUrl();

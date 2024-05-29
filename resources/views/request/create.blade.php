@@ -9,7 +9,7 @@
                 </div>
             @endisset
 
-            <div  style="{{ isset($SupRequests) && !empty($SupRequests) ? 'pointer-events: none; opacity: 1;' : '' }}"  class='col-md-4'>
+            <div  style="{{$SupRequests ? 'pointer-events: none; opacity: 1;' : '' }}"  class='col-md-4'>
                 <label for="suppliers_id" class="form-label">Fornecedor</label>
                 <select style="pointer-events: none; opacity: 1;" class="form-control select2" name="suppliers_id" id="suppliers_id" required>
                     <option value="">-- Selecione --</option>
@@ -61,15 +61,19 @@
             <h4>Resumo da requisição atual:</h4>
             <table>
                 <tr>
-                    <th>Produto<th>
+                    <th>Produto<th>         
+                    <th>Último Preço<th>
+                    <th>Preço unitario Atual<th>
                     <th>Quantidade<th>
-                    <th>Valor<th>
+                    <th>Valor Total<th>
                     <th>Ação<th>
 
                 <tr>
                 @foreach ($requests as $request )
                     <tr>
                         <td>{{$request->product->Name}}<td>
+                        <td>R${{number_format($request->lastPrice, 2, ',', '.')}}<td>
+                        <td>R${{number_format($request->currentPrice, 2, ',', '.')}}<td>
                         <td>{{$request->quantity}}<td>
                         <td>R${{number_format($request->totalValue, 2, ',', '.')}}<td>
                         <td> 

@@ -22,7 +22,7 @@ class InvoicesController extends Controller
 
         $nextPage = $invoices->nextPageUrl();
         $previusPage = $invoices->previousPageUrl();
-        $message = session('success.message');
+    $message = session('success.message');
 
         $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
         $exportCsvUrl = route('invoices.csv', $params);

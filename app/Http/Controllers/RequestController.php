@@ -75,7 +75,7 @@ class RequestController extends Controller
         $request->delete();
 
         return redirect('/request/create')
-            ->with("successMessage", "Requsição removida com sucesso!");
+            ->with("successMessage", "Item removido com sucesso!");
 
     }
 /* 

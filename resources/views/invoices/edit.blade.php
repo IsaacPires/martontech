@@ -5,11 +5,11 @@
         <div class="row">
             <div class="col-md-4">
                 <label for="ReceivingDate" class="form-label">Data de Recebimento</label>
-                <input type="date" class="form-control" id="ReceivingDate" name="ReceivingDate" value='{{$invoices->ReceivingDate}}' required>
+                <input type="date" class="form-control" id="ReceivingDate" name="ReceivingDate" value="{{date('Y-m-d', strtotime($invoices->ReceivingDate))}}" required>
             </div>
             <div class="col-md-4">
                 <label for="InvoiceDate" class="form-label">Data Nota Fiscal</label>
-                <input type="date" class="form-control" id="InvoiceDate" name="InvoiceDate" value='{{$invoices->InvoiceDate}}' required>
+                <input type="date" class="form-control" id="InvoiceDate" name="InvoiceDate" value="{{date('Y-m-d', strtotime($invoices->InvoiceDate))}}" required>
             </div>
             <div class="col-md-4">
                 <label for="Client" class="form-label">Cliente</label>
@@ -21,19 +21,19 @@
             </div>
             <div class="col-md-4">
                 <label for="Material" class="form-label">Material</label>
-                <input type="number" class="form-control" id="Material" name="Material" value='{{$invoices->Material}}' required>
+                <input type="text" class="form-control" id="Material" name="Material" value='{{$invoices->Material}}' required>
             </div>
             <div class="col-md-4">
                 <label for="DepartureDate" class="form-label">Data de Saída</label>
-                <input type="date" class="form-control" id="DepartureDate" name="DepartureDate" value='{{$invoices->DepartureDate}}' required>
+                <input type="date" class="form-control" id="DepartureDate" name="DepartureDate" value='{{$invoices->DepartureDate}}'>
             </div>
             <div class="col-md-4">
                 <label for="NumberInvoiceMarton" class="form-label">Número da Nota Marton</label>
-                <input type="text" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" value='{{$invoices->NumberInvoiceMarton}}' required>
+                <input type="text" class="form-control" id="NumberInvoiceMarton" name="NumberInvoiceMarton" value='{{$invoices->NumberInvoiceMarton}}' >
             </div>
             <div class="col-md-4">
                 <label for="FinalTransport" class="form-label">Transporte Final</label>
-                <input type="text" class="form-control" id="FinalTransport" name="FinalTransport" value='{{$invoices->FinalTransport}}' required>
+                <input type="text" class="form-control" id="FinalTransport" name="FinalTransport" value='{{$invoices->FinalTransport}}' >
             </div>
         </div>
         <br>
