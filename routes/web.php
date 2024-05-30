@@ -79,8 +79,8 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::get('/request/{id}/index', [RequestController::class, 'index'])->name('request.index');
 
 
-    Route::resource('/order', OrderController::class);
-    Route::get('/order/csv/{request?}', [OrderController::class, 'csv'])->name('orders.csv');
+    Route::resource('/order', OrderController::class)->except('show');
+    Route::get('/order/csv/{request?}', [OrderController::class, 'csv'])->name('order.csv');
     Route::get('/order/accept/{id}', [OrderController::class, 'accept'])->name('order.accept');
     Route::get('/order/deny/{id}', [OrderController::class, 'deny'])->name('order.deny');
 
