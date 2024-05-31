@@ -9,19 +9,20 @@ class SaleProductsRepository
     public function saleProductsReport()
     {
         $saleProducts = DB::table('sale_products', 'sp')
-            ->selectRaw("
-                sp.id,
-                p.Name AS 'Produto',
-                sp.SellerName AS 'Colaborador',
-                sp.WithdrawalAmount AS 'Movimentações',
-                sp.FabricationOrder AS 'Pedido de fabricação',
-                sp.TypeProduction AS 'Tipo de Produto',
-                sp.UnitPrice AS 'Preço por unidade',
-                sp.TotalPrice AS 'Preço total',
-                DATE_FORMAT(sp.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
-            ")
-            ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
-            ->orderBy('sp.created_at', 'desc');
+        ->selectRaw("
+            sp.id,
+            p.Name AS 'Produto',
+            sp.SellerName AS 'Colaborador',
+            sp.WithdrawalAmount AS 'Movimentações',
+            sp.FabricationOrder AS 'Pedido de fabricação',
+            sp.TypeProduction AS 'Tipo de Produto',
+            CONCAT('R$ ', REPLACE(FORMAT(sp.UnitPrice, 2), '.', ',')) AS 'Preço por unidade',
+            CONCAT('R$ ', REPLACE(FORMAT(sp.TotalPrice, 2), '.', ',')) AS 'Preço total',
+            DATE_FORMAT(sp.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
+
+        ")
+        ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
+        ->orderBy('sp.created_at', 'desc');
 
         if (!empty($_GET['SellerName']))
         {

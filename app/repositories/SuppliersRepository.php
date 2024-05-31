@@ -11,20 +11,31 @@ class SuppliersRepository
   {
 
     $suppliers = DB::table('suppliers')
-      ->selectRaw('
-    id, 
-    Name as "Fornecedor",
-    Segments as Segmento,
-    Cnpj, 
-    AddressNumber as "N° do endereço", 
-    AddressNeighborhood as Bairro, 
-    AddressStreet as Rua,
-    AddressCity as Cidade, 
-    AddressState as Estado, 
-    ContactNameOne as Contato,
-    ContactPhoneOne as Telefone,
-    ContactEmailOne as Email,
-    DATE_FORMAT(created_at, "%d/%m/%Y %H:%i") AS "Data Criação"
+    ->selectRaw('
+        id, 
+        Name as "Fornecedor",
+        Segments as Segmento,
+        CONCAT(
+            SUBSTRING(Cnpj, 1, 2), ".", 
+            SUBSTRING(Cnpj, 3, 3), ".", 
+            SUBSTRING(Cnpj, 6, 3), "/", 
+            SUBSTRING(Cnpj, 9, 4), "-", 
+            SUBSTRING(Cnpj, 13, 2)
+        ) as Cnpj,
+        AddressNumber as "N° do endereço", 
+        AddressNeighborhood as Bairro, 
+        AddressStreet as Rua,
+        AddressCity as Cidade, 
+        AddressState as Estado, 
+        ContactNameOne as Contato,
+        CONCAT(
+            "(", SUBSTRING(ContactPhoneOne, 1, 2), ") ", 
+            SUBSTRING(ContactPhoneOne, 3, 5), "-", 
+            SUBSTRING(ContactPhoneOne, 8, 4)
+        ) as Telefone,
+        ContactEmailOne as Email,
+        DATE_FORMAT(created_at, "%d/%m/%Y %H:%i") AS "Data Criação"
+
     ');
 
     if (!empty($_GET['ordenacao']))

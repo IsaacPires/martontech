@@ -17,10 +17,10 @@ class CreateInvoicesTable extends Migration
         {
             $table->id();
             $table->timestamp('ReceivingDate')->nullable();
-            $table->timestamp('InvoiceDate');
-            $table->string('Client', 128);
-            $table->string('NumberInvoice');
-            $table->string('Material');
+            $table->timestamp('InvoiceDate')->nullable();
+            $table->string('Client', 128)->nullable();
+            $table->string('NumberInvoice')->nullable();
+            $table->string('Material')->nullable();
             $table->timestamp('DepartureDate')->nullable(); 
             $table->string('NumberInvoiceMarton')->nullable();
             $table->string('FinalTransport')->nullable();

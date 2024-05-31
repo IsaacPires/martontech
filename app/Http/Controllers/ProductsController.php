@@ -106,7 +106,8 @@ class ProductsController extends Controller
                 'products.AlertQuantity',
                 'products.StockQuantity',
                 's.Name',
-                's2.Name'
+                's2.Name',
+                'products.created_at'
             );
 
         if (isset($_GET['ordenacao']) && !empty($_GET['ordenacao']))

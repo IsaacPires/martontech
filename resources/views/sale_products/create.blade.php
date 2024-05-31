@@ -16,7 +16,7 @@
                 <input type="text" class="form-control" id="SellerName" name="SellerName" required>
             </div>
             <div class="col-md-4">
-                <label for="FabricationOrder" class="form-label">Tipo de pedido</label>
+                <label for="FabricationOrder" class="form-label">Ordem de Fabricação</label>
                 <select class="form-control select2" name="FabricationOrder" id="FabricationOrder" required>
                     <option value="" selected>-- Selecione --</option>
                     <option value="Produto Novo">Produto Novo</option>
@@ -40,7 +40,7 @@
                 <input type="text" class="form-control" id="UnitPrice" name="UnitPrice" required>
             </div>
             <div class="col-md-4">
-                <label for="WithdrawalAmount" class="form-label">Quatidade de retirada</label>
+                <label for="WithdrawalAmount" class="form-label">Quantidade de retirada</label>
                 <input type="text" class="form-control" id="WithdrawalAmount" name="WithdrawalAmount" required>
             </div>
             <div class="col-md-4">

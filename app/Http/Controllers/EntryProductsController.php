@@ -12,16 +12,17 @@ class EntryProductsController extends Controller
     public function index()
     {
         $entryProducts = DB::table('entry_products')
-            ->selectRaw("
-                entry_products.id,
-                products.name AS 'Produto',
-                entry_products.SellerName AS 'Vendedor',
-                entry_products.UnitPrice AS 'Preço por unidade',
-                entry_products.WithdrawalAmount AS 'Quantidade de entrada',
-                entry_products.TotalPrice AS 'Preço total',
-                DATE_FORMAT(entry_products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
-            ")
-            ->leftJoin("products", "entry_products.products_id", "=", "products.id");
+        ->selectRaw("
+            entry_products.id,
+            products.name AS 'Produto',
+            entry_products.SellerName AS 'Vendedor',
+            CONCAT('R$ ', REPLACE(FORMAT(entry_products.UnitPrice, 2), '.', ',')) AS 'Preço por unidade',
+            entry_products.WithdrawalAmount AS 'Quantidade de entrada',
+            CONCAT('R$ ', REPLACE(FORMAT(entry_products.TotalPrice, 2), '.', ',')) AS 'Preço total',
+            DATE_FORMAT(entry_products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
+
+        ")
+        ->leftJoin('products', 'entry_products.products_id', '=', 'products.id');
 
         if (!empty($_GET['SellerName']))
         {

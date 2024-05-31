@@ -1,4 +1,4 @@
-<x-layout title="Requisição de comprar">
+<x-layout title="Requisição de compra">
     <form action="{{route('request.store')}}" method="POST">
         @csrf
         <div class="row">
@@ -63,7 +63,7 @@
                 <tr>
                     <th>Produto<th>         
                     <th>Último Preço<th>
-                    <th>Preço unitario Atual<th>
+                    <th>Preço unitário Atual<th>
                     <th>Quantidade<th>
                     <th>Valor Total<th>
                     <th>Ação<th>

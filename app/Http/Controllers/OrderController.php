@@ -18,7 +18,7 @@ class OrderController extends Controller
         $successMessage = session('successMessage');
 
         $orders = DB::table('orders')
-            ->selectRaw("
+        ->selectRaw("
             orders.id, 
             suppliers.Name as Fornecedor,
             case
@@ -26,16 +26,16 @@ class OrderController extends Controller
                 when orders.status = 'A' THEN 'Aberto'
                 when orders.status = 'N' THEN 'Negado'
                 when orders.status = 'AC' THEN 'Aguardado Confirmação'
-                when orders.status = 'AP' THEN 'Aprovado'
+                when orders.status = 'AP' THEN 'Compra aprovada'
                 Else 'N/i'
             end as Status,
-            REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',') as 'Valor total',
+            CONCAT('R$ ', REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',')) as 'Valor total',
             DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação'
         ")
-            ->join('requests', 'orders.id', '=', 'requests.order_id')
-            ->join('suppliers', 'suppliers.id', '=', 'requests.suppliers_id')
-            ->orderBy('orders.created_at', 'desc')
-            ->groupBy('orders.id', 'suppliers.Name', 'orders.status');
+        ->join('requests', 'orders.id', '=', 'requests.order_id')
+        ->join('suppliers', 'suppliers.id', '=', 'requests.suppliers_id')
+        ->orderBy('orders.created_at', 'desc')
+        ->groupBy('orders.id', 'suppliers.Name', 'orders.status');
 
         if (!empty($_GET['status']))
         {

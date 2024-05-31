@@ -16,19 +16,21 @@ class RequestController extends Controller
     public function index($id)
     {
         $requests = DB::table('requests')
-            ->selectRaw("
+        ->selectRaw("
             requests.id,
-            requests.product_id as 'Produto',
-            requests.suppliers_id as Fornecedor,
-            FORMAT(requests.lastPrice, 2) as 'último Valor',
-            FORMAT(requests.currentPrice, 2) as 'Valor Atual',
+            products.Name as 'Produto',
+            suppliers.Name as Fornecedor,
+            CONCAT('R$ ', FORMAT(requests.lastPrice, 2, 'de_DE')) as 'Último Valor',
+            CONCAT('R$ ', FORMAT(requests.currentPrice, 2, 'de_DE')) as 'Valor Atual',
             requests.quantity as Qntd,
-            requests.totalValue as 'Valor Total',
+            CONCAT('R$ ', FORMAT(requests.totalValue, 2, 'de_DE')) as 'Valor Total',
             DATE_FORMAT(requests.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
         ")
-            ->where('requests.order_id', '=', $id)
-            ->orderBy('requests.created_at', 'desc')
-            ->paginate(15);
+        ->join('products', 'requests.product_id', '=', 'products.id')
+        ->join('suppliers', 'requests.suppliers_id', '=', 'suppliers.id')
+        ->where('requests.order_id', '=', $id)
+        ->orderBy('requests.created_at', 'desc')  
+        ->paginate(15);
 
         $nextPage = $requests->nextPageUrl();
         $previusPage = $requests->previousPageUrl();
@@ -99,7 +101,8 @@ class RequestController extends Controller
         ModelsRequest::create($requestData);
 
         return redirect('/request/create')
-            ->with("successMessage", "Pedido de compra adicionado com sucesso!");
+        ->with("successMessage", "Item adicionado com sucesso!");
+
     }
 
     public function destroy(Request $request)

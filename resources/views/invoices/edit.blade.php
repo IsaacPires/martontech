@@ -5,23 +5,23 @@
         <div class="row">
             <div class="col-md-4">
                 <label for="ReceivingDate" class="form-label">Data de Recebimento</label>
-                <input type="date" class="form-control" id="ReceivingDate" name="ReceivingDate" value="{{date('Y-m-d', strtotime($invoices->ReceivingDate))}}" required>
+                <input type="date" class="form-control" id="ReceivingDate" name="ReceivingDate" value="{{date('Y-m-d', strtotime($invoices->ReceivingDate))}}">
             </div>
             <div class="col-md-4">
                 <label for="InvoiceDate" class="form-label">Data Nota Fiscal</label>
-                <input type="date" class="form-control" id="InvoiceDate" name="InvoiceDate" value="{{date('Y-m-d', strtotime($invoices->InvoiceDate))}}" required>
+                <input type="date" class="form-control" id="InvoiceDate" name="InvoiceDate" value="{{date('Y-m-d', strtotime($invoices->InvoiceDate))}}">
             </div>
             <div class="col-md-4">
                 <label for="Client" class="form-label">Cliente</label>
-                <input type="text" class="form-control" id="Client" name="Client" value='{{$invoices->Client}}' required>
+                <input type="text" class="form-control" id="Client" name="Client" value='{{$invoices->Client}}'>
             </div>
             <div class="col-md-4">
                 <label for="NumberInvoice" class="form-label">Número da Nota Fiscal</label>
-                <input type="text" class="form-control" id="NumberInvoice" name="NumberInvoice" value='{{$invoices->NumberInvoice}}' required>
+                <input type="text" class="form-control" id="NumberInvoice" name="NumberInvoice" value='{{$invoices->NumberInvoice}}'>
             </div>
             <div class="col-md-4">
                 <label for="Material" class="form-label">Material</label>
-                <input type="text" class="form-control" id="Material" name="Material" value='{{$invoices->Material}}' required>
+                <input type="text" class="form-control" id="Material" name="Material" value='{{$invoices->Material}}'>
             </div>
             <div class="col-md-4">
                 <label for="DepartureDate" class="form-label">Data de Saída</label>

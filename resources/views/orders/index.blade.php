@@ -8,7 +8,7 @@
                     <option value="E">Enviado</option>
                     <option value="A">Aberto</option>
                     <option value="N">Negada</option>
-                    <option value="AP">Aprovado</option>
+                    <option value="AP">Compra aprovada</option>
 
                 </select>
             </div>

@@ -40,8 +40,8 @@
                             <i class="fas fa-exchange-alt"></i>Movimentações
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
-                            <a href="{{route('sale_products.create')}}" class="dashboard-nav-dropdown-item">Retirar</a>
-                            <a href="{{route('sale_products.index')}}" class="dashboard-nav-dropdown-item">Saídas</a>
+                            <a href="{{route('sale_products.create')}}" class="dashboard-nav-dropdown-item">Retiradas</a>
+                            <a href="{{route('sale_products.index')}}" class="dashboard-nav-dropdown-item">Relatório de retiradas</a>
                             <a href="{{route('entry_products.create')}}" class="dashboard-nav-dropdown-item">Entradas</a>
                             <a href="{{route('entry_products.index')}}" class="dashboard-nav-dropdown-item">Relatório Entradas</a>
                         </div>

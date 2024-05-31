@@ -19,11 +19,11 @@ class PendingController extends Controller
                     when orders.status = 'E' THEN 'Enviado'
                     when orders.status = 'A' THEN 'Aberto'
                     when orders.status = 'N' THEN 'Negado'
-                    when orders.status = 'AC' THEN 'Aguardando Confirmação'
-                    when orders.status = 'AP' THEN 'Aprovado'
+                    when orders.status = 'AC' THEN 'Compra aprovada'
+                    when orders.status = 'AP' THEN 'Compra aprovada e recebida'
                     Else 'N/i'
                 end as Status,
-                FORMAT(orders.totalValue, 2) as 'Valor total',
+                CONCAT('R$ ', FORMAT(orders.totalValue, 2, 'de_DE')) as 'Valor total',
                 DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação' 
 
             ")
