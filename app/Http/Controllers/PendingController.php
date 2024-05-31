@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class PendingController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
         $orders = DB::table('orders')
             ->selectRaw("
@@ -28,7 +29,7 @@ class PendingController extends Controller
             ")
             ->orderBy('orders.created_at', 'desc');
 
-        if(isset($_GET['status']) && !empty($_GET['status']))
+        if (isset($_GET['status']) && !empty($_GET['status']))
         {
             $orders->where('orders.status', '=', $_GET['status']);
         }
@@ -42,7 +43,7 @@ class PendingController extends Controller
         $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
         $exportCsvUrl = route('pending.csv', $params);
 
-       /*  if(!empty($orders)){
+        /*  if(!empty($orders)){
             $requests = ModelsRequest::with('product')->where('order_id', $orders->id)->get();
         } */
 
@@ -52,23 +53,24 @@ class PendingController extends Controller
             ->with('previusPage', $previusPage)
             ->with('exportCsvUrl', $exportCsvUrl)
             ->with('successMessage', $successMessage);
-
     }
 
-    public function accept(Request $request){
+    public function accept(Request $request)
+    {
 
         $order = Orders::where('id', $request->id)->first();
         $order->status = 'AC';
 
-        if($order->save()){
+        if ($order->save())
+        {
             $message = 'Pedido de compra aprovado com sucesso!';
-        }else{
+        }
+        else
+        {
             $message = 'Ocorreu um erro!';
-
         }
 
         return redirect('/pending')->with('successMessage', $message);
-
     }
 
 
@@ -78,49 +80,64 @@ class PendingController extends Controller
         $order = Orders::where('id', $request->id)->first();
         $order->status = 'N';
 
-        if($order->save()){
+        if ($order->save())
+        {
             $message = 'Pedido de compra negado com sucesso!';
-        }else{
+        }
+        else
+        {
             $message = 'Ocorreu um erro!';
-
         }
 
         return redirect('/pending')->with('successMessage', $message);
-
     }
 
     public function csv()
     {
-        $orders = Orders::where('status', 'E')->paginate(15);
+        $pending = DB::table('orders')
+            ->selectRaw("
+            orders.id, 
+            case
+                when orders.status = 'E' THEN 'Enviado'
+                when orders.status = 'A' THEN 'Aberto'
+                when orders.status = 'N' THEN 'Negado'
+                when orders.status = 'AC' THEN 'Aguardando Confirmação'
+                when orders.status = 'AP' THEN 'Aprovado'
+                Else 'N/i'
+            end as Status,
+            FORMAT(orders.totalValue, 2) as 'Valor total',
+            DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação' 
 
-        if (!empty($_GET['ProductName']))
+        ")
+            ->orderBy('orders.created_at', 'desc');
+
+        if (isset($_GET['status']) && !empty($_GET['status']))
         {
-            $orders->where('Name', 'like', '%' . $_GET['ProductName'] . '%');
+            $pending->where('orders.status', '=', $_GET['status']);
         }
 
-        if (!empty($_GET['Supplier']))
-        {
-            $orders->where('supplier_id', 'like', '%' . $_GET['Supplier'] . '%');
-        }
-
-        $orders = $orders->get();
+        $pending = $pending->get();
 
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="products.csv"',
+            'Content-Disposition' => 'attachment; filename="Aprovacoes.csv"',
         ];
 
-        $callback = function () use ($orders)
+        $callback = function () use ($pending)
         {
             $file = fopen('php://output', 'w');
-            $headers = array_keys($orders->first()->getAttributes());
-            $headers[] = 'Ações';
-            fputcsv($file, $headers);
-            foreach ($orders as $supplier)
+            if ($pending->isNotEmpty())
             {
-                $row = $supplier->toArray();
-                $row[] = '';
-                fputcsv($file, $row);
+                $headers = array_keys((array)$pending->first());
+                fputcsv($file, $headers);
+                foreach ($pending as $pen)
+                {
+                    fputcsv($file, (array)$pen);
+                }
+            }
+            else
+            {
+                fputcsv($file, ['No data available']);
             }
             fclose($file);
         };

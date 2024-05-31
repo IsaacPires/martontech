@@ -94,7 +94,7 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::delete('/sale_products/{id}', 'SaleProductsController@destroy')->name('sale_products.destroy');
 
     //pending Routes
-    Route::resource('/pending', PendingController::class);
+    Route::resource('/pending', PendingController::class)->except('show');
     Route::get('/pending/csv/{request?}', [PendingController::class, 'csv'])->name('pending.csv');
     Route::get('/pending/{id}/accept', [PendingController::class, 'accept'])->name('pending.accept');
     Route::get('/pending/{id}/deny', [PendingController::class, 'deny'])->name('pending.deny');

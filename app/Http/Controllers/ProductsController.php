@@ -6,6 +6,7 @@ use App\Models\Products;
 use App\Models\Suppliers;
 use App\Repositories\ProductsRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -85,11 +86,55 @@ class ProductsController extends Controller
 
     public function csv()
     {
-        $products = Products::query();
+        $products = DB::table('products')
+            ->selectRaw("
+                products.id, 
+                products.Name as 'Nome Produto',
+                products.AlertQuantity as 'Qntd. em Alerta',
+                products.StockQuantity as 'Qntd. em Estoque',
+                s.Name as 'Fornecedor um',
+                s2.Name as 'Fornecedor dois'
+            ")
+            ->leftJoin('suppliers AS s', 'products.primary_suppliers_id', '=', 's.id')
+            ->leftJoin('suppliers AS s2', 'products.secondary_supplier_id', '=', 's2.id')
+            ->leftJoin('sale_products', 'products.id', '=', 'sale_products.products_id')
+            ->leftJoin('requests', 'products.id', '=', 'requests.product_id')
+            ->groupBy(
+                'products.id',
+                'products.Name',
+                'products.AlertQuantity',
+                'products.StockQuantity',
+                's.Name',
+                's2.Name'
+            );
+
+        if (isset($_GET['ordenacao']) && !empty($_GET['ordenacao']))
+        {
+            switch ($_GET['ordenacao'])
+            {
+                case 'Aging':
+                    $products->orderBy('Retirada');
+                    break;
+                case 'Criticos':
+                    $products->whereraw('StockQuantity <= AlertQuantity');
+                    break;
+                case 'Utilizados':
+                    $products->whereBetween('requests.created_at', [now()->startOfMonth(), now()]);
+                    break;
+
+                default:
+                    $products->orderBy('products.created_at', 'desc');
+                    break;
+            }
+        }
+        else
+        {
+            $products->orderBy('products.created_at', 'desc');
+        }
 
         if (!empty($_GET['ProductName']))
         {
-            $products->where('Name', 'like', '%' . $_GET['ProductName'] . '%');
+            $products->where('products.Name', 'like', '%' . $_GET['ProductName'] . '%');
         }
 
         if (!empty($_GET['Supplier']))
@@ -112,14 +157,18 @@ class ProductsController extends Controller
         $callback = function () use ($products)
         {
             $file = fopen('php://output', 'w');
-            $headers = array_keys($products->first()->getAttributes());
-            $headers[] = 'Ações';
-            fputcsv($file, $headers);
-            foreach ($products as $supplier)
+            if ($products->isNotEmpty())
             {
-                $row = $supplier->toArray();
-                $row[] = '';
-                fputcsv($file, $row);
+                $headers = array_keys((array)$products->first());
+                fputcsv($file, $headers);
+                foreach ($products as $product)
+                {
+                    fputcsv($file, (array)$product);
+                }
+            }
+            else
+            {
+                fputcsv($file, ['No data available']);
             }
             fclose($file);
         };
