@@ -93,7 +93,8 @@ class ProductsController extends Controller
                 products.AlertQuantity as 'Qntd. em Alerta',
                 products.StockQuantity as 'Qntd. em Estoque',
                 s.Name as 'Fornecedor um',
-                s2.Name as 'Fornecedor dois'
+                s2.Name as 'Fornecedor dois',
+                DATE_FORMAT(products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
             ")
             ->leftJoin('suppliers AS s', 'products.primary_suppliers_id', '=', 's.id')
             ->leftJoin('suppliers AS s2', 'products.secondary_supplier_id', '=', 's2.id')

@@ -62,7 +62,7 @@ class SaleProductsController extends Controller
     }
 
     public function destroy(Request $request)
-    {   
+    {
         $saleProducts = SaleProducts::findOrFail($request->input('delete_id'));
 
         $product = Products::findOrFail($saleProducts->products_id);
@@ -91,10 +91,13 @@ class SaleProductsController extends Controller
 
         $result =  $request->WithdrawalAmount - $saleProducts->WithdrawalAmount;
 
-        if($result < 0){
-           $product->StockQuantity -= $result;
-           $product->save();
-        }else{
+        if ($result < 0)
+        {
+            $product->StockQuantity -= $result;
+            $product->save();
+        }
+        else
+        {
             $product->StockQuantity -= $result;
             $product->save();
         }
@@ -107,11 +110,24 @@ class SaleProductsController extends Controller
 
     public function csv()
     {
-        $saleProducts = SaleProducts::query();
+        $saleProducts = DB::table('sale_products', 'sp')
+            ->selectRaw("
+            sp.id,
+            p.Name AS 'Produto',
+            sp.SellerName AS 'Colaborador',
+            sp.WithdrawalAmount AS 'Movimentações',
+            sp.FabricationOrder AS 'Pedido de fabricação',
+            sp.TypeProduction AS 'Tipo de Produto',
+            sp.UnitPrice AS 'Preço por unidade',
+            sp.TotalPrice AS 'Preço total',
+            DATE_FORMAT(sp.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
+        ")
+            ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
+            ->orderBy('sp.created_at', 'desc');
 
         if (!empty($_GET['SellerName']))
         {
-            $saleProducts->where('SellerName', 'like', '%' . $_GET['SellerName'] . '%');
+            $saleProducts->where('sp.SellerName', 'like', '%' . $_GET['SellerName'] . '%');
         }
 
         $saleProducts = $saleProducts->get();
@@ -121,22 +137,25 @@ class SaleProductsController extends Controller
             'Content-Disposition' => 'attachment; filename="sale_products.csv"',
         ];
 
-        $callBack = function () use ($saleProducts)
+        $callback = function () use ($saleProducts)
         {
             $file = fopen('php://output', 'w');
-            $headers = array_keys($saleProducts->first()->getAttributes());
-            $headers[] = 'Ações';
-            fputcsv($file, $headers);
-            foreach ($saleProducts as $sales)
+            if ($saleProducts->isNotEmpty())
             {
-                $row = $sales->toArray();
-                $row[] = '';
-                fputcsv($file, $row);
+                $headers = array_keys((array)$saleProducts->first());
+                fputcsv($file, $headers);
+                foreach ($saleProducts as $sale)
+                {
+                    fputcsv($file, (array)$sale);
+                }
+            }
+            else
+            {
+                fputcsv($file, ['No data available']);
             }
             fclose($file);
         };
 
-        return response()->stream($callBack, 200, $headers);
+        return response()->stream($callback, 200, $headers);
     }
-   
 }

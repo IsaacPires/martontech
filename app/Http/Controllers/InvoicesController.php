@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoices;
 use App\Repositories\InvoicesRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoicesController extends Controller
 {
@@ -22,7 +23,7 @@ class InvoicesController extends Controller
 
         $nextPage = $invoices->nextPageUrl();
         $previusPage = $invoices->previousPageUrl();
-    $message = session('success.message');
+        $message = session('success.message');
 
         $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
         $exportCsvUrl = route('invoices.csv', $params);
@@ -43,32 +44,36 @@ class InvoicesController extends Controller
     public function store(Request $request)
     {
 
-        try {
+        try
+        {
             Invoices::create($request->except('_token'));
 
             return redirect('/invoices')
                 ->with("success.message", "NF gerada com sucesso");
-        } catch (\Throwable $th) {
-            return redirect('/invoices')
-            ->with("success.message", "Erro ao adicionar a nota fiscal.");
         }
-      
+        catch (\Throwable $th)
+        {
+            return redirect('/invoices')
+                ->with("success.message", "Erro ao adicionar a nota fiscal.");
+        }
     }
 
     public function destroy(Request $request)
     {
 
-        try {
+        try
+        {
             $invoices = Invoices::findOrFail($request->input('delete_id'));
             $invoices->delete();
 
             return redirect('/invoices')
-            ->with("success.message", "Invoice removida com sucesso");
-        } catch (\Throwable $th) {
-            return redirect('/invoices')
-            ->with("success.message", "Erro ao apagar registro");
+                ->with("success.message", "Invoice removida com sucesso");
         }
-        
+        catch (\Throwable $th)
+        {
+            return redirect('/invoices')
+                ->with("success.message", "Erro ao apagar registro");
+        }
     }
 
     public function edit($id)
@@ -80,26 +85,56 @@ class InvoicesController extends Controller
 
     public function update(Request $request, $id)
     {
-        try {
+        try
+        {
             $invoices = Invoices::findOrFail($id);
             $invoices->update($request->all());
-    
+
             return redirect('/invoices')
                 ->with("success.message", "NF atualizada com sucesso");
-        } catch (\Throwable $th) {
+        }
+        catch (\Throwable $th)
+        {
             return redirect('/invoices')
                 ->with("success.message", "Nota fiscal não pode ser atualizada.");
         }
-       
     }
 
     public function csv()
     {
-        $invoices = Invoices::query();
+        $invoices = DB::table('invoices', 'i')
+            ->selectRaw("
+            i.id,
+            i.Client AS 'Cliente',
+            DATE_FORMAT(i.ReceivingDate, '%d/%m/%Y')  AS 'Date Recebimento',
+            DATE_FORMAT(i.InvoiceDate, '%d/%m/%Y') AS 'Data NF',
+            i.NumberInvoice AS 'N° NF',
+            i.NumberInvoiceMarton as 'N° Nf Marton',
+            i.DepartureDate as 'Data de Saída',
+            i.FinalTransport as 'Transportadora Final',
+            i.Material AS 'Material',
+            DATE_FORMAT(i.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
+        ")
+            ->orderBy('i.created_at', 'desc');
 
         if (!empty($_GET['Client']))
         {
             $invoices->where('i.Client', 'like', '%' . $_GET['Client'] . '%');
+        }
+
+        if (!empty($_GET['nfCliente']))
+        {
+            $invoices->where('i.NumberInvoice', '=', $_GET['nfCliente']);
+        }
+
+        if (!empty($_GET['nfMarton']))
+        {
+            $invoices->where('i.NumberInvoiceMarton', '=', $_GET['nfMarton']);
+        }
+
+        if (!empty($_GET['material']))
+        {
+            $invoices->where('i.Material', 'like', '%' . $_GET['material'] . '%');
         }
 
         $invoices = $invoices->get();
@@ -109,21 +144,25 @@ class InvoicesController extends Controller
             'Content-Disposition' => 'attachment; filename="invoices.csv"',
         ];
 
-        $callBack = function () use ($invoices)
+        $callback = function () use ($invoices)
         {
             $file = fopen('php://output', 'w');
-            $headers = array_keys($invoices->first()->getAttributes());
-            $headers[] = 'Ações';
-            fputcsv($file, $headers);
-            foreach ($invoices as $invoice)
+            if ($invoices->isNotEmpty())
             {
-                $row = $invoice->toArray();
-                $row[] = '';
-                fputcsv($file, $row);
+                $headers = array_keys((array)$invoices->first());
+                fputcsv($file, $headers);
+                foreach ($invoices as $invoice)
+                {
+                    fputcsv($file, (array)$invoice);
+                }
+            }
+            else
+            {
+                fputcsv($file, ['No data available']);
             }
             fclose($file);
         };
 
-        return response()->stream($callBack, 200, $headers);
+        return response()->stream($callback, 200, $headers);
     }
 }

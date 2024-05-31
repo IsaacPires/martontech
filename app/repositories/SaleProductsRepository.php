@@ -17,7 +17,8 @@ class SaleProductsRepository
                 sp.FabricationOrder AS 'Pedido de fabricação',
                 sp.TypeProduction AS 'Tipo de Produto',
                 sp.UnitPrice AS 'Preço por unidade',
-                sp.TotalPrice AS 'Preço total'
+                sp.TotalPrice AS 'Preço total',
+                DATE_FORMAT(sp.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
             ")
             ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
             ->orderBy('sp.created_at', 'desc');

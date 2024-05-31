@@ -18,7 +18,8 @@ class EntryProductsController extends Controller
                 entry_products.SellerName AS 'Vendedor',
                 entry_products.UnitPrice AS 'Preço por unidade',
                 entry_products.WithdrawalAmount AS 'Quantidade de entrada',
-                entry_products.TotalPrice AS 'Preço total'
+                entry_products.TotalPrice AS 'Preço total',
+                DATE_FORMAT(entry_products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
             ")
             ->leftJoin("products", "entry_products.products_id", "=", "products.id");
 
@@ -106,7 +107,8 @@ class EntryProductsController extends Controller
                 entry_products.SellerName AS 'Vendedor',
                 entry_products.UnitPrice AS 'Preço por unidade',
                 entry_products.WithdrawalAmount AS 'Quantidade de entrada',
-                entry_products.TotalPrice AS 'Preço total'
+                entry_products.TotalPrice AS 'Preço total',
+                DATE_FORMAT(entry_products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
             ")->leftJoin("products", "entry_products.products_id", "=", "products.id");
 
         if (!empty($_GET['SellerName']))
