@@ -17,8 +17,8 @@ class CreateProductsTable extends Migration
         {
             $table->id();
             $table->string('Name', 128);
-            $table->integer('AlertQuantity');
-            $table->integer('StockQuantity')->default(0);
+            $table->decimal('AlertQuantity', 8, 2);
+            $table->decimal('StockQuantity', 8, 2)->default(0);
             $table->integer('primary_suppliers_id');//->constrained('suppliers')->onDelete('cascade');
             $table->integer('secondary_supplier_id');//->constrained('suppliers')->onDelete('cascade');
             $table->timestamps();

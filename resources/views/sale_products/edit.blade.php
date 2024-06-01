@@ -36,15 +36,15 @@
             </div>
             <div class="col-md-4">
                 <label for="UnitPrice" class="form-label">Preço por unidade</label>
-                <input type="number" class="form-control" id="UnitPrice" name="UnitPrice" value='{{$saleProducts->UnitPrice}}' required>
+                <input type="text" class="form-control" id="UnitPrice" name="UnitPrice" value='{{$saleProducts->UnitPrice}}' required>
             </div>
             <div class="col-md-4">
                 <label for="WithdrawalAmount" class="form-label">Quatidade de retirada</label>
-                <input type="number" class="form-control" id="WithdrawalAmount" name="WithdrawalAmount" value='{{$saleProducts->WithdrawalAmount}}' required>
+                <input type="text" class="form-control" id="WithdrawalAmount" name="WithdrawalAmount" value='{{$saleProducts->WithdrawalAmount}}' required>
             </div>
             <div class="col-md-4">
                 <label for="TotalPrice" class="form-label">Preço final</label>
-                <input type="number" class="form-control" id="TotalPrice" name="TotalPrice" value='{{$saleProducts->TotalPrice}}' required>
+                <input type="text" class="form-control" id="TotalPrice" name="TotalPrice" value='{{$saleProducts->TotalPrice}}' required>
             </div>
         </div>
         <br>

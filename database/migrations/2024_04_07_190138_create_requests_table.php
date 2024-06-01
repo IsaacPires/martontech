@@ -20,7 +20,7 @@ class CreateRequestsTable extends Migration
             $table->string('brand');
             $table->float('lastPrice');
             $table->float('currentPrice');
-            $table->integer('quantity');
+            $table->decimal('quantity', 8, 2);
             $table->float('totalValue');
             $table->integer('order_id');
             $table->timestamps();

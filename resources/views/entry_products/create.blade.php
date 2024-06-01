@@ -12,6 +12,19 @@
                 </select>
             </div>
             <div class="col-md-4">
+                <label for="suppliers" class="form-label">Fornecodor</label>
+                <select class="form-control select2" name="suppliers" id="suppliers" required>
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+             <div class="col-md-4">
+                <label for="brand" class="form-label">Marca</label>
+                <input type="text" class="form-control" id="brand" name="brand" required>
+            </div>
+            <div class="col-md-4">
                 <label for="SellerName" class="form-label">Colaborador</label>
                 <input type="text" class="form-control" id="SellerName" name="SellerName" required>
             </div>

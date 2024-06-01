@@ -51,6 +51,9 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
+
+        $request['AlertQuantity'] = str_replace(',', '.', $request['AlertQuantity']);
+
         $products = Products::create($request->except('_token'));
 
         return redirect('/products')

@@ -49,11 +49,12 @@ class SaleProductsController extends Controller
     {
         $request['UnitPrice'] = str_replace(',', '.', $request['UnitPrice']);
         $request['TotalPrice'] = str_replace(',', '.', $request['TotalPrice']);
+        $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
 
         $products = Products::findOrFail($request->products_id);
         $products->StockQuantity -= $request->WithdrawalAmount;
+        $products->update($request->except('_token'));
 
-        $products->update($request->all());
 
         SaleProducts::create($request->except('_token'));
 
@@ -89,18 +90,15 @@ class SaleProductsController extends Controller
         $saleProducts = SaleProducts::findOrFail($id);
         $product = Products::findOrFail($saleProducts->products_id);
 
+        $request['UnitPrice'] = str_replace(',', '.', $request['UnitPrice']);
+        $request['TotalPrice'] = str_replace(',', '.', $request['TotalPrice']);
+        $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
+
         $result =  $request->WithdrawalAmount - $saleProducts->WithdrawalAmount;
 
-        if ($result < 0)
-        {
-            $product->StockQuantity -= $result;
-            $product->save();
-        }
-        else
-        {
-            $product->StockQuantity -= $result;
-            $product->save();
-        }
+        $product->StockQuantity -= $result;
+        $product->save();
+
 
         $saleProducts->update($request->all());
 

@@ -18,7 +18,7 @@ class CreateSaleProductsTable extends Migration
             $table->id();
             $table->foreignId('products_id')->constrained()->onDelete('cascade');
             $table->string('SellerName', 128);
-            $table->integer('WithdrawalAmount');
+            $table->decimal('WithdrawalAmount', 8, 2);
             $table->string('FabricationOrder');
             $table->string('TypeProduction');
             $table->decimal('UnitPrice', 8, 2);            

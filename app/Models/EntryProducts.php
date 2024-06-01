@@ -16,6 +16,8 @@ class EntryProducts extends Model
         'WithdrawalAmount',
         'UnitPrice',
         'TotalPrice',
+        'Suppliers_id',
+        'Brand'
     ];
 
     public function products()

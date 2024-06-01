@@ -22,7 +22,7 @@ class RequestController extends Controller
             suppliers.Name as Fornecedor,
             CONCAT('R$ ', FORMAT(requests.lastPrice, 2, 'de_DE')) as 'Último Valor',
             CONCAT('R$ ', FORMAT(requests.currentPrice, 2, 'de_DE')) as 'Valor Atual',
-            requests.quantity as Qntd,
+            REPLACE(requests.quantity, '.', ',') as 'Quantidade',
             CONCAT('R$ ', FORMAT(requests.totalValue, 2, 'de_DE')) as 'Valor Total',
             DATE_FORMAT(requests.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
         ")
@@ -145,7 +145,7 @@ class RequestController extends Controller
         }
         else
         {
-            $preco = '0.00';
+            $preco = 0.00;
         }
 
         return response()->json($preco);

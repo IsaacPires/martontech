@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EntryProducts;
 use App\Models\Products;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,14 +16,17 @@ class EntryProductsController extends Controller
         ->selectRaw("
             entry_products.id,
             products.name AS 'Produto',
+            suppliers.Name as Fornecedor,
+            entry_products.Brand as Marca,
             entry_products.SellerName AS 'Vendedor',
             CONCAT('R$ ', REPLACE(FORMAT(entry_products.UnitPrice, 2), '.', ',')) AS 'Preço por unidade',
-            entry_products.WithdrawalAmount AS 'Quantidade de entrada',
+            REPLACE(entry_products.WithdrawalAmount, '.', ',') as 'Qntd. de entrada',
             CONCAT('R$ ', REPLACE(FORMAT(entry_products.TotalPrice, 2), '.', ',')) AS 'Preço total',
             DATE_FORMAT(entry_products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
 
         ")
-        ->leftJoin('products', 'entry_products.products_id', '=', 'products.id');
+        ->leftJoin('products', 'entry_products.products_id', '=', 'products.id')
+        ->leftJoin('suppliers', 'entry_products.Suppliers_id', '=', 'suppliers.id');
 
         if (!empty($_GET['SellerName']))
         {
@@ -57,15 +61,25 @@ class EntryProductsController extends Controller
     public function create()
     {
         $products = Products::all();
+        $suppliers = Suppliers::all();
 
-        return view('entry_products.create')->with('products', $products);;
+        return view('entry_products.create')
+        ->with('products', $products)
+        ->with('suppliers', $suppliers);
     }
 
     public function store(Request $request)
     {
         $request['TotalPrice'] = str_replace(',', '.', $request['TotalPrice']);
+        $request['UnitPrice'] = str_replace(',', '.', $request['UnitPrice']);
+        $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
 
         EntryProducts::create($request->except('_token'));
+
+        $products = Products::findOrFail($request->products_id);
+        $products->StockQuantity += $request->WithdrawalAmount;
+        $products->update($request->except('_token'));
+
 
         return redirect('/entry_products')
             ->with("success.message", "Entrada adicionada com sucesso!");
@@ -93,6 +107,17 @@ class EntryProductsController extends Controller
     public function update(Request $request, $id)
     {
         $entry = EntryProducts::findOrFail($id);
+        $product = Products::findOrFail($entry->products_id);
+
+        $request['UnitPrice'] = str_replace(',', '.', $request['UnitPrice']);
+        $request['TotalPrice'] = str_replace(',', '.', $request['TotalPrice']);
+        $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
+
+        $result =  $request->WithdrawalAmount - $entry->WithdrawalAmount;
+
+        $product->StockQuantity += $result;
+        $product->save();
+
         $entry->update($request->all());
 
         return redirect('/entry_products')

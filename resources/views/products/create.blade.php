@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-4">
                 <label for="AlertQuantity" class="form-label">Quantidade de Alerta</label>
-                <input type="number" class="form-control" maxlength="11" id="AlertQuantity" name="AlertQuantity" required>
+                <input type="text" class="form-control" maxlength="11" id="AlertQuantity" name="AlertQuantity" required>
             </div>
             {{-- <div class="col-md-4">
                 <label for="StockQuantity" class="form-label">Quatidade em Estoque</label>
@@ -57,5 +57,5 @@
         <br>
         <button type="submit" class="btn btn-primary">Adicionar o item</button>
     </form>
-
 </x-layout>
+<script src="{{ asset('js/products/script.js') }}"></script>

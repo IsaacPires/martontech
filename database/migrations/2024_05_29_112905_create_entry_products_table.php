@@ -18,8 +18,10 @@ class CreateEntryProductsTable extends Migration
             $table->id();
             $table->foreignId('products_id')->constrained('products');
             $table->string('SellerName', 128);
+            $table->integer('Suppliers_id')->nullable();
+            $table->string('Brand', 128)->nullable();
             $table->decimal('UnitPrice', 8, 2);
-            $table->integer('WithdrawalAmount');
+            $table->decimal('WithdrawalAmount', 8, 2);
             $table->decimal('TotalPrice', 8, 2);
             $table->timestamps();
         });
