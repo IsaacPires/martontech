@@ -14,7 +14,7 @@ class SaleProductsRepository
             p.Name AS 'Produto',
             sp.SellerName AS 'Colaborador',
             REPLACE( sp.WithdrawalAmount, '.', ',') as 'Quantidade',
-            sp.FabricationOrder AS 'Pedido de fabricação',
+            sp.FabricationOrder AS 'Ordem de Fabricação ',
             sp.TypeProduction AS 'Tipo de Produto',
             CONCAT('R$ ', REPLACE(FORMAT(sp.UnitPrice, 2), '.', ',')) AS 'Preço por unidade',
             CONCAT('R$ ', REPLACE(FORMAT(sp.TotalPrice, 2), '.', ',')) AS 'Preço total',

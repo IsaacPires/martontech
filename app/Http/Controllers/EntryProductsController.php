@@ -18,7 +18,7 @@ class EntryProductsController extends Controller
             products.name AS 'Produto',
             suppliers.Name as Fornecedor,
             entry_products.Brand as Marca,
-            entry_products.SellerName AS 'Vendedor',
+            entry_products.SellerName AS 'Colaborador',
             CONCAT('R$ ', REPLACE(FORMAT(entry_products.UnitPrice, 2), '.', ',')) AS 'Preço por unidade',
             REPLACE(entry_products.WithdrawalAmount, '.', ',') as 'Qntd. de entrada',
             CONCAT('R$ ', REPLACE(FORMAT(entry_products.TotalPrice, 2), '.', ',')) AS 'Preço total',
@@ -26,7 +26,7 @@ class EntryProductsController extends Controller
 
         ")
         ->leftJoin('products', 'entry_products.products_id', '=', 'products.id')
-        ->leftJoin('suppliers', 'entry_products.Suppliers_id', '=', 'suppliers.id');
+        ->leftJoin('suppliers', 'entry_products.Suppliers_id', '=', 'suppliers.id')->orderBy('entry_products.created_at', 'DESC');
 
         if (!empty($_GET['SellerName']))
         {

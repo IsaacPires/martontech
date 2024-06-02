@@ -51,7 +51,7 @@
             </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Adicionar o pedido</button>
+        <button type="submit" class="btn btn-primary">Adicionar o item</button>
     </form>
     @if(!empty($orders) && !empty($requests))
 

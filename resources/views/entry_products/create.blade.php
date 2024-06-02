@@ -3,6 +3,15 @@
         @csrf
         <div class="row">
             <div class="col-md-4">
+                <label for="suppliers" class="form-label">Fornecedor</label>
+                <select class="form-control select2" name="suppliers" id="suppliers" required>
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
                 <label for="products_id" class="form-label">Produto</label>
                 <select class="form-control select2" name="products_id" id="products_id" required>
                     <option value="">-- Selecione --</option>
@@ -12,15 +21,6 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="suppliers" class="form-label">Fornecodor</label>
-                <select class="form-control select2" name="suppliers" id="suppliers" required>
-                    <option value="">-- Selecione --</option>
-                    @foreach ($suppliers as $supplier)
-                    <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
-                    @endforeach
-                </select>
-            </div>
-             <div class="col-md-4">
                 <label for="brand" class="form-label">Marca</label>
                 <input type="text" class="form-control" id="brand" name="brand" required>
             </div>
@@ -33,7 +33,7 @@
                 <input type="text" class="form-control" id="UnitPrice" name="UnitPrice" required>
             </div>
             <div class="col-md-4">
-                <label for="WithdrawalAmount" class="form-label">Quatidade de entrada</label>
+                <label for="WithdrawalAmount" class="form-label">Quantidade de entrada</label>
                 <input type="text" class="form-control" id="WithdrawalAmount" name="WithdrawalAmount" required>
             </div>
             <div class="col-md-4">

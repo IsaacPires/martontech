@@ -25,8 +25,8 @@ class OrderController extends Controller
                 when orders.status = 'E' THEN 'Enviado'
                 when orders.status = 'A' THEN 'Aberto'
                 when orders.status = 'N' THEN 'Negado'
-                when orders.status = 'AC' THEN 'Aguardado Confirmação'
-                when orders.status = 'AP' THEN 'Compra aprovada'
+                when orders.status = 'AC' THEN 'Compra aprovada'
+                when orders.status = 'AP' THEN 'Compra aprovada e recebida'
                 Else 'N/i'
             end as Status,
             CONCAT('R$ ', REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',')) as 'Valor total',
@@ -50,7 +50,6 @@ class OrderController extends Controller
 
         $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
         $exportCsvUrl = route('order.csv', $params);
-
 
 
         return view('orders.index')
