@@ -114,6 +114,7 @@ class SaleProductsController extends Controller
             p.Name AS 'Produto',
             sp.SellerName AS 'Colaborador',
             sp.WithdrawalAmount AS 'Movimentações',
+            sp.FabricationType AS 'Tipo de Fabricação ',
             sp.FabricationOrder AS 'Ordem de Fabricação ',
             sp.TypeProduction AS 'Tipo de Produto',
             sp.UnitPrice AS 'Preço por unidade',

@@ -17,7 +17,7 @@ class EntryProductsController extends Controller
             entry_products.id,
             products.name AS 'Produto',
             suppliers.Name as Fornecedor,
-            entry_products.Brand as Marca,
+            entry_products.Brand as 'Infos Adicionais',
             entry_products.SellerName AS 'Colaborador',
             CONCAT('R$ ', REPLACE(FORMAT(entry_products.UnitPrice, 2), '.', ',')) AS 'Preço por unidade',
             REPLACE(entry_products.WithdrawalAmount, '.', ',') as 'Qntd. de entrada',
@@ -75,10 +75,12 @@ class EntryProductsController extends Controller
         $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
 
         EntryProducts::create($request->except('_token'));
-
+       
         $products = Products::findOrFail($request->products_id);
         $products->StockQuantity += $request->WithdrawalAmount;
+        $products->primary_suppliers_id = $request->Suppliers_id;
         $products->update($request->except('_token'));
+       
 
 
         return redirect('/entry_products')
@@ -114,8 +116,13 @@ class EntryProductsController extends Controller
         $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
 
         $result =  $request->WithdrawalAmount - $entry->WithdrawalAmount;
-
+        
         $product->StockQuantity += $result;
+
+        if(!empty($request->suppliers)){
+            $product->primary_suppliers_id = $request->suppliers;
+        }
+
         $product->save();
 
         $entry->update($request->all());

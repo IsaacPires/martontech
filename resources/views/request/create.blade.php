@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-md-4">
-                <label for="brand" class="form-label">Marca</label>
+                <label for="brand" class="form-label">Info Adicional</label>
                 <input type="text" class="form-control" id="brand" name="brand" required>
             </div>
             <div class="col-md-4">

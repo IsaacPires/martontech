@@ -24,6 +24,7 @@ class RequestController extends Controller
             CONCAT('R$ ', FORMAT(requests.currentPrice, 2, 'de_DE')) as 'Valor Atual',
             REPLACE(requests.quantity, '.', ',') as 'Quantidade',
             CONCAT('R$ ', FORMAT(requests.totalValue, 2, 'de_DE')) as 'Valor Total',
+            requests.brand as 'Info Adicional',
             DATE_FORMAT(requests.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
         ")
         ->join('products', 'requests.product_id', '=', 'products.id')

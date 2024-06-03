@@ -18,6 +18,7 @@ class SaleProducts extends Model
         'TypeProduction',
         'UnitPrice',
         'TotalPrice',
+        'FabricationType'
     ];
 
     public function products()

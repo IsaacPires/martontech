@@ -19,10 +19,11 @@ class CreateSaleProductsTable extends Migration
             $table->foreignId('products_id')->constrained()->onDelete('cascade');
             $table->string('SellerName', 128);
             $table->decimal('WithdrawalAmount', 8, 2);
-            $table->string('FabricationOrder');
+            $table->string('FabricationType');
             $table->string('TypeProduction');
             $table->decimal('UnitPrice', 8, 2);            
             $table->decimal('TotalPrice', 8, 2);
+            $table->string('FabricationOrder');
             $table->timestamps();
         });
     }

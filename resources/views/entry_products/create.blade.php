@@ -3,8 +3,8 @@
         @csrf
         <div class="row">
             <div class="col-md-4">
-                <label for="suppliers" class="form-label">Fornecedor</label>
-                <select class="form-control select2" name="suppliers" id="suppliers" required>
+                <label for="Suppliers_id" class="form-label">Fornecedor</label>
+                <select class="form-control select2" name="Suppliers_id" id="Suppliers_id" required>
                     <option value="">-- Selecione --</option>
                     @foreach ($suppliers as $supplier)
                     <option value="{{$supplier->id}}">{{ $supplier->Name }}</option>
@@ -21,8 +21,8 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="brand" class="form-label">Marca</label>
-                <input type="text" class="form-control" id="brand" name="brand" required>
+                <label for="Brand" class="form-label">Marca</label>
+                <input type="text" class="form-control" id="Brand" name="Brand" required>
             </div>
             <div class="col-md-4">
                 <label for="SellerName" class="form-label">Colaborador</label>
