@@ -89,7 +89,7 @@ class RequestController extends Controller
         else
         {
 
-            $newTotalValue = $order->totalValue + $request->totalValue;
+            $newTotalValue = $order->totalValue + (float)$request->totalValue;
             $order->totalValue = $newTotalValue;
             $order->save();
         }

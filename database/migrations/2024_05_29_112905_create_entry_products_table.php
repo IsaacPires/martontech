@@ -16,7 +16,7 @@ class CreateEntryProductsTable extends Migration
         Schema::create('entry_products', function (Blueprint $table)
         {
             $table->id();
-            $table->foreignId('products_id')->constrained('products');
+            $table->integer('products_id');
             $table->string('SellerName', 128);
             $table->integer('Suppliers_id')->nullable();
             $table->string('Brand', 128)->nullable();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EntryProducts;
 use App\Models\Orders;
 use App\Models\Products;
 use Illuminate\Http\Request;
@@ -61,17 +62,28 @@ class OrderController extends Controller
     }
 
     public function accept($id)
-    {
+    {   $mRequests = ModelsRequest::where('order_id', $id)->get();
+
         try
         {
             $orders = Orders::find($id);
-
             $mRequests = ModelsRequest::where('order_id', $id)->get();
-
+         
             foreach ($mRequests as $mRequest)
             {
+                $entry = new EntryProducts();
+
+                $entry->products_id = $mRequest->product_id;
+                $entry->SellerName = 'Via Requisição';
+                $entry->Suppliers_id = $mRequest->suppliers_id;
+                $entry->Brand = $mRequest->brand;
+                $entry->UnitPrice = $mRequest->currentPrice;
+                $entry->WithdrawalAmount = $mRequest->quantity;
+                $entry->TotalPrice = $mRequest->totalValue;
+
+                $entry->save();
+
                 $product = Products::find($mRequest->product_id);
-                var_dump($mRequest->product_id);
                 $product->StockQuantity += $mRequest->quantity;
                 $product->save();
             }

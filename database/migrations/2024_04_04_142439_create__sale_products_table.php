@@ -16,7 +16,7 @@ class CreateSaleProductsTable extends Migration
         Schema::create('sale_products', function (Blueprint $table)
         {
             $table->id();
-            $table->foreignId('products_id')->constrained()->onDelete('cascade');
+            $table->integer('products_id');
             $table->string('SellerName', 128);
             $table->decimal('WithdrawalAmount', 8, 2);
             $table->string('FabricationType');
