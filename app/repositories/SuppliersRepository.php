@@ -52,6 +52,11 @@ class SuppliersRepository
       $suppliers->where('Name', 'like', '%' . $_GET['SocialReason'] . '%');
     }
 
+    if (!empty($_GET['SocialReason']))
+    {
+      $suppliers->where('Name', 'like', '%' . $_GET['SocialReason'] . '%');
+    }
+
     if (!empty($_GET['Segments']))
     {
       $suppliers->where('Segments', 'like', '%' . $_GET['Segments'] . '%');

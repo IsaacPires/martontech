@@ -129,6 +129,11 @@ class SaleProductsController extends Controller
             $saleProducts->where('sp.SellerName', 'like', '%' . $_GET['SellerName'] . '%');
         }
 
+        if (!empty($_GET['fabricationOrder']))
+        {
+            $saleProducts->where('sp.FabricationOrder', 'like', '%' . $_GET['fabricationOrder'] . '%');
+        }
+
         $saleProducts = $saleProducts->get();
 
         $headers = [

@@ -14,6 +14,16 @@
                     @endforeach
                 </select>
             </div>
+
+            <div class="col-md-4">
+                <label for="supplier" class="form-label">Fornecedores</label>
+                <select class="form-control select2" data-live-search="true" name="supplier" id="supplier">
+                    <option value="">-- Selecione --</option>
+                     @foreach ($suppliers as $supplier)
+                        <option {{ isset($_GET['supplier']) && $_GET['supplier'] == $supplier->id ? 'Selected' : ''}} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
 
         <div style='margin-top: 20px;'>

@@ -8,7 +8,7 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Request as ModelsRequest;
-
+use App\Models\Suppliers;
 
 class OrderController extends Controller
 {
@@ -19,33 +19,40 @@ class OrderController extends Controller
         $successMessage = session('successMessage');
 
         $orders = DB::table('orders')
-        ->selectRaw("
-            orders.id, 
-            suppliers.Name as Fornecedor,
-            case
-                when orders.status = 'E' THEN 'Enviado'
-                when orders.status = 'A' THEN 'Aberto'
-                when orders.status = 'N' THEN 'Negado'
-                when orders.status = 'AC' THEN 'Compra aprovada'
-                when orders.status = 'AP' THEN 'Compra aprovada e recebida'
-                Else 'N/i'
-            end as Status,
-            CONCAT('R$ ', REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',')) as 'Valor total',
-            DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação'
-        ")
-        ->join('requests', 'orders.id', '=', 'requests.order_id')
-        ->join('suppliers', 'suppliers.id', '=', 'requests.suppliers_id')
-        ->orderBy('orders.created_at', 'desc')
-        ->groupBy('orders.id', 'suppliers.Name', 'orders.status');
+    ->selectRaw("
+        orders.id,
+        CASE
+            WHEN orders.status = 'E' THEN 'Enviado'
+            WHEN orders.status = 'A' THEN 'Aberto'
+            WHEN orders.status = 'N' THEN 'Negado'
+            WHEN orders.status = 'AC' THEN 'Compra aprovada'
+            WHEN orders.status = 'AP' THEN 'Compra aprovada e recebida'
+            ELSE 'N/i'
+        END as Status,
+        CONCAT('R$ ', REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',')) as 'Valor total',
+        DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação'
+    ")
+
+    ->groupBy('orders.id', 'orders.status')
+    ->orderBy('orders.created_at', 'desc');
 
         if (!empty($_GET['status']))
         {
             $orders->where('orders.status', '=', $_GET['status']);
         }
+  /*       if (!empty($_GET['ids']))
+        {
+            $orders->where('orders.id', '=', $_GET['ids']);
+        }
+
+        if (!empty($_GET['suppliers']))
+        {
+            $orders->where('requests.suppliers_id', '=', $_GET['suppliers']);
+        } */
 
         $orders = $orders->paginate(15);
 
-
+        //$suppliers = Suppliers::all();
         $nextPage = $orders->nextPageUrl();
         $previusPage = $orders->previousPageUrl();
 
@@ -55,6 +62,7 @@ class OrderController extends Controller
 
         return view('orders.index')
             ->with('orders', $orders)
+            //->with('suppliers', $suppliers)
             ->with('exportCsvUrl', $exportCsvUrl)
             ->with('successMessage', $successMessage)
             ->with('nextPage', $nextPage)

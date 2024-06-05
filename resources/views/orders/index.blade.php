@@ -8,9 +8,24 @@
                     <option value="E">Enviado</option>
                     <option value="A">Aberto</option>
                     <option value="N">Negada</option>
-                    <option value="AP">Compra aprovada</option>
-
+                    <option value="AC">Compra aprovada</option>
+                    <option value="AP">Compra aprovada e recebida</option>
                 </select>
+            </div>
+
+{{--             <div class="col-md-4">
+                <label for="supplier" class="form-label">Fornecedor</label>
+                <select class="form-control select2" data-live-search="true" name="supplier" id="supplier">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option {{ isset($_GET['supplier']) && $_GET['supplier'] == $supplier->id ? 'Selected' : ''}} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div> --}}
+
+            <div class="col-md-4">
+                <label for="ids" class="form-label">ID</label>
+                <input value = " {{ isset($_GET['ids']) && !empty($_GET['ids']) ? $_GET['ids'] : '' }}" type="text" class="form-control" id="ids" name="ids" placeholder="Digite para filtrar...">
             </div>
         </div>
 

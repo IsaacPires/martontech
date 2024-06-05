@@ -38,9 +38,15 @@ class EntryProductsController extends Controller
             $entryProducts->where('entry_products.products_id', '=', $_GET['product']);
         }
 
+        if (!empty($_GET['supplier']))
+        {
+            $entryProducts->where('entry_products.Suppliers_id', '=', $_GET['supplier']);
+        }
+
         $entryProducts = $entryProducts->paginate(15);
 
         $products = Products::all();
+        $suppliers = Suppliers::all();
 
         $nextPage = $entryProducts->nextPageUrl();
         $previusPage = $entryProducts->previousPageUrl();
@@ -55,6 +61,7 @@ class EntryProductsController extends Controller
             ->with('nextPage', $nextPage)
             ->with('previusPage', $previusPage)
             ->with('successMessage', $message)
+            ->with('suppliers', $suppliers)
             ->with('exportCsvUrl',  $exportCsvUrl);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use App\Models\Request as ModelsRequest;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,12 +30,22 @@ class PendingController extends Controller
             ")
             ->orderBy('orders.created_at', 'desc');
 
-        if (isset($_GET['status']) && !empty($_GET['status']))
-        {
-            $orders->where('orders.status', '=', $_GET['status']);
-        }
-
-        $orders = $orders->paginate(15);
+            if (!empty($_GET['ids']))
+            {
+                $orders->where('orders.id', '=', $_GET['ids']);
+            }
+    
+            if (!empty($_GET['supplier']))
+            {
+                $orders->where('requests.suppliers_id', '=', $_GET['supplier']);
+            }
+    
+            if (isset($_GET['status']) && !empty($_GET['status']))
+            {
+                $orders->where('orders.status', '=', $_GET['status']);
+            }
+    
+            $orders = $orders->paginate(15);
 
         $nextPage = $orders->nextPageUrl();
         $previusPage = $orders->previousPageUrl();

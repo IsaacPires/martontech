@@ -24,6 +24,22 @@ class SaleProductsRepository
         ")
         ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
         ->orderBy('sp.created_at', 'desc');
+        
+        if (!empty($_GET['fabricationOrder']))
+        {
+            $saleProducts->where('sp.FabricationOrder', 'like', '%' . $_GET['fabricationOrder'] . '%');
+        }
+        if (!empty($_GET['FabricationType']))
+        {
+            $saleProducts->where('sp.FabricationType', '=', $_GET['FabricationType']);
+        }
+
+        if (!empty($_GET['TypeProduction']))
+        {
+            $saleProducts->where('sp.TypeProduction', '=', $_GET['TypeProduction']);
+        }
+
+        
 
         if (!empty($_GET['SellerName']))
         {
