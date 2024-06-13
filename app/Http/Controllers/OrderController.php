@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\notifyCreated;
 use App\Models\EntryProducts;
 use App\Models\Orders;
 use App\Models\Products;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Request as ModelsRequest;
 use App\Models\Suppliers;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -30,29 +32,30 @@ class OrderController extends Controller
             ELSE 'N/i'
         END as Status,
         CONCAT('R$ ', REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',')) as 'Valor total',
-        DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação'
+        DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação',
+        suppliers.Name as Fornecedor
     ")
-
-    ->groupBy('orders.id', 'orders.status')
+    ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
+    ->groupBy('orders.id', 'orders.status', 'suppliers.Name')
     ->orderBy('orders.created_at', 'desc');
 
         if (!empty($_GET['status']))
         {
             $orders->where('orders.status', '=', $_GET['status']);
         }
-  /*       if (!empty($_GET['ids']))
+         if (!empty($_GET['ids']))
         {
             $orders->where('orders.id', '=', $_GET['ids']);
         }
 
-        if (!empty($_GET['suppliers']))
+        if (!empty($_GET['Supplier']))
         {
-            $orders->where('requests.suppliers_id', '=', $_GET['suppliers']);
-        } */
+            $orders->where('orders.suppliers_id', '=', $_GET['Supplier']);
+        } 
 
         $orders = $orders->paginate(15);
 
-        //$suppliers = Suppliers::all();
+        $suppliers = Suppliers::all();
         $nextPage = $orders->nextPageUrl();
         $previusPage = $orders->previousPageUrl();
 
@@ -62,7 +65,7 @@ class OrderController extends Controller
 
         return view('orders.index')
             ->with('orders', $orders)
-            //->with('suppliers', $suppliers)
+            ->with('suppliers', $suppliers)
             ->with('exportCsvUrl', $exportCsvUrl)
             ->with('successMessage', $successMessage)
             ->with('nextPage', $nextPage)
@@ -112,15 +115,20 @@ class OrderController extends Controller
 
     public function update(Orders $order)
     {
-        try
-        {
-            $order->status = 'E';
+        $order->status = 'E';
             $order->save();
             $message = 'Requisição de compra criada com sucesso';
 
-            //add logica de disparo de email
+            $notify = new notifyCreated();
+
+            Mail::to(['isaacpires1005@gmail.com', 'isaac.alves.1005@gmail.com'])->send($notify);
+
             return redirect('/order')
                 ->with("successMessage", $message);
+
+        try
+        {
+            
         }
         catch (\Throwable $th)
         {

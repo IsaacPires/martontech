@@ -17,6 +17,15 @@
             </div>
             <div class="col-md-4">
                 <label for="FabricationType" class="form-label">Tipo de Fabricação</label>
+                <select class="form-control select2" id="TypeProduction" name="TypeProduction" required>
+                    <option value="" selected>-- Selecione --</option>
+                    <option value="Produto Novo">Produto Novo</option>
+                    <option value="Reforma">Reforma</option>
+                </select>
+
+            </div>
+            <div class="col-md-4">
+                <label for="TypeProduction" class="form-label">Tipo de produto</label>
                 <select class="form-control select2" name="FabricationType" id="FabricationType" required>
                     <option value="" selected>-- Selecione --</option>
                     <option value="Telescópica">Telescópica</option>
@@ -25,14 +34,6 @@
                     <option value="Esteira">Esteira</option>
                     <option value="Rolo cortina">Rolo cortina</option>
                     <option value="Outros">Outros</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="TypeProduction" class="form-label">Tipo de produto</label>
-                <select class="form-control select2" id="TypeProduction" name="TypeProduction" required>
-                    <option value="" selected>-- Selecione --</option>
-                    <option value="Produto Novo">Produto Novo</option>
-                    <option value="Reforma">Reforma</option>
                 </select>
             </div>
             <div class="col-md-4">

@@ -11,6 +11,7 @@ class Orders extends Model
     
     protected $fillable = [
         'status',
-        'totalValue'
+        'totalValue',
+        'suppliers_id'
     ];
 }

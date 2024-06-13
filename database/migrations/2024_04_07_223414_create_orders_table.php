@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->char('status');
             $table->float('totalValue');
+            $table->integer('suppliers_id');
             $table->timestamps();
         });
     }

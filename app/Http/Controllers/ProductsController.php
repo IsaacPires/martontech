@@ -118,7 +118,7 @@ class ProductsController extends Controller
             switch ($_GET['ordenacao'])
             {
                 case 'Aging':
-                    $products->orderBy('Retirada');
+                    $products->orderBy('products.created_at');
                     break;
                 case 'Criticos':
                     $products->whereraw('StockQuantity <= AlertQuantity');

@@ -25,9 +25,10 @@ class PendingController extends Controller
                     Else 'N/i'
                 end as Status,
                 CONCAT('R$ ', FORMAT(orders.totalValue, 2, 'de_DE')) as 'Valor total',
-                DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação' 
-
+                DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação',
+                suppliers.Name as Fornecedor
             ")
+            ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
             ->orderBy('orders.created_at', 'desc');
 
             if (!empty($_GET['ids']))
@@ -44,9 +45,15 @@ class PendingController extends Controller
             {
                 $orders->where('orders.status', '=', $_GET['status']);
             }
+
+            if (!empty($_GET['Supplier']))
+            {
+                $orders->where('orders.suppliers_id', '=', $_GET['Supplier']);
+            } 
     
             $orders = $orders->paginate(15);
 
+        $suppliers = Suppliers::all();
         $nextPage = $orders->nextPageUrl();
         $previusPage = $orders->previousPageUrl();
         $successMessage = session('successMessage');
@@ -60,6 +67,7 @@ class PendingController extends Controller
 
         return view('pending.index')
             ->with('orders', $orders)
+            ->with('suppliers', $suppliers)
             ->with('nextPage', $nextPage)
             ->with('previusPage', $previusPage)
             ->with('exportCsvUrl', $exportCsvUrl)

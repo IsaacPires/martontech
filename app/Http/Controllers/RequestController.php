@@ -81,7 +81,8 @@ class RequestController extends Controller
         {
             $newOrder = [
                 'status' => 'A',
-                'totalValue' => (float) $request->totalValue
+                'totalValue' => (float) $request->totalValue,
+                'suppliers_id' => (float) $request->suppliers_id
             ];
 
             $order = orders::create($newOrder);

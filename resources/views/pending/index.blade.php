@@ -16,7 +16,17 @@
       
             <div class="col-md-4">
                 <label for="ids" class="form-label">ID</label>
-                <input type="text" class="form-control" id="ids" name="ids" placeholder="Digite para filtrar...">
+                <input value = "{{isset($_GET['ids']) && !empty($_GET['ids']) ? $_GET['ids'] : '' }}" type="text" class="form-control" id="ids" name="ids" placeholder="Digite para filtrar...">
+            </div>
+
+            <div class="col-md-4">
+                <label for="Supplier" class="form-label">Fornecedor</label>
+                <select class="form-control select2" data-live-search="true" name="Supplier" id="Supplier">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option {{ isset($_GET['Supplier']) && $_GET['Supplier'] == $supplier->id ? 'Selected' : ''}} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 

@@ -16,10 +16,19 @@
                 <input type="number" class="form-control" id="StockQuantity" name="StockQuantity" value='{{$products->StockQuantity}}' required>
             </div> --}}
             <div class="col-md-4">
-                <label for="suppliers_id" class="form-label">Fornecedor</label>
+                <label for="suppliers_id" class="form-label">Fornecedor um</label>
                 <select class="form-control select2" name="suppliers_id" id="suppliers_id">
                     @foreach ($suppliers as $supplier)
-                    <option value="{{$supplier->id}}" {{ $supplier->id == $products->suppliers_id ? 'selected' : '' }}>{{ $supplier->Name }}</option>
+                    <option value="{{$supplier->id}}" {{ $supplier->id == $products->primary_suppliers_id ? 'selected' : '' }}>{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="secondary_supplier_id" class="form-label">Fornecedor 2</label>
+                <select class="form-control select2" name="secondary_supplier_id" id="secondary_supplier_id">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{$supplier->id}}" {{ $supplier->id == $products->secondary_supplier_id ? 'selected' : '' }}>{{ $supplier->Name }}</option>
                     @endforeach
                 </select>
             </div>
