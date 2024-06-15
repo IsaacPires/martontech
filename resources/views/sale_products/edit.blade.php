@@ -15,13 +15,15 @@
                 <label for="SellerName" class="form-label">Colaborador</label>
                 <input type="text" class="form-control" id="SellerName" name="SellerName" value='{{$saleProducts->SellerName}}' required>
             </div>
+
             <div class="col-md-4">
-                <label for="FabricationOrder" class="form-label">Tipo de pedido</label>
-                <select class="form-control" name="FabricationOrder"  id="FabricationOrder" required>
-                    <option value="">-- Selecione --</option>
-                    <option {{$saleProducts->FabricationOrder == "Produto Novo" ? 'selected' : ''; }} value="Produto Novo">Produto Novo</option>
-                    <option {{$saleProducts->FabricationOrder == "Reforma" ? 'selected' : ''; }}value="Reforma">Reforma</option>
+                <label for="FabricationType" class="form-label">Tipo de Fabricação</label>
+                <select class="form-control select2" id="TypeProduction" name="TypeProduction" required>
+                    <option value="" selected>-- Selecione --</option>
+                    <option value="Produto Novo">Produto Novo</option>
+                    <option value="Reforma">Reforma</option>
                 </select>
+
             </div>
             <div class="col-md-4">
                 <label for="TypeProduction" class="form-label">Tipo de produção</label>
@@ -33,6 +35,10 @@
                     <option {{$saleProducts->TypeProduction == "Rolo cortina" ? 'selected' : ''; }} value="Rolo cortina">Rolo cortina</option>
                     <option {{$saleProducts->TypeProduction == "Outros" ? 'selected' : ''; }} value="Outros">Outros</option>
                 </select>
+            </div>
+            <div class="col-md-4">
+                <label for="FabricationOrder" class="form-label">Ordem de Fabricação</label>
+                <input type="text" class="form-control" id="FabricationOrder" name="FabricationOrder" required>
             </div>
             <div class="col-md-4">
                 <label for="UnitPrice" class="form-label">Preço por unidade</label>

@@ -29,7 +29,7 @@ class ProductsTableSeeder extends Seeder
             Products::create([
                 'Name' => array_key_exists('Produto', $product) ? $product['Produto'] : 'NI',
                 'AlertQuantity' => array_key_exists(' Qntd. Alerta ', $product) ? $product[' Qntd. Alerta '] : 0,
-                'StockQuantity' => array_key_exists(' Qntd. Alerta ', $product) ? $product[' Qntd. estoque '] : 0,
+                'StockQuantity' =>  0,
                 'primary_suppliers_id' => array_key_exists('Fornecedor 1', $product) ? Suppliers::where('Name', 'like', "%{$product['Fornecedor 1']}%")->value('id') : NULL,
                 'secondary_supplier_id' => array_key_exists('Fornecedor 2', $product) ? Suppliers::where('Name', 'like', "%{$product['Fornecedor 2']}%")->value('id') : NULL,
                 'created_at' => array_key_exists('Data Cadastro', $product) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $product['Data Cadastro']))) : date('Y-m-d H:i:s'),
