@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use App\Models\Suppliers;
 use App\Repositories\SuppliersRepository;
 use Illuminate\Http\Request;
@@ -15,28 +16,53 @@ class SuppliersController extends Controller
         $this->suppliers = $suppliers;
     }
 
-    public function testeSeed(){
-        $pathFile = storage_path('app\dbfiles\suplliers.json');
+    public function testeSeed()
+    {
+        // $pathFile = storage_path('app\dbfiles\suplliers.json');
 
-        $datas = json_decode(file_get_contents($pathFile), true);
+        // $datas = json_decode(file_get_contents($pathFile), true);
 
-        foreach ($datas as $data) {
-            dd(array_key_exists('ContactNameOne', $data));
+        // foreach ($datas as $data) {
+        //     dd(array_key_exists('ContactNameOne', $data));
 
-           Suppliers::create([
-            'Name' => array_key_exists(['Name'], $data) ? $data['Name'] : ' ',
-            'Segments'=> array_key_exists(['Segments'], $data) ? $data['Segments'] : '',
-            'Cnpj'=> array_key_exists(['CNPJ'], $data) ? str_replace(['/','.', '-'], '', $data['CNPJ']) : '',
-            'AddressStreet'=> array_key_exists(['AddressStreet'], $data) ? $data['AddressStreet'] : '',
-            'AddressNumber'=>array_key_exists(['AddressNumber'], $data) ? $data['AddressNumber'] : '',
-            'AddressNeighborhood'=>array_key_exists(['AddressNeighborhood'], $data) ? $data['AddressNeighborhood'] : '',
-            'AddressCity'=>array_key_exists(['AddressCity'], $data) ? $data['AddressCity'] : '',
-            'AddressState'=>array_key_exists(['AddressState'], $data) ? $data['AddressState'] : '',
-            'AddressZipCode'=>array_key_exists(['AddressZipCode'], $data) ? $data['AddressZipCode'] : '' ,
-            'ContactNameOne'=>array_key_exists(['ContactNameOne'], $data) ? $data['ContactNameOne'] : '',
-            'ContactPhoneOne'=> array_key_exists(['ContactPhoneOne'], $data) ? str_replace(["(",')', '-', ' '], '', $data['ContactPhoneOne']) : '',
-            'ContactEmailOne'=> array_key_exists(['ContactEmailOne'], $data) ? $data['ContactEmailOne'] : ''
-           ]);
+        //    Suppliers::create([
+        //     'Name' => array_key_exists(['Name'], $data) ? $data['Name'] : ' ',
+        //     'Segments'=> array_key_exists(['Segments'], $data) ? $data['Segments'] : '',
+        //     'Cnpj'=> array_key_exists(['CNPJ'], $data) ? str_replace(['/','.', '-'], '', $data['CNPJ']) : '',
+        //     'AddressStreet'=> array_key_exists(['AddressStreet'], $data) ? $data['AddressStreet'] : '',
+        //     'AddressNumber'=>array_key_exists(['AddressNumber'], $data) ? $data['AddressNumber'] : '',
+        //     'AddressNeighborhood'=>array_key_exists(['AddressNeighborhood'], $data) ? $data['AddressNeighborhood'] : '',
+        //     'AddressCity'=>array_key_exists(['AddressCity'], $data) ? $data['AddressCity'] : '',
+        //     'AddressState'=>array_key_exists(['AddressState'], $data) ? $data['AddressState'] : '',
+        //     'AddressZipCode'=>array_key_exists(['AddressZipCode'], $data) ? $data['AddressZipCode'] : '' ,
+        //     'ContactNameOne'=>array_key_exists(['ContactNameOne'], $data) ? $data['ContactNameOne'] : '',
+        //     'ContactPhoneOne'=> array_key_exists(['ContactPhoneOne'], $data) ? str_replace(["(",')', '-', ' '], '', $data['ContactPhoneOne']) : '',
+        //     'ContactEmailOne'=> array_key_exists(['ContactEmailOne'], $data) ? $data['ContactEmailOne'] : ''
+        //    ]);
+        // }
+        $path = storage_path('app/dbFiles/products.json');
+
+        if (!file_exists($path))
+        {
+            return;
+        }
+
+        $products = json_decode(file_get_contents($path), true);
+
+        foreach ($products as $key => $product)
+        {
+            if (array_key_exists('Fornecedor 1', $product))
+            {
+                dd();
+            }
+            Products::create([
+                'Name' => array_key_exists('Produto', $product) ? $product['Produto'] : 'NI',
+                'AlertQuantity' => array_key_exists(' Qntd. Alerta ', $product) ? $product[' Qntd. Alerta '] : NULL,
+                'StockQuantity' => NULL,
+                'primary_suppliers_id' => array_key_exists('Fornecedor 1', $product) ? Suppliers::where('Name', 'like', "%{$product['Fornecedor 1']}%")->value('id') : NULL,
+                'secondary_supplier_id' => array_key_exists('Fornecedor 2', $product) ? Suppliers::where('Name', 'like', "%{$product['Fornecedor 2']}%")->value('id') : NULL,
+                'created_at' => array_key_exists('Data Cadastro', $product) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $product['Data Cadastro']))) : NULL,
+            ]);
         }
     }
 
