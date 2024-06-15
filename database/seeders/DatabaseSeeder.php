@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         (new UsersTableSeeder())->run();
         (new SuppliersTableSeeder())->run();
         (new ProductsTableSeeder())->run();
+        (new EntryTableSeeder())->run();
     }
 }
