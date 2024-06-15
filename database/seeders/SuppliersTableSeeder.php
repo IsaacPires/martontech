@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Suppliers;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,26 +15,34 @@ class SuppliersTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 20; $i++) {
-            DB::table('suppliers')->insert([
-                'Name' => 'Fornecedor ' . $i,
-                'Segments' => 'Segmento ' . $i,
-                'Cnpj' => '1234567890123', // CNPJ fictício para exemplo
-                'AddressStreet' => 'Rua do Fornecedor ' . $i,
-                'AddressNumber' => $i,
-                'AddressNeighborhood' => 'Bairro do Fornecedor ' . $i,
-                'AddressCity' => 'Cidade do Fornecedor ' . $i,
-                'AddressState' => 'UF',
-                'AddressZipCode' => '12345678',
-                'ContactNameOne' => 'Contato 1 do Fornecedor ' . $i,
-                'ContactNameTwo' => 'Contato 2 do Fornecedor ' . $i,
-                'ContactPhoneOne' => '1123456789',
-                'ContactPhoneTwo' => '1123456789',
-                'ContactEmailOne' => 'contato1@fornecedor' . $i . '.com',
-                'ContactEmailTwo' => 'contato2@fornecedor' . $i . '.com',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        $pathFile = storage_path('app\dbfiles\suplliers.json');
+
+        $datas = json_decode(file_get_contents($pathFile), true);
+
+
+        foreach ($datas as $data) {
+
+            
+        $contactPhoneOne = array_key_exists('ContactPhoneOne', $data) ? str_replace(['(', ')', '-', ' '], '', $data['ContactPhoneOne']) : null;
+
+        if (!is_numeric($contactPhoneOne)) {
+            $contactPhoneOne = null;
         }
+
+           Suppliers::create([
+            'Name' => array_key_exists('Name', $data) ? $data['Name'] : 'NI',
+            'Segments'=> array_key_exists('Segments', $data) ? $data['Segments'] : 'NI',
+            'Cnpj'=> array_key_exists('CNPJ', $data) ? str_replace(['/','.', '-'], '', $data['CNPJ']) : '12',
+            'AddressStreet'=> array_key_exists('AddressStreet', $data) ? $data['AddressStreet'] : 'NI',
+            'AddressNumber'=>array_key_exists('AddressNumber', $data) ? $data['AddressNumber'] : '12',
+            'AddressNeighborhood'=>array_key_exists('AddressNeighborhood', $data) ? $data['AddressNeighborhood'] : 'NI',
+            'AddressCity'=>array_key_exists('AddressCity', $data) ? $data['AddressCity'] : 'NI',
+            'AddressState'=>array_key_exists('AddressState', $data) ? $data['AddressState'] : 'NI',
+            'AddressZipCode'=>array_key_exists('AddressZipCode', $data) ? $data['AddressZipCode'] : '12' ,
+            'ContactNameOne'=>array_key_exists('ContactNameOne', $data) ? $data['ContactNameOne'] : 'NI',
+            'ContactPhoneOne'=> $contactPhoneOne,
+            'ContactEmailOne'=> array_key_exists('ContactEmailOne', $data) ? $data['ContactEmailOne'] : 'NI'
+           ]);
+        } 
     }
 }

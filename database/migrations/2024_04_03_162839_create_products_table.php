@@ -16,11 +16,11 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table)
         {
             $table->id();
-            $table->string('Name', 128);
-            $table->decimal('AlertQuantity', 8, 2);
-            $table->decimal('StockQuantity', 8, 2)->default(0);
-            $table->integer('primary_suppliers_id');//->constrained('suppliers')->onDelete('cascade');
-            $table->integer('secondary_supplier_id');//->constrained('suppliers')->onDelete('cascade');
+            $table->string('Name', 128)->nullable();
+            $table->decimal('AlertQuantity', 8, 2)->nullable();
+            $table->decimal('StockQuantity', 8, 2)->nullable()->default(0);
+            $table->integer('primary_suppliers_id')->nullable();//->constrained('suppliers')->onDelete('cascade');
+            $table->integer('secondary_supplier_id')->nullable();//->constrained('suppliers')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -15,6 +15,31 @@ class SuppliersController extends Controller
         $this->suppliers = $suppliers;
     }
 
+    public function testeSeed(){
+        $pathFile = storage_path('app\dbfiles\suplliers.json');
+
+        $datas = json_decode(file_get_contents($pathFile), true);
+
+        foreach ($datas as $data) {
+            dd(array_key_exists('ContactNameOne', $data));
+
+           Suppliers::create([
+            'Name' => array_key_exists(['Name'], $data) ? $data['Name'] : ' ',
+            'Segments'=> array_key_exists(['Segments'], $data) ? $data['Segments'] : '',
+            'Cnpj'=> array_key_exists(['CNPJ'], $data) ? str_replace(['/','.', '-'], '', $data['CNPJ']) : '',
+            'AddressStreet'=> array_key_exists(['AddressStreet'], $data) ? $data['AddressStreet'] : '',
+            'AddressNumber'=>array_key_exists(['AddressNumber'], $data) ? $data['AddressNumber'] : '',
+            'AddressNeighborhood'=>array_key_exists(['AddressNeighborhood'], $data) ? $data['AddressNeighborhood'] : '',
+            'AddressCity'=>array_key_exists(['AddressCity'], $data) ? $data['AddressCity'] : '',
+            'AddressState'=>array_key_exists(['AddressState'], $data) ? $data['AddressState'] : '',
+            'AddressZipCode'=>array_key_exists(['AddressZipCode'], $data) ? $data['AddressZipCode'] : '' ,
+            'ContactNameOne'=>array_key_exists(['ContactNameOne'], $data) ? $data['ContactNameOne'] : '',
+            'ContactPhoneOne'=> array_key_exists(['ContactPhoneOne'], $data) ? str_replace(["(",')', '-', ' '], '', $data['ContactPhoneOne']) : '',
+            'ContactEmailOne'=> array_key_exists(['ContactEmailOne'], $data) ? $data['ContactEmailOne'] : ''
+           ]);
+        }
+    }
+
     public function index()
     {
 

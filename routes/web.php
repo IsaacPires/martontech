@@ -49,6 +49,7 @@ Route::middleware([Authenticator::class])->group(function ()
     // Rotas para relatório csv
     Route::get('/suppliers/report', [SuppliersController::class, 'report']);
     Route::get('/suppliers/csv/{request?}', [SuppliersController::class, 'csv'])->name('suppliers.csv');
+    Route::get('/suppliers/testeSeed/', [SuppliersController::class, 'testeSeed']);
 
     // Rotas para os fornecedores
     Route::resource('/suppliers', SuppliersController::class)->except('show');
