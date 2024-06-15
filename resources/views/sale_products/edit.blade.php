@@ -18,7 +18,7 @@
 
             <div class="col-md-4">
                 <label for="FabricationType" class="form-label">Tipo de Fabricação</label>
-                <select class="form-control select2" id="TypeProduction" name="TypeProduction" required>
+                <select class="form-control select2" id="FabricationType" name="FabricationType" required>
                     <option value="" selected>-- Selecione --</option>
                     <option value="Produto Novo">Produto Novo</option>
                     <option value="Reforma">Reforma</option>
