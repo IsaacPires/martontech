@@ -16,13 +16,13 @@ class CreateEntryProductsTable extends Migration
         Schema::create('entry_products', function (Blueprint $table)
         {
             $table->id();
-            $table->integer('products_id');
-            $table->string('SellerName', 128);
+            $table->integer('products_id')->nullable();
+            $table->string('SellerName', 128)->nullable();
             $table->integer('Suppliers_id')->nullable();
             $table->string('Brand', 128)->nullable();
-            $table->decimal('UnitPrice', 8, 2);
-            $table->decimal('WithdrawalAmount', 8, 2);
-            $table->decimal('TotalPrice', 8, 2);
+            $table->decimal('UnitPrice', 8, 2)->nullable();
+            $table->decimal('WithdrawalAmount', 8, 2)->nullable();
+            $table->decimal('TotalPrice', 8, 2)->nullable();
             $table->timestamps();
         });
     }

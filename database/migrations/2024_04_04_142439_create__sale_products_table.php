@@ -16,14 +16,14 @@ class CreateSaleProductsTable extends Migration
         Schema::create('sale_products', function (Blueprint $table)
         {
             $table->id();
-            $table->integer('products_id');
-            $table->string('SellerName', 128);
-            $table->decimal('WithdrawalAmount', 8, 2);
-            $table->string('FabricationType');
-            $table->string('TypeProduction');
-            $table->decimal('UnitPrice', 8, 2);            
-            $table->decimal('TotalPrice', 8, 2);
-            $table->string('FabricationOrder');
+            $table->integer('products_id')->nullable();
+            $table->string('SellerName', 128)->nullable();
+            $table->decimal('WithdrawalAmount', 8, 2)->nullable();
+            $table->string('FabricationType')->nullable();
+            $table->string('TypeProduction')->nullable();
+            $table->decimal('UnitPrice', 8, 2)->nullable();            
+            $table->decimal('TotalPrice', 8, 2)->nullable();
+            $table->string('FabricationOrder')->nullable();
             $table->timestamps();
         });
     }
