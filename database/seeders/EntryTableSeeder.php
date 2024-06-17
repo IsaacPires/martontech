@@ -30,8 +30,8 @@ class EntryTableSeeder extends Seeder
                 'UnitPrice'         => array_key_exists('UnitPrice', $data) && is_numeric($data['UnitPrice']) ? $data['UnitPrice'] : 0.00,
                 "WithdrawalAmount"  => array_key_exists('WithdrawalAmount.', $data) ? $data['WithdrawalAmount.'] : NULL,
                 'TotalPrice'        => array_key_exists('TotalPrice', $data) && is_numeric($data['TotalPrice']) ? $data['TotalPrice'] : 0.00,
-                'created_at'        => array_key_exists('Created_at', $data) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $data['Created_at']))) : date('Y-m-d H:i:s'),
-                'updated_at'        => array_key_exists('Created_at', $data) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $data['Created_at']))) : date('Y-m-d H:i:s')
+                'created_at'        => array_key_exists('Created_at', $data) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $data['Created_at']))) : now(),
+                'updated_at'        => array_key_exists('Created_at', $data) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $data['Created_at']))) : now()
             ]);
         }
     }
