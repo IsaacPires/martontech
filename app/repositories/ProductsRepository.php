@@ -23,7 +23,6 @@ class ProductsRepository
         ->leftJoin('suppliers AS s', 'products.primary_suppliers_id', '=', 's.id')
         ->leftJoin('suppliers AS s2', 'products.secondary_supplier_id', '=', 's2.id')
         ->leftJoin('sale_products', 'products.id', '=', 'sale_products.products_id')
-        ->leftJoin('requests', 'products.id', '=', 'requests.product_id')
         ->groupBy(
             'products.id',
             'products.Name',
@@ -45,7 +44,7 @@ class ProductsRepository
                     $products->whereraw('StockQuantity <= AlertQuantity');
                     break;
                 case 'Utilizados':
-                    $products->whereBetween('requests.created_at', [now()->startOfMonth(), now()]);
+                    $products->whereBetween('sale_products.created_at', [now()->startOfMonth(), now()]);
                     break;
 
                 default:

@@ -33,7 +33,7 @@ class EntryTableSeeder extends Seeder
                 'Suppliers_id'      => array_key_exists('Suppliers_name', $entryProduct) ? Suppliers::where('Name', 'like', "%{$entryProduct['Suppliers_name']}%")->value('id') : NULL,
                 'Brand'             => array_key_exists('Brand', $entryProduct) ? $entryProduct['Brand'] : NULL,
                 'UnitPrice'         => array_key_exists('UnitPrice', $entryProduct) && is_numeric($entryProduct['UnitPrice']) ? $entryProduct['UnitPrice'] : 0.00,
-                'WithdrawalAmount'   => array_key_exists('WithdrawalAmount', $entryProduct) && is_numeric($entryProduct['WithdrawalAmount']) ? $entryProduct['WithdrawalAmount'] : 0.00,
+                "WithdrawalAmount"  => array_key_exists('WithdrawalAmount.', $entryProduct) ? $entryProduct['WithdrawalAmount.'] : NULL,
                 'TotalPrice'        => array_key_exists('TotalPrice', $entryProduct) && is_numeric($entryProduct['TotalPrice']) ? $entryProduct['TotalPrice'] : 0.00,
                 'created_at'        => array_key_exists('Created_at', $entryProduct) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $entryProduct['Created_at']))) : date('Y-m-d H:i:s'),
                 'updated_at'        => array_key_exists('Created_at', $entryProduct) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $entryProduct['Created_at']))) : date('Y-m-d H:i:s')

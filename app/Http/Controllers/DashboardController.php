@@ -56,7 +56,8 @@ class DashboardController extends Controller
   {
     $agings = DB::table('products')
         ->select('products.id', 'products.Name', 'products.StockQuantity', DB::raw('DATE_FORMAT(MAX(sale_products.created_at), "%d/%m/%Y") as last_sold'))
-        ->leftJoin('sale_products', 'products.id', '=', 'sale_products.products_id')
+        ->join('sale_products', 'products.id', '=', 'sale_products.products_id')
+        ->where('products.StockQuantity', '>', 0)
         ->groupBy('products.id', 'products.Name', 'products.StockQuantity')
         ->orderBy('last_sold')
         ->take(3)
@@ -67,14 +68,15 @@ class DashboardController extends Controller
 
   private function mostUsedProducts($firstDayOfMonth, $lastDayOfMonth)
   {
-      $mostUsed = DB::table('requests')
-          ->select('product_id', 'products.Name', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(totalValue) as total_value'))
-          ->leftJoin('products', 'requests.product_id', '=', 'products.id')
-          ->whereBetween('requests.created_at', [$firstDayOfMonth, $lastDayOfMonth])
-          ->groupBy('product_id', 'products.Name')
-          ->orderByDesc('total_quantity')
-          ->take(3)
-          ->get();
+      $mostUsed = DB::table('sale_products')
+        ->select('sale_products.products_id', 'products.Name', DB::raw('SUM(WithdrawalAmount) as total_quantity'), DB::raw('SUM(sale_products.WithdrawalAmount) as total_value'))
+        ->leftJoin('products', 'sale_products.products_id', '=', 'products.id')
+        ->whereBetween('sale_products.created_at', [$firstDayOfMonth, $lastDayOfMonth])
+        ->groupBy('sale_products.products_id', 'products.Name')
+        ->orderByDesc('total_value')
+        ->take(3)
+        ->get();
+
 
       return $mostUsed;
   }
