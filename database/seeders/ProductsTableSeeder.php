@@ -15,7 +15,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $path = storage_path('app/dbFiles/products.json');
+        $path = storage_path('app/dbfiles/products.json');
 
         if (!file_exists($path))
         {

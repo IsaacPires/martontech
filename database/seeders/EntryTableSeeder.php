@@ -16,7 +16,7 @@ class EntryTableSeeder extends Seeder
      */
     public function run()
     {
-        $path = storage_path('app/dbFiles/entry_products.json');
+        $path = storage_path('app/dbfiles/entry_products.json');
 
         $datas = json_decode(file_get_contents($path), true);
 
