@@ -16,7 +16,7 @@ class sale_products extends Seeder
      */
     public function run()
     {
-        $pathFile = storage_path('app\dbfiles\saida.json');
+        $pathFile = storage_path('app/dbfiles/saida.json');
 
         $datas = json_decode(file_get_contents($pathFile), true);
 

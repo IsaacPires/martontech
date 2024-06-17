@@ -15,7 +15,7 @@ class SuppliersTableSeeder extends Seeder
      */
     public function run()
     {
-        $pathFile = storage_path('app\dbfiles\suplliers.json');
+        $pathFile = storage_path('app/dbfiles/suplliers.json');
 
         $datas = json_decode(file_get_contents($pathFile), true);
 
