@@ -27,7 +27,7 @@ class sale_products extends Seeder
                 "SellerName" => array_key_exists('SellerName', $data) ? $data['SellerName'] : NULL,
                 "WithdrawalAmount" => array_key_exists('WithdrawalAmount', $data) ? $data['WithdrawalAmount'] : NULL,
                 'created_at' => array_key_exists('created_at', $data) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $data['created_at']))) : date('Y-m-d H:i:s'),
-                'updated_at' => array_key_exists('updated_at', $data) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $data['created_at']))) : date('Y-m-d H:i:s'),
+                'updated_at' => array_key_exists('created_at', $data) ? date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $data['created_at']))) : date('Y-m-d H:i:s'),
                 "FabricationOrder" => array_key_exists('FabricationOrder', $data) ? $data['FabricationOrder'] : NULL,
                 "UnitPrice" => array_key_exists('UnitPrice', $data) ? $data['UnitPrice'] : NULL,
                 "TotalPrice" => array_key_exists('TotalPrice', $data) ? $data['TotalPrice'] : NULL,
