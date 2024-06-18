@@ -26,8 +26,8 @@ class EntryProductsController extends Controller
 
         ")
             ->leftJoin('products', 'entry_products.products_id', '=', 'products.id')
-            ->leftJoin('suppliers', 'entry_products.Suppliers_id', '=', 'suppliers.id')->orderBy('entry_products.created_at', 'DESC')
-            ->orderByDesc('id');
+            ->leftJoin('suppliers', 'entry_products.Suppliers_id', '=', 'suppliers.id')
+            ->orderByDesc('entry_products.id');
 
         if (!empty($_GET['SellerName']))
         {
