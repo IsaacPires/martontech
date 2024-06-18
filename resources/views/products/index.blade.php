@@ -23,6 +23,17 @@
                     <option {{ isset($_GET['ordenacao']) && $_GET['ordenacao'] == 'Criticos' ? 'Selected' : ''}} value="Criticos">Itens Critícos</option>
                 </select>
             </div>
+
+            <div class="col-md-4">
+                <label for="limiter" class="form-label">Retorno por página</label>
+                <select class="form-control" id="limiter" name="limiter" >
+                    <option value="" selected>-- Selecione --</option>
+                    <option {{isset($_GET['limiter']) && $_GET['limiter'] == 25  ? 'SELECTED' : '' }} value="25">25</option>
+                    <option {{isset($_GET['limiter']) && $_GET['limiter'] == 50  ? 'SELECTED' : '' }} value="50">50</option>
+                    <option {{isset($_GET['limiter']) && $_GET['limiter'] == 75  ? 'SELECTED' : '' }} value="75">75</option>
+                    <option {{isset($_GET['limiter']) && $_GET['limiter'] == 100 ? 'SELECTED' : '' }} value="100">100</option>
+                </select>
+            </div>
         </div>
 
         <div style='margin-top: 20px;'>

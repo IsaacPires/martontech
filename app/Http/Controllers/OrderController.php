@@ -52,8 +52,8 @@ class OrderController extends Controller
         {
             $orders->where('orders.suppliers_id', '=', $_GET['Supplier']);
         }
-
-        $orders = $orders->paginate(15);
+        $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
+        $orders = $orders->paginate($retornoPorPage);
 
         $suppliers = Suppliers::all();
         $nextPage = $orders->nextPageUrl();

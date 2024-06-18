@@ -43,8 +43,9 @@ class EntryProductsController extends Controller
         {
             $entryProducts->where('entry_products.Suppliers_id', '=', $_GET['supplier']);
         }
+        $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
 
-        $entryProducts = $entryProducts->paginate(15);
+        $entryProducts = $entryProducts->paginate($retornoPorPage);
 
         $products = Products::all();
         $suppliers = Suppliers::all();

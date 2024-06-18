@@ -19,9 +19,12 @@ class ProductsController extends Controller
 
     public function index()
     {
+
+        $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
+
         $products = $this->products->productReport();
 
-        $products = $products->paginate(15);
+        $products = $products->paginate($retornoPorPage);
 
         $suppliers = Suppliers::all();
 

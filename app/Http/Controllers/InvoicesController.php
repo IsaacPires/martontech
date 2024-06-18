@@ -18,8 +18,10 @@ class InvoicesController extends Controller
 
     public function index()
     {
+        $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
+
         $invoices = $this->invoices->invoicesReport();
-        $invoices = $invoices->paginate(15);
+        $invoices = $invoices->paginate($retornoPorPage);
 
         $message = session('success.message');
 
