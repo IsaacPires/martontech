@@ -3,7 +3,7 @@
         <div class='row'>
             <div class="col-md-4">
                 <label for="ProductName" class="form-label">Nome do Produto</label>
-                <input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Digite para filtrar...">
+                <input value="{{isset($_GET['ProductName']) && !empty($_GET['ProductName']) ? $_GET['ProductName'] : ''}}" type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Digite para filtrar...">
             </div>
             <div class="col-md-4">
                 <label for="Supplier" class="form-label">Fornecedor</label>

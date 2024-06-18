@@ -11,7 +11,7 @@ class SuppliersRepository
   {
 
     $suppliers = DB::table('suppliers')
-    ->selectRaw('
+      ->selectRaw('
         id, 
         Name as "Fornecedor",
         Segments as Segmento,
@@ -36,7 +36,8 @@ class SuppliersRepository
         ContactEmailOne as Email,
         DATE_FORMAT(created_at, "%d/%m/%Y %H:%i") AS "Data Criação"
 
-    ');
+    ')
+      ->orderByDesc('id');
 
     if (!empty($_GET['ordenacao']))
     {
@@ -45,11 +46,6 @@ class SuppliersRepository
     else
     {
       $suppliers->orderBy('created_at', 'desc');
-    }
-
-    if (!empty($_GET['SocialReason']))
-    {
-      $suppliers->where('Name', 'like', '%' . $_GET['SocialReason'] . '%');
     }
 
     if (!empty($_GET['SocialReason']))

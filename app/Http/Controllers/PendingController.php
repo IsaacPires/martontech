@@ -29,36 +29,38 @@ class PendingController extends Controller
                 suppliers.Name as Fornecedor
             ")
             ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
-            ->orderBy('orders.created_at', 'desc');
+            ->orderByDesc('orders.id');
 
-            if (!empty($_GET['ids']))
-            {
-                $orders->where('orders.id', '=', $_GET['ids']);
-            }
-    
-            if (!empty($_GET['supplier']))
-            {
-                $orders->where('requests.suppliers_id', '=', $_GET['supplier']);
-            }
-    
-            if (isset($_GET['status']) && !empty($_GET['status']))
-            {
-                $orders->where('orders.status', '=', $_GET['status']);
-            }
+        if (!empty($_GET['ids']))
+        {
+            $orders->where('orders.id', '=', $_GET['ids']);
+        }
 
-            if (!empty($_GET['Supplier']))
-            {
-                $orders->where('orders.suppliers_id', '=', $_GET['Supplier']);
-            } 
-    
-            $orders = $orders->paginate(15);
+        if (!empty($_GET['supplier']))
+        {
+            $orders->where('requests.suppliers_id', '=', $_GET['supplier']);
+        }
+
+        if (isset($_GET['status']) && !empty($_GET['status']))
+        {
+            $orders->where('orders.status', '=', $_GET['status']);
+        }
+
+        if (!empty($_GET['Supplier']))
+        {
+            $orders->where('orders.suppliers_id', '=', $_GET['Supplier']);
+        }
+
+        $orders = $orders->paginate(15);
 
         $suppliers = Suppliers::all();
-        $nextPage = $orders->nextPageUrl();
-        $previusPage = $orders->previousPageUrl();
         $successMessage = session('successMessage');
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
 
-        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $nextPage = $orders->nextPageUrl() ? $orders->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previusPage = $orders->previousPageUrl() ? $orders->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
         $exportCsvUrl = route('pending.csv', $params);
 
         /*  if(!empty($orders)){
@@ -128,7 +130,7 @@ class PendingController extends Controller
             DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação' 
 
         ")
-            ->orderBy('orders.created_at', 'desc');
+            ->orderByDesc('orders.id');;
 
         if (isset($_GET['status']) && !empty($_GET['status']))
         {

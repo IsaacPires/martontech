@@ -25,11 +25,15 @@ class ProductsController extends Controller
 
         $suppliers = Suppliers::all();
 
-        $nextPage = $products->nextPageUrl();
-        $previusPage = $products->previousPageUrl();
         $message = session('success.message');
 
-        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
+
+        $nextPage = $products->nextPageUrl() ? $products->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previusPage = $products->previousPageUrl() ? $products->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+
         $exportCsvUrl = route('products.csv', $params);
 
         return view('products.index')
@@ -111,7 +115,8 @@ class ProductsController extends Controller
                 's.Name',
                 's2.Name',
                 'products.created_at'
-            );
+            )
+            ->orderByDesc('products.id');;
 
         if (isset($_GET['ordenacao']) && !empty($_GET['ordenacao']))
         {
