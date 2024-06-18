@@ -9,7 +9,7 @@ class SaleProductsRepository
     public function saleProductsReport()
     {
         $saleProducts = DB::table('sale_products', 'sp')
-        ->selectRaw("
+            ->selectRaw("
             sp.id,
             p.Name AS 'Produto',
             sp.SellerName AS 'Colaborador',
@@ -22,9 +22,9 @@ class SaleProductsRepository
             DATE_FORMAT(sp.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
 
         ")
-        ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
-        ->orderBy('sp.created_at', 'desc');
-        
+            ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
+            ->orderByDesc('sp.id');
+
         if (!empty($_GET['fabricationOrder']))
         {
             $saleProducts->where('sp.FabricationOrder', 'like', '%' . $_GET['fabricationOrder'] . '%');
@@ -39,7 +39,7 @@ class SaleProductsRepository
             $saleProducts->where('sp.TypeProduction', '=', $_GET['TypeProduction']);
         }
 
-        
+
 
         if (!empty($_GET['SellerName']))
         {

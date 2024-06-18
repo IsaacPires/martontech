@@ -73,11 +73,15 @@ class SuppliersController extends Controller
 
         $suppliers = $suppliers->paginate(15);
 
-        $nextPage = $suppliers->nextPageUrl();
-        $previusPage = $suppliers->previousPageUrl();
         $message = session('success.message');
 
-        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
+
+        $nextPage = $suppliers->nextPageUrl() ? $suppliers->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previusPage = $suppliers->previousPageUrl() ? $suppliers->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+
         $exportCsvUrl = route('suppliers.csv', $params);
 
         return view('suppliers.index')
@@ -152,7 +156,8 @@ class SuppliersController extends Controller
       ContactPhoneOne as Telefone,
       ContactEmailOne as Email,
       DATE_FORMAT(created_at, "%d/%m/%Y %H:%i") AS "Data Criação"
-      ');
+      ')
+            ->orderByDesc('id');;
 
         if (!empty($_GET['ordenacao']))
         {

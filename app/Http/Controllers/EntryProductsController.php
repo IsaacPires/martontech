@@ -13,7 +13,7 @@ class EntryProductsController extends Controller
     public function index()
     {
         $entryProducts = DB::table('entry_products')
-        ->selectRaw("
+            ->selectRaw("
             entry_products.id,
             products.name AS 'Produto',
             suppliers.Name as Fornecedor,
@@ -25,8 +25,9 @@ class EntryProductsController extends Controller
             DATE_FORMAT(entry_products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
 
         ")
-        ->leftJoin('products', 'entry_products.products_id', '=', 'products.id')
-        ->leftJoin('suppliers', 'entry_products.Suppliers_id', '=', 'suppliers.id')->orderBy('entry_products.created_at', 'DESC');
+            ->leftJoin('products', 'entry_products.products_id', '=', 'products.id')
+            ->leftJoin('suppliers', 'entry_products.Suppliers_id', '=', 'suppliers.id')->orderBy('entry_products.created_at', 'DESC')
+            ->orderByDesc('id');
 
         if (!empty($_GET['SellerName']))
         {
@@ -48,18 +49,22 @@ class EntryProductsController extends Controller
         $products = Products::all();
         $suppliers = Suppliers::all();
 
-        $nextPage = $entryProducts->nextPageUrl();
-        $previusPage = $entryProducts->previousPageUrl();
         $message = session('success.message');
 
-        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
+
+        $nextPage = $entryProducts->nextPageUrl() ? $entryProducts->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previousPage = $entryProducts->previousPageUrl() ? $entryProducts->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+
         $exportCsvUrl = route('entry_products.csv', $params);
 
         return view('entry_products.index')
             ->with('entryProducts', $entryProducts)
             ->with('products', $products)
             ->with('nextPage', $nextPage)
-            ->with('previusPage', $previusPage)
+            ->with('previusPage', $previousPage)
             ->with('successMessage', $message)
             ->with('suppliers', $suppliers)
             ->with('exportCsvUrl',  $exportCsvUrl);
@@ -71,8 +76,8 @@ class EntryProductsController extends Controller
         $suppliers = Suppliers::all();
 
         return view('entry_products.create')
-        ->with('products', $products)
-        ->with('suppliers', $suppliers);
+            ->with('products', $products)
+            ->with('suppliers', $suppliers);
     }
 
     public function store(Request $request)
@@ -82,12 +87,12 @@ class EntryProductsController extends Controller
         $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
 
         EntryProducts::create($request->except('_token'));
-       
+
         $products = Products::findOrFail($request->products_id);
         $products->StockQuantity += $request->WithdrawalAmount;
         $products->primary_suppliers_id = $request->Suppliers_id;
         $products->update($request->except('_token'));
-       
+
 
 
         return redirect('/entry_products')
@@ -123,10 +128,11 @@ class EntryProductsController extends Controller
         $request['WithdrawalAmount'] = str_replace(',', '.', $request['WithdrawalAmount']);
 
         $result =  $request->WithdrawalAmount - $entry->WithdrawalAmount;
-        
+
         $product->StockQuantity += $result;
 
-        if(!empty($request->suppliers)){
+        if (!empty($request->suppliers))
+        {
             $product->primary_suppliers_id = $request->suppliers;
         }
 
@@ -149,7 +155,8 @@ class EntryProductsController extends Controller
                 entry_products.WithdrawalAmount AS 'Quantidade de entrada',
                 entry_products.TotalPrice AS 'Preço total',
                 DATE_FORMAT(entry_products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
-            ")->leftJoin("products", "entry_products.products_id", "=", "products.id");
+            ")->leftJoin("products", "entry_products.products_id", "=", "products.id")
+            ->orderByDesc('entry_products.id');;
 
         if (!empty($_GET['SellerName']))
         {

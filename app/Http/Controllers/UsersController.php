@@ -13,23 +13,27 @@ class UsersController
     public function index()
     {
         $users = DB::table('users')
-        ->selectRaw('id, Name as "Nome",
+            ->selectRaw('id, Name as "Nome",
         email,
         permission as Permissão, 
         position as Cargo
         ')
-        ->orderBy('created_at', 'desc');
+            ->orderByDesc('id');
         $users = $users->paginate(15);
 
-        $nextPage = $users->nextPageUrl();
-        $previusPage = $users->previousPageUrl();
         $message = session('success.message');
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
+
+        $nextPage = $users->nextPageUrl() ? $users->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previusPage = $users->previousPageUrl() ? $users->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
 
         return view('users.index')
-        ->with('users', $users)
-        ->with('successMessage', $message)
-        ->with('nextPage', $nextPage)
-        ->with('previusPage', $previusPage);
+            ->with('users', $users)
+            ->with('successMessage', $message)
+            ->with('nextPage', $nextPage)
+            ->with('previusPage', $previusPage);
     }
 
     public function create()
@@ -38,7 +42,7 @@ class UsersController
     }
 
     public function store(Request $request)
-    { 
+    {
         $data = $request->except(['_token']);
 
         $data['password'] = Hash::make($data['password']);
@@ -46,9 +50,8 @@ class UsersController
         User::create($data);
 
         return redirect('/users')
-        ->with("success.message", "Usuário '{$request['name']}' adicionado com sucesso!")
-        ->with("teste", "teste"); 
-
+            ->with("success.message", "Usuário '{$request['name']}' adicionado com sucesso!")
+            ->with("teste", "teste");
     }
 
     public function edit($id)
@@ -59,22 +62,21 @@ class UsersController
 
 
     public function update(Request $request, $id)
-    {   
+    {
         $user = User::findOrFail($id);
 
         $data = $request->except(['_token', '_method']);
         $data['password'] = Hash::make($data['password']);
 
         $user->update($data);
-        
+
         return redirect('/users')
             ->with("success.message", "Usuário '$request->name' atualizado com sucesso!");
-
     }
 
 
     public function destroy(Request $request)
-    {   
+    {
         $user = User::findOrFail($request->input('delete_id'));
         $name = $user['name'];
 

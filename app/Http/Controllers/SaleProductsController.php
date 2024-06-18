@@ -22,11 +22,13 @@ class SaleProductsController extends Controller
         $saleProducts = $this->saleProducts->saleProductsReport();
         $saleProducts = $saleProducts->paginate(15);
 
-        $nextPage = $saleProducts->nextPageUrl();
-        $previusPage = $saleProducts->previousPageUrl();
         $message = session('success.message');
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
 
-        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $nextPage = $saleProducts->nextPageUrl() ? $saleProducts->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previusPage = $saleProducts->previousPageUrl() ? $saleProducts->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
         $exportCsvUrl = route('sale_products.csv', $params);
 
         return view('sale_products.index')
@@ -122,7 +124,7 @@ class SaleProductsController extends Controller
             DATE_FORMAT(sp.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
         ")
             ->leftJoin('products AS p', 'sp.products_id', '=', 'p.id')
-            ->orderBy('sp.created_at', 'desc');
+            ->orderByDesc('sp.id');
 
         if (!empty($_GET['SellerName']))
         {

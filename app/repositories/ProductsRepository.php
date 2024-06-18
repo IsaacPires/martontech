@@ -11,7 +11,7 @@ class ProductsRepository
     {
 
         $products = DB::table('products')
-        ->selectRaw("
+            ->selectRaw("
             products.id, 
             products.Name as 'Nome Produto',
             REPLACE(products.AlertQuantity, '.', ',') as 'Qntd. em Alerta',
@@ -20,18 +20,19 @@ class ProductsRepository
             s2.Name as 'Fornecedor dois',
             DATE_FORMAT(products.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
         ")
-        ->leftJoin('suppliers AS s', 'products.primary_suppliers_id', '=', 's.id')
-        ->leftJoin('suppliers AS s2', 'products.secondary_supplier_id', '=', 's2.id')
-        ->leftJoin('sale_products', 'products.id', '=', 'sale_products.products_id')
-        ->groupBy(
-            'products.id',
-            'products.Name',
-            'products.AlertQuantity',
-            'products.StockQuantity',
-            's.Name',
-            's2.Name',
-            'products.created_at'
-        );
+            ->leftJoin('suppliers AS s', 'products.primary_suppliers_id', '=', 's.id')
+            ->leftJoin('suppliers AS s2', 'products.secondary_supplier_id', '=', 's2.id')
+            ->leftJoin('sale_products', 'products.id', '=', 'sale_products.products_id')
+            ->groupBy(
+                'products.id',
+                'products.Name',
+                'products.AlertQuantity',
+                'products.StockQuantity',
+                's.Name',
+                's2.Name',
+                'products.created_at'
+            )
+            ->orderByDesc('products.id');
 
         if (isset($_GET['ordenacao']) && !empty($_GET['ordenacao']))
         {

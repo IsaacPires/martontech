@@ -16,7 +16,7 @@ class RequestController extends Controller
     public function index($id)
     {
         $requests = DB::table('requests')
-        ->selectRaw("
+            ->selectRaw("
             requests.id,
             products.Name as 'Produto',
             suppliers.Name as Fornecedor,
@@ -27,17 +27,19 @@ class RequestController extends Controller
             requests.brand as 'Info Adicional',
             DATE_FORMAT(requests.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
         ")
-        ->join('products', 'requests.product_id', '=', 'products.id')
-        ->join('suppliers', 'requests.suppliers_id', '=', 'suppliers.id')
-        ->where('requests.order_id', '=', $id)
-        ->orderBy('requests.created_at', 'desc')  
-        ->paginate(15);
+            ->join('products', 'requests.product_id', '=', 'products.id')
+            ->join('suppliers', 'requests.suppliers_id', '=', 'suppliers.id')
+            ->where('requests.order_id', '=', $id)
+            ->orderByDesc('requests.id')
+            ->paginate(15);
 
-        $nextPage = $requests->nextPageUrl();
-        $previusPage = $requests->previousPageUrl();
         $successMessage = session('successMessage');
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
 
-        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $nextPage = $requests->nextPageUrl() ? $requests->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previusPage = $requests->previousPageUrl() ? $requests->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
         $exportCsvUrl = route('pending.csv', $params);
 
         return view('request.index')
@@ -103,8 +105,7 @@ class RequestController extends Controller
         ModelsRequest::create($requestData);
 
         return redirect('/request/create')
-        ->with("successMessage", "Item adicionado com sucesso!");
-
+            ->with("successMessage", "Item adicionado com sucesso!");
     }
 
     public function destroy(Request $request)

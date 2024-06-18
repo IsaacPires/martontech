@@ -21,11 +21,15 @@ class InvoicesController extends Controller
         $invoices = $this->invoices->invoicesReport();
         $invoices = $invoices->paginate(15);
 
-        $nextPage = $invoices->nextPageUrl();
-        $previusPage = $invoices->previousPageUrl();
         $message = session('success.message');
 
-        $params = !empty($_GET) ? '?' . http_build_query($_GET) : null;
+        $params = $_GET;
+        unset($params['page']);
+        $queryString = http_build_query($params);
+
+        $nextPage = $invoices->nextPageUrl() ? $invoices->nextPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+        $previusPage = $invoices->previousPageUrl() ? $invoices->previousPageUrl() . ($queryString ? '&' . $queryString : '') : null;
+
         $exportCsvUrl = route('invoices.csv', $params);
 
         return view('invoices.index')
@@ -115,7 +119,7 @@ class InvoicesController extends Controller
             i.Material AS 'Material',
             DATE_FORMAT(i.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
         ")
-            ->orderBy('i.created_at', 'desc');
+            ->orderByDesc('i.id');
 
         if (!empty($_GET['Client']))
         {

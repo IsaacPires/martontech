@@ -21,7 +21,7 @@ class OrderController extends Controller
         $successMessage = session('successMessage');
 
         $orders = DB::table('orders')
-    ->selectRaw("
+            ->selectRaw("
         orders.id,
         CASE
             WHEN orders.status = 'E' THEN 'Enviado'
@@ -35,15 +35,15 @@ class OrderController extends Controller
         DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação',
         suppliers.Name as Fornecedor
     ")
-    ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
-    ->groupBy('orders.id', 'orders.status', 'suppliers.Name')
-    ->orderBy('orders.created_at', 'desc');
+            ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
+            ->groupBy('orders.id', 'orders.status', 'suppliers.Name')
+            ->orderByDesc('orders.id');;
 
         if (!empty($_GET['status']))
         {
             $orders->where('orders.status', '=', $_GET['status']);
         }
-         if (!empty($_GET['ids']))
+        if (!empty($_GET['ids']))
         {
             $orders->where('orders.id', '=', $_GET['ids']);
         }
@@ -51,7 +51,7 @@ class OrderController extends Controller
         if (!empty($_GET['Supplier']))
         {
             $orders->where('orders.suppliers_id', '=', $_GET['Supplier']);
-        } 
+        }
 
         $orders = $orders->paginate(15);
 
@@ -73,13 +73,14 @@ class OrderController extends Controller
     }
 
     public function accept($id)
-    {   $mRequests = ModelsRequest::where('order_id', $id)->get();
+    {
+        $mRequests = ModelsRequest::where('order_id', $id)->get();
 
         try
         {
             $orders = Orders::find($id);
             $mRequests = ModelsRequest::where('order_id', $id)->get();
-         
+
             foreach ($mRequests as $mRequest)
             {
                 $entry = new EntryProducts();
@@ -116,19 +117,18 @@ class OrderController extends Controller
     public function update(Orders $order)
     {
         $order->status = 'E';
-            $order->save();
-            $message = 'Requisição de compra criada com sucesso';
+        $order->save();
+        $message = 'Requisição de compra criada com sucesso';
 
-            $notify = new notifyCreated();
+        $notify = new notifyCreated();
 
-            Mail::to(['isaacpires1005@gmail.com', 'isaac.alves.1005@gmail.com'])->send($notify);
+        Mail::to(['isaacpires1005@gmail.com', 'isaac.alves.1005@gmail.com'])->send($notify);
 
-            return redirect('/order')
-                ->with("successMessage", $message);
+        return redirect('/order')
+            ->with("successMessage", $message);
 
         try
         {
-            
         }
         catch (\Throwable $th)
         {
@@ -219,7 +219,7 @@ class OrderController extends Controller
         ")
             ->join('requests', 'orders.id', '=', 'requests.order_id')
             ->join('suppliers', 'suppliers.id', '=', 'requests.suppliers_id')
-            ->orderBy('orders.created_at', 'desc')
+            ->orderByDesc('orders.id')
             ->groupBy('orders.id', 'suppliers.Name', 'orders.status');
 
         if (!empty($_GET['status']))
