@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
                 (new ProductsTableSeeder())->run();
                 (new EntryTableSeeder())->run();
                 (new sale_products())->run();
+                (new invoice())->run();
         }
 }

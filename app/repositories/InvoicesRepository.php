@@ -16,7 +16,7 @@ class InvoicesRepository
                 DATE_FORMAT(i.InvoiceDate, '%d/%m/%Y') AS 'Data NF',
                 i.NumberInvoice AS 'N° NF',
                 i.NumberInvoiceMarton as 'N° Nf Marton',
-                i.DepartureDate as 'Data de Saída',
+                DATE_FORMAT(i.DepartureDate, '%d/%m/%Y') as 'Data de Saída',
                 i.FinalTransport as 'Transportadora Final',
                 i.Material AS 'Material',
                 DATE_FORMAT(i.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
