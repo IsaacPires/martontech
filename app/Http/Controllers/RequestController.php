@@ -78,7 +78,11 @@ class RequestController extends Controller
     public function store(Request $request)
     {
         $order = orders::where('status', 'A')->latest()->first();
-
+       
+        $request['currentPrice'] = str_replace(',', '.', $request['currentPrice']);
+        $request['totalValue'] = str_replace(',', '.', $request['totalValue']);
+        $request['lastPrice'] = str_replace(',', '.', $request['lastPrice']);
+        
         if (empty($order))
         {
             $newOrder = [
@@ -86,18 +90,17 @@ class RequestController extends Controller
                 'totalValue' => (float) $request->totalValue,
                 'suppliers_id' => (float) $request->suppliers_id
             ];
-
             $order = orders::create($newOrder);
         }
         else
         {
-
-            $newTotalValue = $order->totalValue + (float)$request->totalValue;
+           
+            $newTotalValue = (float)$order->totalValue + (float)$request->totalValue;
             $order->totalValue = $newTotalValue;
             $order->save();
         }
-        $request['currentPrice'] = str_replace(',', '.', $request['currentPrice']);
-        $request['totalValue'] = str_replace(',', '.', $request['totalValue']);
+      
+
 
         $requestData = $request->except('_token');
         $requestData['order_id'] = $order->id;
