@@ -46,7 +46,7 @@ class DashboardController extends Controller
   {
     $alertItens = DB::table('products')
         ->select('Name', 'StockQuantity')
-        ->whereRaw('StockQuantity <= AlertQuantity')
+        ->whereRaw('StockQuantity < AlertQuantity')
         ->take(3)
         ->get();
 

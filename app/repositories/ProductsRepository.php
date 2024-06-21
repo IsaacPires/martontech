@@ -42,7 +42,7 @@ class ProductsRepository
                     $products->orderBy('products.created_at');
                     break;
                 case 'Criticos':
-                    $products->whereraw('StockQuantity <= AlertQuantity');
+                    $products->whereraw('StockQuantity < AlertQuantity');
                     break;
                 case 'Utilizados':
                     $products->whereBetween('sale_products.created_at', [now()->startOfMonth(), now()]);

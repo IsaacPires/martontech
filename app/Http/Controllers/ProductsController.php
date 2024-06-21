@@ -129,7 +129,7 @@ class ProductsController extends Controller
                     $products->orderBy('products.created_at');
                     break;
                 case 'Criticos':
-                    $products->whereraw('StockQuantity <= AlertQuantity');
+                    $products->whereraw('StockQuantity < AlertQuantity');
                     break;
                 case 'Utilizados':
                     $products->whereBetween('requests.created_at', [now()->startOfMonth(), now()]);

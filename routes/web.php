@@ -95,10 +95,10 @@ Route::middleware([Authenticator::class])->group(function ()
     Route::delete('/sale_products/{id}', 'SaleProductsController@destroy')->name('sale_products.destroy');
 
     //pending Routes
-    Route::resource('/pending', PendingController::class)->except('show');
-    Route::get('/pending/csv/{request?}', [PendingController::class, 'csv'])->name('pending.csv');
-    Route::get('/pending/{id}/accept', [PendingController::class, 'accept'])->name('pending.accept');
-    Route::get('/pending/{id}/deny', [PendingController::class, 'deny'])->name('pending.deny');
+    Route::resource('/pending', PendingController::class)->except('show')->middleware(AuthenticatorPage::class);
+    Route::get('/pending/csv/{request?}', [PendingController::class, 'csv'])->name('pending.csv')->middleware(AuthenticatorPage::class);
+    Route::get('/pending/{id}/accept', [PendingController::class, 'accept'])->name('pending.accept')->middleware(AuthenticatorPage::class);
+    Route::get('/pending/{id}/deny', [PendingController::class, 'deny'])->name('pending.deny')->middleware(AuthenticatorPage::class);
 
     Route::resource('/entry_products', EntryProductsController::class)->except('show');
     Route::get('/entry_products/{id}/edit', [EntryProductsController::class, 'edit']);
