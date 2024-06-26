@@ -120,9 +120,9 @@ class OrderController extends Controller
         $order->save();
         $message = 'Requisição de compra criada com sucesso';
 
-        $notify = new notifyCreated();
+        //$notify = new notifyCreated();
 
-        Mail::to(['isaacpires1005@gmail.com', 'isaac.alves.1005@gmail.com'])->send($notify);
+        //Mail::to(['isaacpires1005@gmail.com', 'isaac.alves.1005@gmail.com'])->send($notify);
 
         return redirect('/order')
             ->with("successMessage", $message);

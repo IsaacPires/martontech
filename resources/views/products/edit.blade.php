@@ -17,7 +17,7 @@
             </div> --}}
             <div class="col-md-4">
                 <label for="suppliers_id" class="form-label">Fornecedor um</label>
-                <select class="form-control select2" name="suppliers_id" id="suppliers_id">
+                <select class="form-control select2" name="primary_suppliers_id" id="suppliers_id">
                     <option value="">-- Selecione --</option>
                     @foreach ($suppliers as $supplier)
                     <option value="{{$supplier->id}}" {{ $supplier->id == $products->primary_suppliers_id ? 'selected' : '' }}>{{ $supplier->Name }}</option>
