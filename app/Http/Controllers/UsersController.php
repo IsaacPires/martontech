@@ -57,7 +57,7 @@ class UsersController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('Users.edit', ['user' => $user]);
+        return view('users.edit', ['user' => $user]);
     }
 
 

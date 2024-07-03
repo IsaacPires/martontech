@@ -31,7 +31,7 @@
 
             <div class="col-md-4">
                 <label for="brand" class="form-label">Info Adicional</label>
-                <input type="text" class="form-control" id="brand" name="brand" required>
+                <input type="text" class="form-control" id="brand" name="brand" maxlength="255" required>
             </div>
             <div class="col-md-4">
                 <label for="lastPrice" class="form-label">Último preço</label>

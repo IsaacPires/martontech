@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-4">
                 <label for="Brand" class="form-label">Info Adicional</label>
-                <input type="text" class="form-control" id="Brand" name="Brand" required>
+                <input type="text" class="form-control" id="Brand" name="Brand" maxlength="255" required>
             </div>
             <div class="col-md-4">
                 <label for="SellerName" class="form-label">Colaborador</label>
