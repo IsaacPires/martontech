@@ -30,6 +30,16 @@
             </div>
 
             <div class="col-md-4">
+                <label for="owner" class="form-label">Responsável</label>
+                <select class="form-control select2" data-live-search="true" name="owner" id="owner">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($owners as $owner)
+                    <option {{ isset($_GET['owner']) && $_GET['owner'] == $owner->id ? 'Selected' : ''}} value="{{$owner->id}}">{{ $owner->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-4">
                 <label for="brand" class="form-label">Info Adicional</label>
                 <input type="text" class="form-control" id="brand" name="brand" maxlength="255" required>
             </div>

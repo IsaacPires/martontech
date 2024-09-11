@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orders;
+use App\Models\Owners;
 use App\Models\Products;
 use App\Models\Request as ModelsRequest;
 use App\Models\Suppliers;
@@ -65,11 +66,15 @@ class RequestController extends Controller
 
         $suppliers = Suppliers::all();
         $products = Products::all();
+        $owners = Owners::all();
+
+
 
         return view('request.create')
             ->with('suppliers', $suppliers)
             ->with('products', $products)
             ->with('orders', $orders)
+            ->with('owners', $owners)
             ->with('successMessage', $successMessage)
             ->with('requests', $requests)
             ->with('SupRequests', $SupRequests);
@@ -82,13 +87,14 @@ class RequestController extends Controller
         $request['currentPrice'] = str_replace(',', '.', $request['currentPrice']);
         $request['totalValue'] = str_replace(',', '.', $request['totalValue']);
         $request['lastPrice'] = str_replace(',', '.', $request['lastPrice']);
-        
+
         if (empty($order))
         {
             $newOrder = [
                 'status' => 'A',
                 'totalValue' => (float) $request->totalValue,
-                'suppliers_id' => (float) $request->suppliers_id
+                'suppliers_id' => (float) $request->suppliers_id,
+                'owner_id' => (integer) $request->owner
             ];
             $order = orders::create($newOrder);
         }
@@ -99,7 +105,6 @@ class RequestController extends Controller
             $order->totalValue = $newTotalValue;
             $order->save();
         }
-      
 
 
         $requestData = $request->except('_token');

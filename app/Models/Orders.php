@@ -12,6 +12,12 @@ class Orders extends Model
     protected $fillable = [
         'status',
         'totalValue',
-        'suppliers_id'
+        'suppliers_id',
+        'owner_id'
     ];
+
+    public function owners()
+    {
+        return $this->belongsTo(Owners::class, 'owner_id');
+    }
 }

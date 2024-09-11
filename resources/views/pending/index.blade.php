@@ -10,7 +10,6 @@
                     <option value="N">Negada</option>
                     <option value="AC">Compra aprovada</option>
                     <option value="AP">Compra aprovada e recebida</option>
-
                 </select>
             </div>
       
@@ -28,6 +27,17 @@
                     @endforeach
                 </select>
             </div>
+
+            <div class="col-md-4">
+                <label for="owner" class="form-label">Responsáveis</label>
+                <select class="form-control select2" data-live-search="true" name="owner" id="owner">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($owners as $owner)
+                    <option {{ isset($_GET['owner']) && $_GET['owner'] == $owner->id ? 'Selected' : ''}} value="{{$owner->id}}">{{ $owner->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            
         </div>
 
         <div style='margin-top: 20px;'>

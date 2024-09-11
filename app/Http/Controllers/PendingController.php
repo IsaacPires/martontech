@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orders;
+use App\Models\Owners;
 use App\Models\Request as ModelsRequest;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
@@ -26,9 +27,11 @@ class PendingController extends Controller
                 end as Status,
                 CONCAT('R$ ', FORMAT(orders.totalValue, 2, 'de_DE')) as 'Valor total',
                 DATE_FORMAT(orders.created_at, '%d/%m/%Y') as 'Data Criação',
-                suppliers.Name as Fornecedor
+                suppliers.Name as Fornecedor,
+                owners.name as Responsável
             ")
             ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
+            ->join('owners', 'orders.owner_id', '=', 'owners.id')
             ->orderByDesc('orders.id');
 
         if (!empty($_GET['ids']))
@@ -51,8 +54,14 @@ class PendingController extends Controller
             $orders->where('orders.suppliers_id', '=', $_GET['Supplier']);
         }
 
-        $orders = $orders->paginate(15);
+        if (!empty($_GET['owner']))
+        {
+            $orders->where('orders.owner_id', '=', $_GET['owner']);
+        }
 
+        $orders = $orders->paginate(20);
+
+        $owners    = Owners::all();
         $suppliers = Suppliers::all();
         $successMessage = session('successMessage');
         $params = $_GET;
@@ -70,6 +79,7 @@ class PendingController extends Controller
         return view('pending.index')
             ->with('orders', $orders)
             ->with('suppliers', $suppliers)
+            ->with('owners', $owners)
             ->with('nextPage', $nextPage)
             ->with('previusPage', $previusPage)
             ->with('exportCsvUrl', $exportCsvUrl)

@@ -13,15 +13,6 @@
                 </select>
             </div>
 
-            <div class="col-md-4">
-                <label for="Supplier" class="form-label">Fornecedor</label>
-                <select class="form-control select2" data-live-search="true" name="Supplier" id="Supplier">
-                    <option value="">-- Selecione --</option>
-                    @foreach ($suppliers as $supplier)
-                    <option {{ isset($_GET['Supplier']) && $_GET['Supplier'] == $supplier->id ? 'Selected' : ''}} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
-                    @endforeach
-                </select>
-            </div>
 
             <div class="col-md-4">
                 <label for="ids" class="form-label">ID</label>
@@ -36,6 +27,26 @@
                     <option {{isset($_GET['limiter']) && $_GET['limiter'] == 50  ? 'SELECTED' : '' }} value="50">50</option>
                     <option {{isset($_GET['limiter']) && $_GET['limiter'] == 75  ? 'SELECTED' : '' }} value="75">75</option>
                     <option {{isset($_GET['limiter']) && $_GET['limiter'] == 100 ? 'SELECTED' : '' }} value="100">100</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="Supplier" class="form-label">Fornecedor</label>
+                <select class="form-control select2" data-live-search="true" name="Supplier" id="Supplier">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option {{ isset($_GET['Supplier']) && $_GET['Supplier'] == $supplier->id ? 'Selected' : ''}} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="owner" class="form-label">Responsáveis</label>
+                <select class="form-control select2" data-live-search="true" name="owner" id="owner">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($owners as $owner)
+                    <option {{ isset($_GET['owner']) && $_GET['owner'] == $owner->id ? 'Selected' : ''}} value="{{$owner->id}}">{{ $owner->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

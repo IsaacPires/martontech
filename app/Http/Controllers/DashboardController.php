@@ -36,7 +36,7 @@ class DashboardController extends Controller
   {
  
     $totalValue = Orders::whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
-        ->where('status', 'AP')
+        ->wherein('status', ['AC', 'AP'])
         ->sum('totalValue');
 
     return $totalValue;
