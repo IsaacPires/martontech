@@ -21,7 +21,7 @@ class InvoicesRepository
                 i.Material AS 'Material',
                 DATE_FORMAT(i.created_at, '%d/%m/%Y %H:%i') AS 'Data Criação'
             ")
-            ->orderByDesc('i.id');;
+            ->orderByDesc('i.id');
 
         if (!empty($_GET['Client']))
         {

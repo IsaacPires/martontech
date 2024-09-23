@@ -57,11 +57,13 @@ class RequestController extends Controller
         $orders = orders::where('status', 'A')->latest()->first();
         $requests = '';
         $SupRequests = '';
-
+        $hasOwner = '';
+        
         if (!empty($orders) && $orders->totalValue > '0')
         {
             $requests = ModelsRequest::with('product')->where('order_id', $orders->id)->get();
             $SupRequests = isset($requests[0]->suppliers_id) ? $requests[0]->suppliers_id : $requests;
+            $hasOwner = $orders->owner_id;
         }
 
         $suppliers = Suppliers::all();
@@ -77,7 +79,9 @@ class RequestController extends Controller
             ->with('owners', $owners)
             ->with('successMessage', $successMessage)
             ->with('requests', $requests)
-            ->with('SupRequests', $SupRequests);
+            ->with('SupRequests', $SupRequests)
+            ->with('hasOwner', $hasOwner);
+
     }
 
     public function store(Request $request)

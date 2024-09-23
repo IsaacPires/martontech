@@ -18,7 +18,9 @@ class SaleProductsController extends Controller
     }
 
     public function index()
-    {   $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
+    {   
+        
+        $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
 
         $saleProducts = $this->saleProducts->saleProductsReport();
         $saleProducts = $saleProducts->paginate($retornoPorPage);
