@@ -6,6 +6,10 @@
                 <input value="{{isset($_GET['SellerName']) && !empty($_GET['SellerName']) ? $_GET["SellerName"] : '' }}" type="text" class="form-control" id="SellerName" name="SellerName" placeholder="Digite para filtrar...">
             </div>
             <div class="col-md-4">
+                <label for="product" class="form-label">Produto</label>
+                <input value="{{isset($_GET['product']) && !empty($_GET['product']) ? $_GET["product"] : '' }}" type="text" class="form-control" id="product" name="product" placeholder="Digite para filtrar...">
+            </div>
+            <div class="col-md-4">
                 <label for="fabricationOrder" class="form-label">Ordem de Fabricação</label>
                 <input value="{{isset($_GET['fabricationOrder']) && !empty($_GET['fabricationOrder']) ? $_GET["fabricationOrder"] : '' }}" type="text" class="form-control" id="fabricationOrder" name="fabricationOrder" placeholder="Digite para filtrar...">
             </div>

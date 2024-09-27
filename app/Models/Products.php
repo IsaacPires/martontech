@@ -26,4 +26,9 @@ class Products extends Model
     {
         return $this->hasMany(SaleProducts::class);
     }
+
+    public function Request()
+    {
+        return $this->hasMany(Request::class);
+    }
 }

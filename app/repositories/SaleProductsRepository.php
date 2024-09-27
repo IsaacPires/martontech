@@ -39,7 +39,10 @@ class SaleProductsRepository
             $saleProducts->where('sp.TypeProduction', '=', $_GET['TypeProduction']);
         }
 
-
+        if (!empty($_GET['product']))
+        {
+            $saleProducts->where('p.Name', 'like', '%' . $_GET['product'] . '%');
+        }
 
         if (!empty($_GET['SellerName']))
         {

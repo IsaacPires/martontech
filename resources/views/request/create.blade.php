@@ -9,12 +9,12 @@
                 </div>
             @endisset
 
-            <div  style="{{$SupRequests ? 'pointer-events: none; opacity: 1;' : '' }}"  class='col-md-4'>
+            <div style="{{$SupRequests ? 'pointer-events: none; opacity: 1;' : '' }}" class='col-md-4'>
                 <label for="suppliers_id" class="form-label">Fornecedor</label>
                 <select style="pointer-events: none; opacity: 1;" class="form-control select2" name="suppliers_id" id="suppliers_id" required>
                     <option value="">-- Selecione --</option>
                     @foreach ($suppliers as $supplier)
-                    <option {{$SupRequests == $supplier->id ? 'selected' : '' }} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
+                    <option {{$SupRequests == $supplier->id ? 'selected' : ''}} value="{{$supplier->id}}">{{ $supplier->Name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -29,12 +29,12 @@
                 </select>
             </div>
 
-            <div class="col-md-4">
+            <div style="{{!empty($hasOwner) ? 'pointer-events: none; opacity: 1;' : '' }}" class="col-md-4">
                 <label for="owner" class="form-label">Responsável</label>
                 <select class="form-control select2" data-live-search="true" name="owner" id="owner">
                     <option value="">-- Selecione --</option>
                     @foreach ($owners as $owner)
-                    <option {{ isset($_GET['owner']) && $_GET['owner'] == $owner->id ? 'Selected' : ''}} value="{{$owner->id}}">{{ $owner->name }}</option>
+                    <option {{ !empty($hasOwner) && $hasOwner == $owner->id ? 'Selected' : ''}} value="{{$owner->id}}">{{ $owner->name }}</option>
                     @endforeach
                 </select>
             </div>

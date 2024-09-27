@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PendingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('via-cep/{cep}', [\App\Http\Controllers\Api\ViaCepController::class, 'retornaEndereco']);
+
+Route::get('/pending/{id}/accept', [PendingController::class, 'accept'])->name('pending.accept');
+
+Route::get('/pending/{id}/deny', [PendingController::class, 'deny'])->name('pending.deny');
+

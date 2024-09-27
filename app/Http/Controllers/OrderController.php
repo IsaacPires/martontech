@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NotifyOwner;
+use App\libraries\Discord;
 use App\Mail\notifyCreated;
 use App\Models\EntryProducts;
 use App\Models\Orders;
@@ -126,24 +128,25 @@ class OrderController extends Controller
     public function update(Orders $order)
     {
         
-        try
-        {
             $order->status = 'E';
-            $order->save();
-            $message = 'Requisição de compra criada com sucesso';
 
-            //$notify = new notifyCreated();
+            if($order->save())
+            {
+                $content = $this->createContent($order);
 
-            //Mail::to(['isaacpires1005@gmail.com', 'isaac.alves.1005@gmail.com'])->send($notify);
+                $notifyOwner = new NotifyOwner($order, $content);
+                
+                event($notifyOwner);
+
+                $message = 'Requisição de compra criada com sucesso.';
+            }
+                
+            else
+                $message = 'Falha ao criar requisição de compra.';
 
             return redirect('/order')
                 ->with("successMessage", $message);
-        }
-        catch (\Throwable $th)
-        {
-            return redirect('/order')
-                ->with("successMessage", 'Falha ao atualizar requisição');
-        }
+
     }
 
 
@@ -263,5 +266,23 @@ class OrderController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    protected function createContent($order): string
+    {
+        $requests = ModelsRequest::where('order_id', $order->getKey())->get();
+
+            $finalContent = "";
+
+            foreach ($requests as $request) {
+                $finalContent .= "**Produto:** {$request->product->Name}\n";
+                $finalContent .= "**Valor Unitário:** R$ " . number_format($request->currentPrice, 2, ',', '.') . "\n";
+                $finalContent .= "**Quantidade:** {$request->quantity}\n";
+                $finalContent .= "**Total:** R$ " . number_format($request->totalValue, 2, ',', '.') . "\n\n";
+            }
+                
+        $finalContent .= "**Valor Total:** R$ " . number_format($order->totalValue, 2, ',', '.');
+
+        return $finalContent;
     }
 }

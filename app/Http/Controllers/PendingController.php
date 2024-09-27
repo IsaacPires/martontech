@@ -93,13 +93,9 @@ class PendingController extends Controller
         $order->status = 'AC';
 
         if ($order->save())
-        {
             $message = 'Pedido de compra aprovado com sucesso!';
-        }
         else
-        {
             $message = 'Ocorreu um erro!';
-        }
 
         return redirect('/pending')->with('successMessage', $message);
     }

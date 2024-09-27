@@ -37,6 +37,15 @@
                     </div>
                     <div class='dashboard-nav-dropdown'>
                         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                            <i class="fa fa-wrench"></i> Ferramentas
+                        </a>
+                        <div class='dashboard-nav-dropdown-menu'>
+                            <a href="{{route('tools.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>
+                            <a href="{{route('tools.index')}}" class="dashboard-nav-dropdown-item">Relatório</a>
+                        </div>
+                    </div>
+                    <div class='dashboard-nav-dropdown'>
+                        <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
                             <i class="fas fa-exchange-alt"></i>Movimentações
                         </a>
                         <div class='dashboard-nav-dropdown-menu'>
