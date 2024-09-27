@@ -37,10 +37,11 @@ class OrderController extends Controller
         CONCAT('R$ ', REPLACE(REPLACE(FORMAT(MAX(orders.totalValue), 2), ',', ''), '.', ',')) as 'Valor total',
         DATE_FORMAT(MAX(orders.created_at), '%d/%m/%Y') as 'Data Criação',
         suppliers.Name as Fornecedor,
-        orders.owner_id as Responsável
+        owners.name as Responsável
     ")
             ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
-            ->groupBy('orders.id', 'orders.status', 'suppliers.Name', 'orders.owner_id')
+            ->join('owners', 'owners.id', '=', 'orders.owner_id')
+            ->groupBy('orders.id', 'orders.status', 'suppliers.Name', 'orders.owner_id', 'owners.name')
             ->orderByDesc('orders.id');;
 
             if (!empty($_GET['status']))
