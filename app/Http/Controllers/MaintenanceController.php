@@ -23,7 +23,7 @@ class MaintenanceController extends Controller
 
         $maintenance = DB::table('maintenances', 'm')
         ->leftJoin('tools as t', 't.id', '=', 'm.tools_id')
-        ->leftJoin('Suppliers as s', 't.suppliers_id', '=', 's.id')
+        ->leftJoin('suppliers as s', 't.suppliers_id', '=', 's.id')
         ->selectRaw("
         m.id,
         t.Name AS 'Ferramenta',
