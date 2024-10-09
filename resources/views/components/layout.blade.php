@@ -42,6 +42,7 @@
                         <div class='dashboard-nav-dropdown-menu'>
                             <a href="{{route('tools.create')}}" class="dashboard-nav-dropdown-item">Adicionar</a>
                             <a href="{{route('tools.index')}}" class="dashboard-nav-dropdown-item">Relatório</a>
+                            <a href="{{route('maintenances.index')}}" class="dashboard-nav-dropdown-item">Manutenção</a>
                         </div>
                     </div>
                     <div class='dashboard-nav-dropdown'>

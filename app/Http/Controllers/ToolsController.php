@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Suppliers;
 use App\Models\Tools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,16 +22,18 @@ class ToolsController extends Controller
         $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
 
         $tools = DB::table('tools', 't')
-        ->selectRaw("
-            t.id,
-            t.Name AS 'Nome',
-            DATE_FORMAT(t.Date, '%d/%m/%Y') AS 'Data',
-            t.Quantity AS 'Quantidade',
-            t.Number AS 'N°',
-            t.State AS 'Estado',
-            t.Status AS 'Status'
-        ")
-        ->orderByDesc('t.id');
+            ->leftJoin('Suppliers as s', 't.suppliers_id', '=', 's.id')
+            ->selectRaw("
+                t.id,
+                t.Name AS 'Ferramenta',
+                s.Name AS 'Fornecedor',
+                DATE_FORMAT(t.Date, '%d/%m/%Y') AS 'Data',
+                t.Quantity AS 'Quantidade',
+                t.Number AS 'N°',
+                t.State AS 'Estado',
+                t.Status AS 'Status'
+            ")
+            ->orderByDesc('t.id');
 
         if (!empty($_GET['toolsName']))
         {
@@ -39,13 +42,13 @@ class ToolsController extends Controller
 
         if (!empty($_GET['State']))
         {
-        $tools->where('State', 'like', '%' . $_GET['State'] . '%');
+            $tools->where('State', 'like', '%' . $_GET['State'] . '%');
         }
 
         
         if (!empty($_GET['Status']))
         {
-        $tools->where('Status', 'like', '%' . $_GET['Status'] . '%');
+            $tools->where('Status', 'like', '%' . $_GET['Status'] . '%');
         }
 
         $tools = $tools->paginate($retornoPorPage);
@@ -71,14 +74,17 @@ class ToolsController extends Controller
     
     public function create()
     {
-        return view('tools.create');
+        $suppliers = Suppliers::all();
+
+        return view('tools.create')        
+            ->with('suppliers', $suppliers);
         
     }
 
     public function store(Request $request)
     {
         if($tools = Tools::create($request->except('_token')))
-            $message = "Ferramente '$tools->Name' adicionada com sucesso!";
+            $message = "Ferramenta '$tools->Name' adicionada com sucesso!";
         else
             $message = "Erro ao cadastrar a Ferramenta.";
 
@@ -89,9 +95,9 @@ class ToolsController extends Controller
 
     public function destroy(Request $request)
     {
-        $supplier = Tools::findOrFail($request->input('delete_id'));
-        if($supplier->delete())
-            $message = "Fornecedor '$supplier->Name' removida com sucesso!";
+        $tool = Tools::findOrFail($request->input('delete_id'));
+        if($tool->delete())
+            $message = "Ferramenta '$tool->Name' removida com sucesso!";
         else
             $message = "Erro ao deletar ferramenta.";
 
@@ -108,17 +114,16 @@ class ToolsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $supplier = Tools::findOrFail($id);
+        $tools = Tools::findOrFail($id);
         
-        if($supplier->update($request->all()))
-            $message = "Fornecedor '$request->Name' atualizado com sucesso!";
+        if($tools->update($request->all()))
+            $message = "Ferramenta '$request->Name' atualizado com sucesso!";
         else
             $message = "Erro ao editar ferramenta.";
 
         return redirect('/tools')
             ->with("message", $message);
     }
-
 
     public function csv()
     {

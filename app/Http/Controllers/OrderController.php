@@ -271,16 +271,18 @@ class OrderController extends Controller
 
     protected function createContent($order): string
     {
-        $requests = ModelsRequest::where('order_id', $order->getKey())->get();
+        $requests = ModelsRequest::where('order_id', $order->getKey())->with('suppliers')->get();
+        
+        $finalContent = "";
 
-            $finalContent = "";
-
-            foreach ($requests as $request) {
-                $finalContent .= "**Produto:** {$request->product->Name}\n";
-                $finalContent .= "**Valor Unitário:** R$ " . number_format($request->currentPrice, 2, ',', '.') . "\n";
-                $finalContent .= "**Quantidade:** {$request->quantity}\n";
-                $finalContent .= "**Total:** R$ " . number_format($request->totalValue, 2, ',', '.') . "\n\n";
-            }
+        foreach ($requests as $request) {
+            $finalContent .= "**Produto:** {$request->product->Name}\n";
+            $finalContent .= "**Fornecedor:** {$request->suppliers->Name}\n";
+            $finalContent .= "**Último Valor:** R$ " . number_format($request->lastPrice, 2, ',', '.') . "\n";
+            $finalContent .= "**Valor Unitário Atual:** R$ " . number_format($request->currentPrice, 2, ',', '.') . "\n";
+            $finalContent .= "**Quantidade:** {$request->quantity}\n";
+            $finalContent .= "**Total:** R$ " . number_format($request->totalValue, 2, ',', '.') . "\n\n";
+        }
                 
         $finalContent .= "**Valor Total:** R$ " . number_format($order->totalValue, 2, ',', '.');
 

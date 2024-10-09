@@ -12,6 +12,7 @@ class Tools extends Model
     protected $fillable = [
         'Name',
         'Date',
+        'Suppliers_id',
         'Quantity',
         'Number',
         'State',

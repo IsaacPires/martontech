@@ -32,8 +32,12 @@
                             <a class="btn btn-primary btn-sm ms-2" title='Confirmar entrada no estoque.' href='{{ route("$rota.accept", $d->id) }}'>
                                 <i class="fas fa-check"></i>
                             </a>
-
           
+                        @endif
+
+                        @if(isset($tool))
+                            <a class="btn btn-primary btn-sm ms-2" href='{{ route("maintenances.create", $d->id) }}'>
+                            <i class="fas fa-wrench"></i>
                         @endif
 
                         @if (!isset($requestButton))

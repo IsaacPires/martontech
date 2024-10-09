@@ -43,6 +43,6 @@
         </div>
     </form>
 
-    <x-grid :successMessage="$successMessage" :data="$tools" rota="tools" :nextPage="$nextPage" :previusPage="$previusPage">
+    <x-grid :successMessage="$successMessage" :tool=true :data="$tools" rota="tools" :nextPage="$nextPage" :previusPage="$previusPage">
     </x-grid>
 </x-layout>

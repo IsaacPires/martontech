@@ -18,11 +18,13 @@ class CreateToolsTable extends Migration
             $table->string('Name');
             $table->timestamp('Date')->nullable();
             $table->integer('Quantity')->nullable();
-            $table->integer('Number')->nullable();
+            $table->integer('Suppliers_id')->nullable();
+            $table->string('Number')->nullable();
             $table->string('State')->nullable();
             $table->string('Owner')->nullable();
             $table->string('Note')->nullable();
             $table->string('Status')->nullable();
+            $table->string('Obs')->nullable();
             $table->timestamps();
         });
     }

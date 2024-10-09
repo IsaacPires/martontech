@@ -24,4 +24,9 @@ class Request extends Model
     {
         return $this->belongsTo(Products::class, 'product_id');
     }
+
+    public function suppliers()
+    {
+        return $this->belongsTo(Suppliers::class, 'suppliers_id');
+    }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EntryProductsController;
+use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ToolsController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,11 @@ Route::middleware([Authenticator::class])->group(function ()
      Route::get('/tools/report', [ToolsController::class, 'report']);
      Route::get('/tools/csv/{request?}', [ToolsController::class, 'csv'])->name('tools.csv');
      Route::delete('/tools/{id}', 'ToolsController@destroy')->name('ToolsController.destroy');
+
+     //rotas manutencao
+     Route::resource('/maintenances', MaintenanceController::class)->except('show');
+     Route::get('/maintenances/create/{id}', [MaintenanceController::class, 'create'])->name('maintenances.create');
+     Route::get('/maintenances/{id}/edit', [MaintenanceController::class, 'edit']);
 
     // Rotas para as vendas
     Route::resource('/sales_products', SaleProductsController::class)->except('show');

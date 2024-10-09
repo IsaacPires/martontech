@@ -11,8 +11,8 @@ class Discord
     {
 
         $channelOwner = match ($ownerId) {
-            1 => 'https://discord.com/api/webhooks/1284666594290569236/kNkrPwF9ECFYAtlHWYekVnt_ZzZRThQE4cZblvl2A6gA46N7Xlhn_SaW_Fz6WycOyuTq',
-            2 => 'https://discord.com/api/webhooks/1284938854331056128/17PW3RJtB7Ff_G8Nl920o3iHRPWqJaYisQbJkcP6JHUpye1S85qur4-SNQlPK1Oi3E4x',
+            1 => 'https://discord.com/api/webhooks/1284938854331056128/17PW3RJtB7Ff_G8Nl920o3iHRPWqJaYisQbJkcP6JHUpye1S85qur4-SNQlPK1Oi3E4x',
+            2 => 'https://discord.com/api/webhooks/1284666594290569236/kNkrPwF9ECFYAtlHWYekVnt_ZzZRThQE4cZblvl2A6gA46N7Xlhn_SaW_Fz6WycOyuTq',
         };
         
         $urlAccept = url("/api/pending/{$pendingId}/accept");

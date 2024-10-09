@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-4">
                 <label for="Number" class="form-label">N°</label>
-                <input type="number" class="form-control" value="{{$tools->Number}}" maxlength="11" id="Number" name="Number" required step="1">
+                <input type="text" class="form-control" value="{{$tools->Number}}" maxlength="11" id="Number" name="Number" required step="1">
             </div>
             <div class="col-md-4">
                 <label for="State" class="form-label">Estado da ferramenta</label>

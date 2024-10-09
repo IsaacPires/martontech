@@ -13,6 +13,7 @@ class Suppliers extends Model
     protected $fillable = [
         'id',
         'Name',
+        'Suppliers_id',
         'Segments',
         'Cnpj',
         'AddressStreet',
@@ -32,6 +33,11 @@ class Suppliers extends Model
     public function products()
     {
         return $this->hasMany(Products::class, 'suppliers_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'suppliers_id');
     }
 
     public static function booted()

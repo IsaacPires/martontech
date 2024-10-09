@@ -7,6 +7,17 @@
                 <label for="Name" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="Name" maxlength='128' name="Name" minlength="5" required>
             </div>
+
+            <div class="col-md-4">
+                <label for="Suppliers_id" class="form-label">Fornecedor</label>
+                <select class="form-control select2" name="Suppliers_id" id="Suppliers_id">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{ $supplier->id}} ">{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            
             <div class="col-md-4">
                 <label for="Owner" class="form-label">Responsável</label>
                 <input type="text" class="form-control" id="Owner" maxlength='128' name="Owner" minlength="5" required>
@@ -21,7 +32,7 @@
             </div>
             <div class="col-md-4">
                 <label for="Number" class="form-label">N°</label>
-                <input type="number" class="form-control" maxlength="11" id="Number" name="Number" required step="1">
+                <input type="text" class="form-control" maxlength="11" id="Number" name="Number" required step="1">
             </div>
             <div class="col-md-4">
                 <label for="State" class="form-label">Estado da ferramenta</label>
