@@ -22,7 +22,7 @@ class ToolsController extends Controller
         $retornoPorPage = !empty($_GET['limiter']) ? (int)$_GET['limiter'] :  50;
 
         $tools = DB::table('tools', 't')
-            ->leftJoin('Suppliers as s', 't.suppliers_id', '=', 's.id')
+            ->leftJoin('suppliers as s', 't.suppliers_id', '=', 's.id')
             ->selectRaw("
                 t.id,
                 t.Name AS 'Ferramenta',
