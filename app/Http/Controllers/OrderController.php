@@ -134,7 +134,7 @@ class OrderController extends Controller
             if($order->save())
             {
                 $content = $this->createContent($order);
-
+                
                 $notifyOwner = new NotifyOwner($order, $content);
                 
                 event($notifyOwner);
@@ -272,7 +272,6 @@ class OrderController extends Controller
     protected function createContent($order): string
     {
         $requests = ModelsRequest::where('order_id', $order->getKey())->with('suppliers')->get();
-        
         $finalContent = "";
 
         foreach ($requests as $request) {
@@ -281,6 +280,7 @@ class OrderController extends Controller
             $finalContent .= "**Último Valor:** R$ " . number_format($request->lastPrice, 2, ',', '.') . "\n";
             $finalContent .= "**Valor Unitário Atual:** R$ " . number_format($request->currentPrice, 2, ',', '.') . "\n";
             $finalContent .= "**Quantidade:** {$request->quantity}\n";
+            $finalContent .= "**Informação adicional:** {$request->brand}\n";
             $finalContent .= "**Total:** R$ " . number_format($request->totalValue, 2, ',', '.') . "\n\n";
         }
                 
