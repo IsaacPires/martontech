@@ -70,6 +70,9 @@ Route::middleware([Authenticator::class])->group(function ()
      Route::get('/tools/report', [ToolsController::class, 'report']);
      Route::get('/tools/csv/{request?}', [ToolsController::class, 'csv'])->name('tools.csv');
      Route::delete('/tools/{id}', 'ToolsController@destroy')->name('ToolsController.destroy');
+     Route::get('/tools/csv/{request?}', [ToolsController::class, 'csv'])->name('tools.csv');
+     Route::get('/tools/change/', [ToolsController::class, 'changeOwner'])->name('tools.change');
+     Route::post('/tools/savechange/', [ToolsController::class, 'savechangeOwner'])->name('tools.save');
 
      //rotas manutencao
      Route::resource('/maintenances', MaintenanceController::class)->except('show');

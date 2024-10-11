@@ -84,15 +84,24 @@
 
                     <div class="nav-item-divider"></div>
                     @if(Auth::user()->permission == 'adm')
-                    <div class='dashboard-nav-dropdown'>
-                        <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-users"></i>
-                            Usuários
-                        </a>
-                        <div class='dashboard-nav-dropdown-menu'>
-                            <a href="{{route('users.create')}}" class="dashboard-nav-dropdown-item">Criar</a>
-                            <a href="/users" class="dashboard-nav-dropdown-item">Relatório</a>
+                        <div class='dashboard-nav-dropdown'>
+                            <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-users"></i>
+                                Usuários
+                            </a>
+                            <div class='dashboard-nav-dropdown-menu'>
+                                <a href="{{route('users.create')}}" class="dashboard-nav-dropdown-item">Criar</a>
+                                <a href="/users" class="dashboard-nav-dropdown-item">Relatório</a>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class='dashboard-nav-dropdown'>
+                            <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-users"></i>
+                                Responsáveis
+                            </a>
+                            <div class='dashboard-nav-dropdown-menu'>
+                                <a href="{{route('tools.change')}}" class="dashboard-nav-dropdown-item">Mudar responsável</a>
+                            </div>
+                        </div>
                     @endif
                 </nav>
             </div>

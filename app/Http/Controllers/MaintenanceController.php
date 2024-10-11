@@ -131,7 +131,56 @@ class MaintenanceController extends Controller
             ->with("message", $message);
     }
 
+    public function csv()
+    {
+        $maintenance = DB::table('maintenances', 'm')
+            ->leftJoin('tools as t', 't.id', '=', 'm.tools_id')
+            ->leftJoin('suppliers as s', 't.suppliers_id', '=', 's.id')
+            ->selectRaw("
+            m.id,
+            t.Name AS 'Ferramenta',
+            s.Name AS 'Fornecedor',
+            m.quantity as 'Quant. defeito',
+            DATE_FORMAT(m.return_date, '%d/%m/%Y') AS 'Data de retorno',
+            t.Number AS 'N°',
+            m.defect AS 'Defeito',
+            m.value as 'Valor',
+            m.obs AS 'Obs'
+        ")
+        ->orderByDesc('t.id');
 
+    if (!empty($_GET['toolsName']))
+    {
+        $maintenance->where('t.Name', 'like', '%' . $_GET['toolsName'] . '%');
+    }
 
+        $maintenance = $maintenance->get();
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="ferramentas.csv"',
+        ];
+
+        $callback = function () use ($maintenance)
+        {
+            $file = fopen('php://output', 'w');
+            if ($maintenance->isNotEmpty())
+            {
+                $headers = array_keys((array)$maintenance->first());
+                fputcsv($file, $headers);
+                foreach ($maintenance as $value)
+                {
+                    fputcsv($file, (array)$value);
+                }
+            }
+            else
+            {
+                fputcsv($file, ['No data available']);
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 
 }

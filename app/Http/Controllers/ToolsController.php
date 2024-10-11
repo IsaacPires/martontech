@@ -185,4 +185,27 @@ class ToolsController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
+
+    public function changeOwner()
+    {
+        $tools = Tools::all();
+        $msg = session('msg');
+
+        return view('tools.change')
+            ->with('tools', $tools)
+            ->with('msg', $msg);
+        }
+
+    public function savechangeOwner(Request $request)
+    {
+        if(Tools::where('Owner', "$request->responsavel_old")->update(['Owner' => "$request->responsavel_new"]))
+            $msg = "As ferramentas do responsável '$request->responsavel_old' foram alteradas para '$request->responsavel_new'.";
+        else
+            $msg = "Falha ao alterar responsável.";
+        
+
+        return redirect('/tools/change')->with('msg', $msg);
+
+    }
+
 }

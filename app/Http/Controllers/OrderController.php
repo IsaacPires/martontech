@@ -39,10 +39,10 @@ class OrderController extends Controller
         suppliers.Name as Fornecedor,
         owners.name as Responsável
     ")
-            ->join('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
-            ->join('owners', 'owners.id', '=', 'orders.owner_id')
+            ->leftJoin('suppliers', 'orders.suppliers_id', '=', 'suppliers.id')
+            ->leftJoin('owners', 'owners.id', '=', 'orders.owner_id')
             ->groupBy('orders.id', 'orders.status', 'suppliers.Name', 'orders.owner_id', 'owners.name')
-            ->orderByDesc('orders.id');;
+            ->orderByDesc('orders.id');
 
             if (!empty($_GET['status']))
         {
