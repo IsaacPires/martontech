@@ -1,217 +1,79 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-p {
-    font-size: 12px;
-}
-
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
 }
 
-.header .logo {
-    flex: 1;
+.logo img {
+    width: 250px;
+}
+
+.company-info, .contact-info {
+    width: 30%;
     text-align: left;
+    margin-left: 20%;
 }
 
-.header .logo img {
-    max-height: 60px;
-}
-
-.header .company-info {
-    flex: 2;
-    text-align: center;
-    font-size: 12px;
-
-}
-
-.header .contact-info {
-    flex: 1;
-    text-align: right;
-    font-size: 12px;
-}
-
-.purchase-order {
+.order-info {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.purchase-order .left h3,
-.purchase-order .center p,
-.purchase-order .right p {
-    margin: 0;
-}
-
-.purchase-order .left {
-    flex: 1;
-    text-align: left;
-}
-
-.purchase-order .center {
-    flex: 1;
+.order-info .left, .order-info .middle, .order-info .right {
+    width: 30%;
     text-align: center;
 }
 
-.purchase-order .right {
-    flex: 1;
-    text-align: right;
-}
-
-.highlight {
-    background-color: #b4c6e7;
-    color: black;
-    padding: 2px 5px;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
-/* Seção dos dados do fornecedor */
 .supplier-info {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #b4c6e7; /* Cor de fundo especificada */
-}
-
-.supplier-info .left,
-.supplier-info .center,
-.supplier-info .right {
-    flex: 1;
-    text-align: left; /* Todos alinhados à esquerda */
-}
-
-.supplier-info .center {
-    text-align: center;
-}
-
-.supplier-info .right {
-    text-align: right;
-}
-
-.supplier-info p {
-    margin: 5px 0;
-}
-
-.order-message {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: white; /* Fundo branco */
-}
-
-.order-message .left {
-    flex: 1;
-    text-align: left;
-}
-
-.order-message .right {
-    flex: 1;
-    text-align: right;
-}
-
-.order-message p {
-    margin: 0; /* Remove margens para melhor alinhamento */
-}
-
-
-.product-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-.product-table th, .product-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-}
-
-.product-table th {
-    background-color: #b4c6e7; /* Cor de fundo para cabeçalho */
-}
-
-.product-table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Linhas pares com fundo claro */
-}
-
-
-
-.payment-summary {
-    background-color: white;
     padding: 10px;
-    margin-top: 10px; /* Espaço acima da linha */
+    background-color: #b4c6e7;
+    margin-bottom: 20px;
 }
 
-.payment-condition, .freight, .total {
-    flex: 1; /* Distribui o espaço igualmente */
+.supplier-info .left, .supplier-info .middle, .supplier-info .right {
+    width: 30%;
 }
 
-.general-conditions {
-    display: flex;
-    margin-top: 20px; /* Adicionando margem */
-    margin-left:8px;
-
-}
-
-.space-strong{
-    margin-left:150px;
-}
-
-.additional-info {
-    background-color: #b4c6e7; /* Cor de fundo */
-    padding: 10px; /* Opcional: Adicionando padding */
-    margin-top: 10px; /* Opcional: Espaçamento acima */
-}
-
-.additional-info p {
-    margin: 5px 0; /* Espaçamento entre parágrafos */
-}
-
-
-.observacao {
-    padding: 10px; /* Paddings padrão */
-    color: red; /* Cor vermelha */
-}
-
-.obs-box {
-    background-color: #b4c6e7; /* Cor de fundo */
-    padding: 10px; /* Paddings padrão */
-    margin-top: 10px; /* Espaçamento acima */
-}
-
-.consid {
-    padding: 10px; /* Paddings padrão */
-    margin-top: 10px; /* Espaçamento acima */
-}
-
-.contacts {
+.order-text {
     display: flex;
     justify-content: space-between;
-    padding: 10px; /* Paddings padrão */
+    padding: 10px;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.footer-info .conditions {
+    background-color: #b4c6e7;
+    padding: 10px;
     margin-top: 10px;
 }
 
-.contact {
+.observation {
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.additional-info {
+    background-color: #b4c6e7;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.contacts table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.contacts td {
+    width: 50%;
+    padding: 10px;
     text-align: left;
+    vertical-align: top;
 }
-
-.contact a {
-    color: blue;
-    text-decoration: underline;
-}
-
-
-
-
