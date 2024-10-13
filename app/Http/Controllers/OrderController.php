@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\NotifyOwner;
-use App\libraries\Discord;
-use App\Mail\notifyCreated;
 use App\Models\EntryProducts;
 use App\Models\Orders;
 use App\Models\Owners;
@@ -13,7 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Request as ModelsRequest;
 use App\Models\Suppliers;
-use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class OrderController extends Controller
 {
@@ -288,4 +287,11 @@ class OrderController extends Controller
 
         return $finalContent;
     }
+
+    public function pdf()
+    {
+        $pdf = Pdf::loadView('orders.pdf');
+        return $pdf->download('orders.pdf');
+    }
+
 }
