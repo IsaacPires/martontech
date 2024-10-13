@@ -1,79 +1,44 @@
-.header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
 }
 
-.logo img {
-    width: 250px;
-}
-
-.company-info, .contact-info {
-    width: 30%;
-    text-align: left;
-    margin-left: 20%;
-}
-
-.order-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.order-info .left, .order-info .middle, .order-info .right {
-    width: 30%;
-    text-align: center;
-}
-
-.supplier-info {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #b4c6e7;
-    margin-bottom: 20px;
-}
-
-.supplier-info .left, .supplier-info .middle, .supplier-info .right {
-    width: 30%;
-}
-
-.order-text {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-.footer-info {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-.footer-info .conditions {
-    background-color: #b4c6e7;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.observation {
-    padding: 10px;
-    margin-top: 20px;
-}
-
-.additional-info {
-    background-color: #b4c6e7;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.contacts table {
+table {
     width: 100%;
-    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 5px;
+}
+
+.img {
+    width: 200;
+}
+
+.bold {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.company-info, .contact-info, .order-info {
+    text-align: left;
 }
 
 .contacts td {
-    width: 50%;
-    padding: 10px;
-    text-align: left;
-    vertical-align: top;
+    padding-top: 10px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+strong {
+    font-weight: bold;
+}
+
+a {
+    color: #0000EE;
+    text-decoration: none;
 }
