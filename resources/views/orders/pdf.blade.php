@@ -10,7 +10,7 @@
 
     <header class="header">
         <div class="logo">
-            <img src="/img/logo_PDF.jpg">
+            <img src={{asset("/img/logo_PDF.jpg")}}>
         </div>
         <div class="company-info">
             <p>Marton Tech Industria e Comércio LTDA</p>
