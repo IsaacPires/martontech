@@ -28,10 +28,10 @@
             <h3>Ordem de Compra</h3>
         </div>
         <div class="center">
-            <p><span class="highlight">Data</span>: 13/10/2024</p>
+            <strong><span class="highlight">Data</span>: 13/10/2024</strong>
         </div>
         <div class="right">
-            <p><span class="highlight">Ordem N°</span> 12345</p>
+            <strong><span class="highlight">Ordem N°</span> 12345</strong>
         </div>
     </div>
 
@@ -94,9 +94,71 @@
                 <td>R$ 150,00</td>
                 <td>R$ 2.250,00</td>
             </tr>
-            <!-- Adicione mais linhas conforme necessário -->
         </tbody>
     </table>
+
+    <div class="payment-summary" style="display: flex; justify-content: space-between; background-color: white; padding: 10px;">
+        <div class="payment-condition">
+            <strong>Condição de Pgto:</strong> 30/45/60 DDL
+        </div>
+        <div class="freight">
+            <strong>Frete:</strong> POR NOSSA CONTA
+        </div>
+        <div class="total">
+            <strong>TOTAL:</strong> R$ 3.700,45
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="payment-summary" style="display: flex; justify-content: space-between; background-color: white; padding: 10px;">
+        <div class="payment-condition">
+            <strong>Condições Gerais de Fornecimento:</strong>
+        </div>
+        <div class="freight">
+            <strong>Imposto:</strong>
+        </div>
+        <div class="total">
+        </div>
+    </div>
+
+    <div class="additional-info">
+        <p>Mencionar sempre o número deste documento na nota fiscal / Não serão aceitas notas fiscais com o conteúdo divergente das condições expressas nos documentos de compras / Todas as entregas devem ser atendidas no prazo / Pedidos em atraso poderão ser cancelados sem aviso prévio. / A Marton Tech não se responsabiliza pela entrega de itens não expressos em seus documentos de compras.</p>
+        <p>Notas fiscais eletrônicas de (ARQUIVOS XML) deverão ser enviadas para: comercial@martontech.com.br</p>
+    </div>
+
+    <div class="observacao">
+        <strong>Observações:</strong>
+    </div>
+
+    <div class="obs-box">
+        <p>Aqui ficam as observações.</p>
+    </div>
+
+    <div class="consid">
+        <p>Ficamos a disposição para eventuais dúvidas, sugestões ou esclarecimentos.</p>
+        <p>Atenciosamente,</p>
+    </div>
+
+    <div class="contacts">
+    <div class="contact">
+        <strong>Airton S. Nakano</strong>
+        <p>(15) 98189-2835</p>
+        <a href="mailto:asnakano@martontech.com.br">asnakano@martontech.com.br</a>
+    </div>
+    <div class="contact">
+        <strong>Marcio B. Leite</strong>
+        <p>(15) 99849-7108</p>
+        <a href="mailto:mbruce@martontech.com.br">mbruce@martontech.com.br</a>
+    </div>
+    <div class="contact">
+
+    </div>
+</div>
+
+
+    
+
 
 </body>
 </html>

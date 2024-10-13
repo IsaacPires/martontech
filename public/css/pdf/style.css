@@ -4,6 +4,10 @@ body {
     padding: 0;
 }
 
+p {
+    font-size: 12px;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -25,12 +29,14 @@ body {
 .header .company-info {
     flex: 2;
     text-align: center;
+    font-size: 12px;
+
 }
 
 .header .contact-info {
     flex: 1;
     text-align: right;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .purchase-order {
@@ -62,10 +68,11 @@ body {
 }
 
 .highlight {
-    background-color: #007bff;
+    background-color: #b4c6e7;
     color: black;
     padding: 2px 5px;
     border-radius: 3px;
+    font-size: 14px;
 }
 
 /* Seção dos dados do fornecedor */
@@ -138,4 +145,73 @@ body {
 .product-table tr:nth-child(even) {
     background-color: #f2f2f2; /* Linhas pares com fundo claro */
 }
+
+
+
+.payment-summary {
+    background-color: white;
+    padding: 10px;
+    margin-top: 10px; /* Espaço acima da linha */
+}
+
+.payment-condition, .freight, .total {
+    flex: 1; /* Distribui o espaço igualmente */
+}
+
+.general-conditions {
+    display: flex;
+    margin-top: 20px; /* Adicionando margem */
+    margin-left:8px;
+
+}
+
+.space-strong{
+    margin-left:150px;
+}
+
+.additional-info {
+    background-color: #b4c6e7; /* Cor de fundo */
+    padding: 10px; /* Opcional: Adicionando padding */
+    margin-top: 10px; /* Opcional: Espaçamento acima */
+}
+
+.additional-info p {
+    margin: 5px 0; /* Espaçamento entre parágrafos */
+}
+
+
+.observacao {
+    padding: 10px; /* Paddings padrão */
+    color: red; /* Cor vermelha */
+}
+
+.obs-box {
+    background-color: #b4c6e7; /* Cor de fundo */
+    padding: 10px; /* Paddings padrão */
+    margin-top: 10px; /* Espaçamento acima */
+}
+
+.consid {
+    padding: 10px; /* Paddings padrão */
+    margin-top: 10px; /* Espaçamento acima */
+}
+
+.contacts {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px; /* Paddings padrão */
+    margin-top: 10px;
+}
+
+.contact {
+    text-align: left;
+}
+
+.contact a {
+    color: blue;
+    text-decoration: underline;
+}
+
+
+
 
