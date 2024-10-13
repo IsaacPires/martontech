@@ -291,7 +291,7 @@ class OrderController extends Controller
     public function pdf()
     {
 
-        return view('orders.pdf');
+        //return view('orders.pdf');
         $pdf = Pdf::loadView('orders.pdf');
         return $pdf->download('orders.pdf');
     }
