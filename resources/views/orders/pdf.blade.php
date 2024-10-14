@@ -9,17 +9,16 @@
 <body>
 
 <table width="100%">
-        <!-- Header -->
         <tr>
-            <td  class="logo">
-                <img src={{asset("/img/logo_PDF.jpg")}}>
+            <td class="logo">
+                <img style="width:150px" src={{asset("/img/logo_PDF.jpg")}}>
             </td>
-            <td width="35%" class="company-info">
+            <td width="33%" class="company-info">
                 <p>Marton Tech Industria e Comércio LTDA</p>
                 <p>CNPJ: 19.080.716/0001-74</p>
                 <p>Inscrição Municipal: 123456789</p>
             </td>
-            <td width="35%" class="contact-info">
+            <td width="33%" class="contact-info">
                 <p>Endereço: Rua Exemplo, 123, Cidade - Estado</p>
                 <p>Email: contato@empresa.com.br</p>
                 <p>Telefone: (11) 1234-5678</p>
@@ -41,19 +40,19 @@
         <!-- Dados do Fornecedor -->
         <tr style="background-color: #b4c6e7;">
             <td>
-                <strong>Dados do Fornecedor:</strong>
+                <span class='bold'>Dados do Fornecedor:</span>
                 <p>Cód: 1234</p>
                 <p>Cliente: Fornecedor X</p>
                 <p>A/C: Responsável Y</p>
             </td>
             <td>
-                <strong>Endereço:</strong>
+                <span class='bold'>Endereço:</span>
                 <p>Rua Exemplo, 123</p>
                 <p>Cidade/Estado: SP</p>
                 <p>CEP: 11111-111</p>
             </td>
             <td>
-                <strong>CNPJ:</strong> 19.080.716/0001-74
+                <span class='bold'>CNPJ:</span> 19.080.716/0001-74
                 <p>Email: fornecedor@empresa.com.br</p>
                 <p>Telefone: (11) 1234-5678</p>
             </td>
@@ -62,17 +61,51 @@
         <!-- Texto de introdução -->
         <tr>
             <td width="100%" colspan="3" style="padding-top: 20px;">
-                <strong>Prezado fornecedor, estamos enviando esta ordem de compra para adquirir os seguintes produtos:</strong>
+                <span class="bold2">Prezado fornecedor, estamos enviando esta ordem de compra para adquirir os seguintes produtos:</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="padding-top: 20px;">
+            <table class="table">
+                <tr class="table-header">
+                    <th class="table-cell">Item</th>
+                    <th class="table-cell">Cód.</th>
+                    <th class="table-cell">Produto</th>
+                    <th class="table-cell">Unid.</th>
+                    <th class="table-cell">Qtd.</th>
+                    <th class="table-cell">Preço Uni.</th>
+                    <th class="table-cell">Preço Tot.</th>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell">01</td>
+                    <td class="table-cell">486</td>
+                    <td class="table-cell">CORRENTE PAS50 38,1X22 PINO OCO</td>
+                    <td class="table-cell">M</td>
+                    <td class="table-cell">10,00</td>
+                    <td class="table-cell">R$ 150,00</td>
+                    <td class="table-cell">R$ 1.500,00</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell">02</td>
+                    <td class="table-cell">486</td>
+                    <td class="table-cell">CORRENTE PAS50 38,1X22 PINO OCO</td>
+                    <td class="table-cell">M</td>
+                    <td class="table-cell">15,00</td>
+                    <td class="table-cell">R$ 150,00</td>
+                    <td class="table-cell">R$ 2.250,00</td>
+                </tr>
+                <!-- Adicione mais linhas conforme necessário -->
+            </table>
             </td>
         </tr>
 
         <!-- Condições Gerais e Impostos -->
         <tr>
             <td width="50%" class="left" style="padding-top: 20px;">
-                <strong>Condições Gerais de Fornecimento:</strong>
+                <span class='bold2'>Condições Gerais de Fornecimento:</span>
             </td>
             <td width="50%" class="right" style="text-align: left;">
-                <strong>Impostos:</strong>
+                <span class='bold2'>Impostos:</span>
             </td>
         </tr>
 
@@ -87,7 +120,7 @@
         <!-- Observação -->
         <tr>
             <td width="100%" colspan="3" style="padding-top: 10px;">
-                <strong style="color: red;">Observação:</strong>
+                <strong class='bold2' style="color: red;">Observação:</strong>
             </td>
         </tr>
 
@@ -98,14 +131,13 @@
             </td>
         </tr>
 
-        <!-- Contatos -->
         <tr>
-            <td width="50%" style="padding-top: 20px;">
+            <td width="33%" style="padding-top: 20px;">
                 <strong>Airton S. Nakano</strong><br>
                 <p>(15) 98189-2835</p>
                 <a href="mailto:asnakano@martontech.com.br">asnakano@martontech.com.br</a>
             </td>
-            <td width="50%" style="padding-top: 20px; text-align: right;">
+            <td width="33%" style="padding-top: 20px; text-align: center;">
                 <strong>Marcio B. Leite</strong><br>
                 <p>(15) 99849-7108</p>
                 <a href="mailto:mbruce@martontech.com.br">mbruce@martontech.com.br</a>

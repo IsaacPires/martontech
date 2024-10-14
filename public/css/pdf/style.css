@@ -18,9 +18,13 @@ td {
 
 .bold {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 17px;
 }
 
+.bold2 {
+    font-weight: bold;
+    font-size: 14px;
+}
 
 .company-info, .contact-info, .order-info {
     text-align: left;
@@ -41,4 +45,17 @@ strong {
 a {
     color: #0000EE;
     text-decoration: none;
+}
+
+
+.table-header {
+    background-color: #b4c6e7; /* Cor de fundo do cabeçalho */
+}
+.table-cell {
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Borda das células */
+    text-align: left; /* Alinhamento do texto */
+}
+.table-row:nth-child(even) {
+    background-color: #e9e9e9; /* Cor de fundo para linhas pares */
 }
