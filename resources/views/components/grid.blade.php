@@ -54,17 +54,15 @@
                             </form> --}}
                             <button class="btn btn-danger delete-button btn-sm ms-2" data-id="{{ $d->id }}"><i class="fas fa-trash-alt"></i></button>
                         @endif
-                        @if (isset($requestButton))
-                            <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.pdf", $d->id) }}'>
-                                <i class="fas fa-print"></i>
-                            </a>
-                        @endif
-
 
                     @endif
                     @if(isset($showList))
                         <a class="btn btn-primary btn-sm ms-2" href='{{ route("request.index", $d->id) }}'>
                             <i class="fas fa-file-alt"></i>
+                        </a>
+
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.pdf", $d->id) }}'>
+                            <i class="fas fa-print"></i>
                         </a>
                     @endif
                     @if(isset($pending))
