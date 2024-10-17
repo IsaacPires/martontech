@@ -41,23 +41,25 @@
                         @endif
 
                         @if (!isset($requestButton))
-
-                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.pdf", $d->id) }}'>
-                        <i class="fas fa-print"></i>
-                        </a>
-                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-{{--                         <form action='{{ route("$rota.destroy", $d->id) }}' method="POST">
+                            <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            {{--<form action='{{ route("$rota.destroy", $d->id) }}' method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="delete_id" value="{{ $d->id }}">
                             <button class="btn btn-danger btn-sm ms-2  delete-button" data-id="{{ $d->id }}">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
-                        </form> --}}
-                        <button class="btn btn-danger delete-button btn-sm ms-2" data-id="{{ $d->id }}"><i class="fas fa-trash-alt"></i></button>
+                            </form> --}}
+                            <button class="btn btn-danger delete-button btn-sm ms-2" data-id="{{ $d->id }}"><i class="fas fa-trash-alt"></i></button>
                         @endif
+                        @if (isset($requestButton))
+                            <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.pdf", $d->id) }}'>
+                                <i class="fas fa-print"></i>
+                            </a>
+                        @endif
+
 
                     @endif
                     @if(isset($showList))

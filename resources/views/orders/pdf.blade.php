@@ -59,7 +59,7 @@
             <td>
                 <p>CNPJ:{{substr($supplier->Cnpj, 0, 2) . '.' . substr($supplier->Cnpj, 2, 3) . '.' . substr($supplier->Cnpj, 5, 3) . '/' . substr($supplier->Cnpj, 8, 4) . '-' . substr($supplier->Cnpj, 12, 2)}}</p>
                 <p>Email:{{$supplier->ContactEmailOne}}</p>
-                <p>Telefone:( {{substr($supplier->ContactPhoneOne, 0, 2)}} ) {{substr($supplier->ContactPhoneOne, 2)}}</p>
+                <p>Telefone:({{substr($supplier->ContactPhoneOne, 0, 2)}}) {{substr($supplier->ContactPhoneOne, 2)}}</p>
             </td>
         </tr>
 
