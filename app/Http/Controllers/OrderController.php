@@ -291,10 +291,21 @@ class OrderController extends Controller
     public function pdf($id)
     {
         $order = Orders::find($id);
-        
-        $data['order'] = $order;
+        $supplier = Suppliers::find($order->suppliers_id);
+        $requests = ModelsRequest::where('order_id', '=', $order->getKey())->get();
+        $counter = 1;
 
-        //return view('orders.pdf');
+        $data['order']    = $order;
+        $data['supplier'] = $supplier;
+        $data['requests']  = $requests;
+        $data['counter']  = $counter;
+
+        //return view('orders.pdf')
+            //->with('order', $order)
+            //->with('supplier', $supplier)
+            //->with('counter', $counter)
+            //->with('requests', $requests);
+
         $pdf = Pdf::loadView('orders.pdf', $data);
         return $pdf->download('orders.pdf');
     }

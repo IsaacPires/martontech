@@ -17,7 +17,7 @@
                 <strong>Marton Tech Industria e Comércio LTDA</strong>
                 <p>CNPJ: 19.080.716/0001-74</p>
                 <p>Inscrição Municipal: 219.112.881.116</p>
-                <p>https://www.martontech.com.br</p>
+                <a href="https://www.martontech.com.br">https://www.martontech.com.br</a>
 
             </td>
             <td width="33%" class="contact-info">
@@ -46,20 +46,20 @@
         <tr style="background-color: #b4c6e7;">
             <td>
                 <span class='bold'>Dados do Fornecedor:</span>
-                <p>Cód: 1234</p>
-                <p>Cliente: Fornecedor X</p>
-                <p>A/C: Responsável Y</p>
+                <p>Cód:{{$supplier->getKey()}}</p>
+                <p>Cliente:{{$supplier->Name}}</p>
+                <p>A/C:{{$supplier->ContactNameOne}}</p>
             </td>
             <td>
                 <span class='bold'>Endereço:</span>
-                <p>Rua Exemplo, 123</p>
-                <p>Cidade/Estado: SP</p>
-                <p>CEP: 11111-111</p>
+                <p>{{$supplier->AddressStreet}}, {{$supplier->AddressNumber}}</p>
+                <p>{{$supplier->AddressCity}} - {{$supplier->AddressState}}</p>
+                <p>CEP: {{ substr($supplier->AddressZipCode, 0, 5) . '-' . substr($supplier->AddressZipCode, 5)}}</p>
             </td>
             <td>
-                <span class='bold'>CNPJ:</span> 19.080.716/0001-74
-                <p>Email: fornecedor@empresa.com.br</p>
-                <p>Telefone: (11) 1234-5678</p>
+                <p>CNPJ:{{substr($supplier->Cnpj, 0, 2) . '.' . substr($supplier->Cnpj, 2, 3) . '.' . substr($supplier->Cnpj, 5, 3) . '/' . substr($supplier->Cnpj, 8, 4) . '-' . substr($supplier->Cnpj, 12, 2)}}</p>
+                <p>Email:{{$supplier->ContactEmailOne}}</p>
+                <p>Telefone:( {{substr($supplier->ContactPhoneOne, 0, 2)}} ) {{substr($supplier->ContactPhoneOne, 2)}}</p>
             </td>
         </tr>
 
@@ -81,25 +81,17 @@
                     <th class="table-cell">Preço Uni.</th>
                     <th class="table-cell">Preço Tot.</th>
                 </tr>
-                <tr class="table-row">
-                    <td class="table-cell">01</td>
-                    <td class="table-cell">486</td>
-                    <td class="table-cell">CORRENTE PAS50 38,1X22 PINO OCO</td>
-                    <td class="table-cell">M</td>
-                    <td class="table-cell">10,00</td>
-                    <td class="table-cell">R$ 150,00</td>
-                    <td class="table-cell">R$ 1.500,00</td>
-                </tr>
-                <tr class="table-row">
-                    <td class="table-cell">02</td>
-                    <td class="table-cell">486</td>
-                    <td class="table-cell">CORRENTE PAS50 38,1X22 PINO OCO</td>
-                    <td class="table-cell">M</td>
-                    <td class="table-cell">15,00</td>
-                    <td class="table-cell">R$ 150,00</td>
-                    <td class="table-cell">R$ 2.250,00</td>
-                </tr>
-                <!-- Adicione mais linhas conforme necessário -->
+                @foreach($requests as $request)
+                    <tr class="table-row">
+                        <td class="table-cell">{{$counter++}}</td>
+                        <td class="table-cell">{{$request->getKey()}}</td>
+                        <td class="table-cell">{{$request->product->Name}}</td>
+                        <td class="table-cell">M</td>
+                        <td class="table-cell">{{$request->quantity}}</td>
+                        <td class="table-cell">R$ {{number_format($request->currentPrice, 2, ',', '')}}</td>
+                        <td class="table-cell">R$ {{number_format($request->totalValue, 2, ',', '')}}</td>
+                    </tr>
+                @endforeach
             </table>
             </td>
         </tr>
@@ -111,7 +103,7 @@
                 <span class='bold2 color-box'>Frete:</span>
             </td>
             <td width="50%" style="padding-top: 20px;">
-                <span class='bold2 color-box'>TOTAL:</span>
+                <span class='bold2 color-box'>TOTAL:</span>R$ {{number_format($order->totalValue, 2, ',', '')}}
             </td>
         </tr>
 
