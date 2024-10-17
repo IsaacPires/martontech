@@ -288,11 +288,14 @@ class OrderController extends Controller
         return $finalContent;
     }
 
-    public function pdf()
+    public function pdf($id)
     {
+        $order = Orders::find($id);
+        
+        $data['order'] = $order;
 
         //return view('orders.pdf');
-        $pdf = Pdf::loadView('orders.pdf');
+        $pdf = Pdf::loadView('orders.pdf', $data);
         return $pdf->download('orders.pdf');
     }
 

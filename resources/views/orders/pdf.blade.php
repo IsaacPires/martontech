@@ -14,14 +14,18 @@
                 <img style="width:150px" src={{asset("/img/logo_PDF.jpg")}}>
             </td>
             <td width="33%" class="company-info">
-                <p>Marton Tech Industria e Comércio LTDA</p>
+                <strong>Marton Tech Industria e Comércio LTDA</strong>
                 <p>CNPJ: 19.080.716/0001-74</p>
-                <p>Inscrição Municipal: 123456789</p>
+                <p>Inscrição Municipal: 219.112.881.116</p>
+                <p>https://www.martontech.com.br</p>
+
             </td>
             <td width="33%" class="contact-info">
-                <p>Endereço: Rua Exemplo, 123, Cidade - Estado</p>
-                <p>Email: contato@empresa.com.br</p>
+                <p>Av. Vereador José Angelo Biagione, N°573</p>
+                <p>Boituva - SP, 18550-071</p>
+                <p>martontech@martontech.com.br</p>
                 <p>Telefone: (11) 1234-5678</p>
+
             </td>
         </tr>
 
@@ -30,10 +34,11 @@
                 <span class='bold' >Ordem de Compra</span>
             </td>
             <td width="35%" class="company-info">
-                <span class='bold'>Data:</span> 13/10/2024
+                <span class='bold'>Data:</span> {{date('d/m/Y')}}
+
             </td>
             <td width="35%" class="contact-info">
-                <span class='bold'>Ordem N°:</span> 12345
+                <span class='bold'>Ordem N°:</span> {{$order->id}}
             </td>
         </tr>
 
@@ -98,14 +103,27 @@
             </table>
             </td>
         </tr>
-
-        <!-- Condições Gerais e Impostos -->
         <tr>
-            <td width="50%" class="left" style="padding-top: 20px;">
+            <td width="50%" style="padding-top: 20px;">
+                <span class='bold2 color-box'>Condição de Pgto.:</span>
+            </td>
+            <td width="50%" style="padding-top: 20px;">
+                <span class='bold2 color-box'>Frete:</span>
+            </td>
+            <td width="50%" style="padding-top: 20px;">
+                <span class='bold2 color-box'>TOTAL:</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="50%" style="padding-top: 20px;">
                 <span class='bold2'>Condições Gerais de Fornecimento:</span>
             </td>
-            <td width="50%" class="right" style="text-align: left;">
-                <span class='bold2'>Impostos:</span>
+            <td width="50%" style="padding-top: 20px;">
+                <span class='bold2'> Impostos:</span>
+            </td>
+            <td width="50%" style="padding-top: 20px;">
+                <span class='bold2'> </span>
             </td>
         </tr>
 

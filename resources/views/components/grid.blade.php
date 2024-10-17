@@ -42,6 +42,9 @@
 
                         @if (!isset($requestButton))
 
+                        <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.pdf", $d->id) }}'>
+                        <i class="fas fa-print"></i>
+                        </a>
                         <a class="btn btn-primary btn-sm ms-2" href='{{ route("$rota.edit", $d->id) }}'>
                             <i class="fas fa-pencil-alt"></i>
                         </a>

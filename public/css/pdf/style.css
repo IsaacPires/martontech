@@ -26,6 +26,11 @@ td {
     font-size: 14px;
 }
 
+.color-box{
+    background-color: #b4c6e7;
+    padding: 10px;
+}
+
 .company-info, .contact-info, .order-info {
     text-align: left;
 }
