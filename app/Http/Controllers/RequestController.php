@@ -57,13 +57,15 @@ class RequestController extends Controller
         $orders = orders::where('status', 'A')->latest()->first();
         $requests = '';
         $SupRequests = '';
-        $hasOwner = '';
-        
-        if (!empty($orders) && $orders->totalValue > '0')
-        {
+
+        if(isset($orders) && $orders->suppliers_id == 0)
+            $orders->delete();
+    
+
+        if (!empty($orders) && $orders->totalValue > '0' && $orders->suppliers_id != 0)
+        {   
             $requests = ModelsRequest::with('product')->where('order_id', $orders->id)->get();
-            $SupRequests = isset($requests[0]->suppliers_id) ? $requests[0]->suppliers_id : $requests;
-            $hasOwner = $orders->owner_id;
+            $SupRequests = isset($requests[0]->suppliers_id) ? $requests[0]->suppliers_id : '';
         }
 
         $suppliers = Suppliers::all();
@@ -79,45 +81,60 @@ class RequestController extends Controller
             ->with('owners', $owners)
             ->with('successMessage', $successMessage)
             ->with('requests', $requests)
-            ->with('SupRequests', $SupRequests)
-            ->with('hasOwner', $hasOwner);
+            ->with('SupRequests', $SupRequests);
 
     }
 
     public function store(Request $request)
     {
-        $order = orders::where('status', 'A')->latest()->first();
+        try {
+            $order = orders::where('status', 'A')->latest()->first();
        
-        $request['currentPrice'] = str_replace(',', '.', $request['currentPrice']);
-        $request['totalValue'] = str_replace(',', '.', $request['totalValue']);
-        $request['lastPrice'] = str_replace(',', '.', $request['lastPrice']);
+            $request['currentPrice'] = str_replace(',', '.', $request['currentPrice']);
+            $request['totalValue'] = str_replace(',', '.', $request['totalValue']);
+            $request['lastPrice'] = str_replace(',', '.', $request['lastPrice']);
+    
+            if (empty($order))
+            {
+                $newOrder = [
+                    'status' => 'A',
+                    'totalValue' => (float) $request->totalValue,
+                    'suppliers_id' => (float) $request->suppliers_id,
+                    'owner_id' => (integer) $request->owner,
+                    'payment_condition' => $request->payment_condition,
+                    'observation' =>  $request->observation,
+                    'freight' =>  $request->freight
+                ];
+                $order = orders::create($newOrder);
+            }
+            else
+            {
+               
+                $newTotalValue = (float)$order->totalValue + (float)$request->totalValue;
+                $order->totalValue = $newTotalValue;
+                $order->save();
+            }
+    
+            $products = Products::find($request->product_id);
+    
+            if(!empty($products))
+            {
+                $products->unity = $request->unity;
+                $products->save();
+            }
+    
+            $requestData = $request->except('_token');
+            $requestData['order_id'] = $order->id;
+    
+            ModelsRequest::create($requestData);
 
-        if (empty($order))
-        {
-            $newOrder = [
-                'status' => 'A',
-                'totalValue' => (float) $request->totalValue,
-                'suppliers_id' => (float) $request->suppliers_id,
-                'owner_id' => (integer) $request->owner
-            ];
-            $order = orders::create($newOrder);
+            $msg = "Item adicionado com sucesso!";
+        } catch (\Throwable $th) {
+            $msg = "Erro ao criar a requisição. Verifique a forma de inserção dos dados.";
         }
-        else
-        {
-           
-            $newTotalValue = (float)$order->totalValue + (float)$request->totalValue;
-            $order->totalValue = $newTotalValue;
-            $order->save();
-        }
-
-
-        $requestData = $request->except('_token');
-        $requestData['order_id'] = $order->id;
-
-        ModelsRequest::create($requestData);
-
+        
         return redirect('/request/create')
-            ->with("successMessage", "Item adicionado com sucesso!");
+            ->with("successMessage", $msg);
     }
 
     public function destroy(Request $request)

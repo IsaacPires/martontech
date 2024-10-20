@@ -13,7 +13,10 @@ class Orders extends Model
         'status',
         'totalValue',
         'suppliers_id',
-        'owner_id'
+        'owner_id',
+        'observation',
+        'freight',
+        'payment_condition'
     ];
 
     public function owners()

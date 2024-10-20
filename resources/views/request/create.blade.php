@@ -29,12 +29,12 @@
                 </select>
             </div>
 
-            <div style="{{!empty($hasOwner) ? 'pointer-events: none; opacity: 1;' : '' }}" class="col-md-4">
+            <div style="{{!empty($orders->owner_id) ? 'pointer-events: none; opacity: 1;' : '' }}" class="col-md-4">
                 <label for="owner" class="form-label">Responsável</label>
                 <select class="form-control select2" data-live-search="true" name="owner" id="owner">
                     <option value="">-- Selecione --</option>
                     @foreach ($owners as $owner)
-                    <option {{ !empty($hasOwner) && $hasOwner == $owner->id ? 'Selected' : ''}} value="{{$owner->id}}">{{ $owner->name }}</option>
+                    <option {{ !empty($orders->owner_id) && $orders->owner_id == $owner->id ? 'Selected' : ''}} value="{{$owner->id}}">{{ $owner->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -42,6 +42,15 @@
             <div class="col-md-4">
                 <label for="brand" class="form-label">Info Adicional</label>
                 <input type="text" class="form-control" id="brand" name="brand" maxlength="255" required>
+            </div>
+            <div class="col-md-4">
+                <label for="unity" class="form-label">Unidade</label>
+                <select class="form-control select2" name="unity" id="unity" required>
+                    <option value="">-- Selecione --</option>
+                    <option value="Litros">Litros</option>
+                    <option value="Litros">Metros</option>
+                    <option value="Litros">Kilos</option>
+                </select>
             </div>
             <div class="col-md-4">
                 <label for="lastPrice" class="form-label">Último preço</label>
@@ -58,6 +67,21 @@
             <div class="col-md-4">
                 <label for="totalValue" class="form-label">Valor Total</label>
                 <input  readonly type="float" class="form-control" id="totalValue" name="totalValue">
+            </div>
+           
+            <hr>
+           
+            <div class="col-md-4">
+                <label for="freight" class="form-label">Frete</label>
+                <input type="text" class="form-control" id="freight" name="freight" maxlength="255" value="{{!empty($orders->freight) ? $orders->freight : '' }}" required>
+            </div>
+            <div class="col-md-4">
+                <label for="payment_condition" class="form-label">Condição de pagamento</label>
+                <input type="text" class="form-control" id="payment_condition" name="payment_condition" maxlength="255" value="{{!empty($orders->payment_condition) ? $orders->payment_condition : '' }}" required>
+            </div>
+            <div class="col-md-4">
+                <label for="observation" class="form-label">Observação</label>
+                <input type="text" class="form-control" id="observation" name="observation" maxlength="255" value="{{!empty($orders->observation) ? $orders->observation : '' }}" required>
             </div>
         </div>
         <br>

@@ -86,7 +86,7 @@
                         <td class="table-cell">{{$counter++}}</td>
                         <td class="table-cell">{{$request->getKey()}}</td>
                         <td class="table-cell">{{$request->product->Name}}</td>
-                        <td class="table-cell">M</td>
+                        <td class="table-cell">{{$request->product->unity}}</td>
                         <td class="table-cell">{{$request->quantity}}</td>
                         <td class="table-cell">R$ {{number_format($request->currentPrice, 2, ',', '')}}</td>
                         <td class="table-cell">R$ {{number_format($request->totalValue, 2, ',', '')}}</td>
@@ -97,10 +97,10 @@
         </tr>
         <tr>
             <td width="50%" style="padding-top: 20px;">
-                <span class='bold2 color-box'>Condição de Pgto.:</span>
+                <span class='bold2 color-box'>Condição de Pgto.:</span>{{$order->payment_condition}}
             </td>
             <td width="50%" style="padding-top: 20px;">
-                <span class='bold2 color-box'>Frete:</span>
+                <span class='bold2 color-box'>Frete:</span>{{$order->freight}}
             </td>
             <td width="50%" style="padding-top: 20px;">
                 <span class='bold2 color-box'>TOTAL:</span>R$ {{number_format($order->totalValue, 2, ',', '')}}
@@ -137,7 +137,7 @@
         <!-- Observação adicional -->
         <tr style="background-color: #b4c6e7;">
             <td width="100%" colspan="3" style="padding: 10px;">
-                <p>Aqui ficam as observações.</p>
+                <p>{{$order->observation}}</p>
             </td>
         </tr>
 
