@@ -60,7 +60,6 @@ class RequestController extends Controller
 
         if(isset($orders) && $orders->suppliers_id == 0)
             $orders->delete();
-    
 
         if (!empty($orders) && $orders->totalValue > '0' && $orders->suppliers_id != 0)
         {   
@@ -93,7 +92,7 @@ class RequestController extends Controller
             $request['currentPrice'] = str_replace(',', '.', $request['currentPrice']);
             $request['totalValue'] = str_replace(',', '.', $request['totalValue']);
             $request['lastPrice'] = str_replace(',', '.', $request['lastPrice']);
-    
+            
             if (empty($order))
             {
                 $newOrder = [

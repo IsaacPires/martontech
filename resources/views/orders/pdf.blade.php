@@ -76,7 +76,7 @@
                     <th class="table-cell">Item</th>
                     <th class="table-cell">Cód.</th>
                     <th class="table-cell">Produto</th>
-                    <th class="table-cell">Unid.</th>
+                    <th class="table-cell">Medida</th>
                     <th class="table-cell">Qtd.</th>
                     <th class="table-cell">Preço Uni.</th>
                     <th class="table-cell">Preço Tot.</th>

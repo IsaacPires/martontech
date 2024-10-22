@@ -44,12 +44,18 @@
                 <input type="text" class="form-control" id="brand" name="brand" maxlength="255" required>
             </div>
             <div class="col-md-4">
-                <label for="unity" class="form-label">Unidade</label>
+                <label for="unity" class="form-label">Medida</label>
                 <select class="form-control select2" name="unity" id="unity" required>
                     <option value="">-- Selecione --</option>
+                    <option value="Unidade">Unidade</option>
+                    <option value="Metros">Metros</option>
+                    <option value="Centímetros">Centímetros</option>
                     <option value="Litros">Litros</option>
-                    <option value="Litros">Metros</option>
-                    <option value="Litros">Kilos</option>
+                    <option value="Mililitros">Mililitros</option>
+                    <option value="Kilos">Kilos</option>
+                    <option value="Gramas">Gramas</option>
+                    <option value="Outros">Outros</option>
+
                 </select>
             </div>
             <div class="col-md-4">
