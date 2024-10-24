@@ -66,9 +66,8 @@ Route::middleware([Authenticator::class])->group(function ()
 
     //rotas tools
      Route::resource('/tools', ToolsController::class)->except('show');
-     Route::get('/tools/{id}/edit', [ToolsController::class, 'edit']);
+     Route::get('/tools/{id}/edit', [ToolsController::class, 'edit'])->name('tools.edit');
      Route::get('/tools/report', [ToolsController::class, 'report']);
-     Route::get('/tools/csv/{request?}', [ToolsController::class, 'csv'])->name('tools.csv');
      Route::delete('/tools/{id}', 'ToolsController@destroy')->name('ToolsController.destroy');
      Route::get('/tools/csv/{request?}', [ToolsController::class, 'csv'])->name('tools.csv');
      Route::get('/tools/change/', [ToolsController::class, 'changeOwner'])->name('tools.change');

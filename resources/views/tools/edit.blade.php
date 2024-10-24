@@ -8,6 +8,18 @@
                 <label for="Name" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="Name" maxlength='128' value="{{$tools->Name}}" name="Name" minlength="5" required>
             </div>
+
+            <div class="col-md-4">
+                <label for="Suppliers_id" class="form-label">Fornecedor</label>
+                <select class="form-control select2" name="Suppliers_id" id="Suppliers_id">
+                    <option value="">-- Selecione --</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{$supplier->id}}" {{ $supplier->id == $tools->Suppliers_id ? 'selected' : '' }}>{{ $supplier->Name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+
             <div class="col-md-4">
                 <label for="Owner" class="form-label">Responsável</label>
                 <input type="text" class="form-control" id="Owner" maxlength='128' value="{{$tools->Owner}}" name="Owner" minlength="5" required>

@@ -108,8 +108,12 @@ class ToolsController extends Controller
     public function edit($id)
     {
         $tools = Tools::find($id);
+        $suppliers = Suppliers::all();
 
-        return view('tools.edit', ['tools' => $tools]);
+        return view('tools.edit')
+        ->with('tools', $tools)
+        ->with('suppliers', $suppliers);
+        
     }
 
     public function update(Request $request, $id)
