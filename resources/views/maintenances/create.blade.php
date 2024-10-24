@@ -8,6 +8,11 @@
                 <input disabled type="text" value="{{$tools->Name}}" class="form-control" id="Name" maxlength='128' name="Name" minlength="5" required>
             </div>
 
+            <div class="col-md-4">
+                <label for="technical_assistance" class="form-label">Assistência Técnica</label>
+                <input type="text" class="form-control" id="technical_assistance" maxlength='255' name="technical_assistance">
+            </div>
+
             <div hidden class="col-md-4">
                 <input type="text" value="{{$tools->id}}" class="form-control" id="tools_id" maxlength='128' name="tools_id" minlength="5" required>
             </div>

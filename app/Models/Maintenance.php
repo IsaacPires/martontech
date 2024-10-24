@@ -16,6 +16,7 @@ class Maintenance extends Model
         'quantity',
         'value',
         'output_date',
-        'obs'
+        'obs',
+        'technical_assistance'
     ];
 }

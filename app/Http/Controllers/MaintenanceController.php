@@ -28,6 +28,7 @@ class MaintenanceController extends Controller
         m.id,
         t.Name AS 'Ferramenta',
         s.Name AS 'Fornecedor',
+        m.technical_assistance as 'Assistência Técnica',
         DATE_FORMAT(m.output_date, '%d/%m/%Y') AS 'Data de saída',
         DATE_FORMAT(m.return_date, '%d/%m/%Y') AS 'Data de retorno',
         t.Number AS 'N°',
@@ -35,7 +36,7 @@ class MaintenanceController extends Controller
         m.value as 'Valor',
         m.obs AS 'Obs'
     ")
-    ->orderByDesc('t.id');
+    ->orderByDesc('m.id');
 
     if (!empty($_GET['toolsName']))
     {

@@ -9,6 +9,11 @@
             </div>
 
             <div class="col-md-4">
+                <label for="technical_assistance" class="form-label">Assistência Técnica</label>
+                <input type="text" value="{{$maintenance->technical_assistance}} class="form-control" id="technical_assistance" maxlength='255' name="technical_assistance">
+            </div>
+
+            <div class="col-md-4">
                 <label for="output_date" class="form-label">Data de saída</label>
                 <input type="date" class="form-control" id="output_date" name="output_date" value="{{$maintenance->output_date ? date('Y-m-d', strtotime($maintenance->output_date)) : ''}}" required>
             </div>
