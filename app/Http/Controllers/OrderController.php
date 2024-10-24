@@ -300,11 +300,11 @@ class OrderController extends Controller
         $data['requests']  = $requests;
         $data['counter']  = $counter;
 
-        //return view('orders.pdf')
-            //->with('order', $order)
-            //->with('supplier', $supplier)
-            //->with('counter', $counter)
-            //->with('requests', $requests);
+        return view('orders.pdf')
+            ->with('order', $order)
+            ->with('supplier', $supplier)
+            ->with('counter', $counter)
+            ->with('requests', $requests);
 
         $pdf = Pdf::loadView('orders.pdf', $data);
         return $pdf->download('orders.pdf');

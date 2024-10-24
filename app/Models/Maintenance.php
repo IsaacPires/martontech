@@ -15,7 +15,7 @@ class Maintenance extends Model
         'defect',
         'quantity',
         'value',
-        'quantity',
+        'output_date',
         'obs'
     ];
 }

@@ -86,7 +86,7 @@
                 <input type="text" class="form-control" id="payment_condition" name="payment_condition" maxlength="255" value="{{!empty($orders->payment_condition) ? $orders->payment_condition : '' }}" required>
             </div>
             <div class="col-md-4">
-                <label for="observation" class="form-label">Observação</label>
+                <label for="observation" class="form-label">Observação para o Fornecedor</label>
                 <input type="text" class="form-control" id="observation" name="observation" maxlength="255" value="{{!empty($orders->observation) ? $orders->observation : '' }}" required>
             </div>
         </div>

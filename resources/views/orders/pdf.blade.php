@@ -92,20 +92,41 @@
                         <td class="table-cell">R$ {{number_format($request->totalValue, 2, ',', '')}}</td>
                     </tr>
                 @endforeach
+                <tr class="table-row">
+                    <td class="table-cell"> <span class='bold2'>TOTAL:</span></td>
+                    <td class="table-cell"></td>
+                    <td class="table-cell"></td>
+                    <td class="table-cell"></td>
+                    <td class="table-cell"></td>
+                    <td class="table-cell"> </td>
+                    <td class="table-cell">R$ {{number_format($order->totalValue, 2, ',', '')}}</td>
+
             </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="padding-top: 20px;">
+                <span class='bold2 color-box'>Frete:</span>  {{$order->freight}}
             </td>
         </tr>
         <tr>
             <td width="50%" style="padding-top: 20px;">
-                <span class='bold2 color-box'>Condição de Pgto.:</span>{{$order->payment_condition}}
+                <span class='bold2'>Condição de Pgto.:</span>
             </td>
+
             <td width="50%" style="padding-top: 20px;">
-                <span class='bold2 color-box'>Frete:</span>{{$order->freight}}
-            </td>
-            <td width="50%" style="padding-top: 20px;">
-                <span class='bold2 color-box'>TOTAL:</span>R$ {{number_format($order->totalValue, 2, ',', '')}}
+                <span class='bold2'> </span>
             </td>
         </tr>
+
+        <!-- Detalhes das condições e impostos -->
+        <tr style="background-color: #b4c6e7;">
+            <td width="100%" colspan="3" style="padding: 10px;">
+                <p>{{$order->payment_condition}}</p>
+            </td>
+        </tr>
+
 
         <tr>
             <td width="50%" style="padding-top: 20px;">

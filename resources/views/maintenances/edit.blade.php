@@ -9,17 +9,23 @@
             </div>
 
             <div class="col-md-4">
-                <label for="return_date" class="form-label">Data de retorno</label>
-                <input type="date" class="form-control" id="return_date" name="return_date" value="{{date('Y-m-d', strtotime($maintenance->return_date))}}" required>
+                <label for="return_date" class="form-label">Data de saída</label>
+                <input type="date" class="form-control" id="return_date" name="return_date" value="{{$maintenance->output_date ? date('Y-m-d', strtotime($maintenance->output_date)) : ''}}" required>
             </div>
+
             <div class="col-md-4">
-                <label for="quantity" class="form-label">Quatidade</label>
-                <input type="number" class="form-control" value="{{$maintenance->quantity}}" maxlength="11" id="quantity" name="quantity" required step="1">
+                <label for="return_date" class="form-label">Data de retorno</label>
+                <input type="date" class="form-control" id="return_date" name="return_date" value="{{$maintenance->return_date ? date('Y-m-d', strtotime($maintenance->return_date)) : ''}}" required>
             </div>
 
             <div class="col-md-4">
                 <label for="value" class="form-label">Valor</label>
                 <input type="text" value="{{$maintenance->value}}" class="form-control" id="value" name="value">
+            </div>
+
+            <div class="col-md-4">
+                <label for="defect" class="form-label">Defeito</label>
+                <input type="text" class="form-control" id="defect" maxlength='255' name="defect" value="{{$maintenance->defect}}">
             </div>
 
             <div class="col-md-4">

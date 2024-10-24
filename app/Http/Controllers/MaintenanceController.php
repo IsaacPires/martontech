@@ -28,7 +28,7 @@ class MaintenanceController extends Controller
         m.id,
         t.Name AS 'Ferramenta',
         s.Name AS 'Fornecedor',
-        m.quantity as 'Quant. defeito',
+        DATE_FORMAT(m.output_date, '%d/%m/%Y') AS 'Data de saída',
         DATE_FORMAT(m.return_date, '%d/%m/%Y') AS 'Data de retorno',
         t.Number AS 'N°',
         m.defect AS 'Defeito',
@@ -75,17 +75,14 @@ class MaintenanceController extends Controller
 
     public function store(Request $request)
     {
-
-        $request['value'] = str_replace(',', '.', $request->value);
+        //$request['value'] = str_replace(',', '.', $request->value);
         $tools = Tools::find($request->tools_id);
 
         $tools->state = $request->State;
         $tools->save();
-        
-        
 
         if(Maintenance::create($request->except(['_token'])))
-            $message = "Ferramenta '$request->Name' adicionada à manutenção!";
+            $message = "Ferramenta '$tools->Name' adicionada à manutenção!";
         else
             $message = "Erro ao cadastrar a Ferramenta na manutenção.";
 
@@ -140,7 +137,7 @@ class MaintenanceController extends Controller
             m.id,
             t.Name AS 'Ferramenta',
             s.Name AS 'Fornecedor',
-            m.quantity as 'Quant. defeito',
+            DATE_FORMAT(m.output_date, '%d/%m/%Y') AS 'Data de saída',
             DATE_FORMAT(m.return_date, '%d/%m/%Y') AS 'Data de retorno',
             t.Number AS 'N°',
             m.defect AS 'Defeito',
