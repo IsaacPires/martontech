@@ -13,7 +13,7 @@ class AlterTableMaintenanceColTech extends Migration
      */
     public function up()
     {
-        Schema::table('Maintenances', function (Blueprint $table) {
+        Schema::table('maintenances', function (Blueprint $table) {
             $table->string('technical_assistance');
         });
     }
