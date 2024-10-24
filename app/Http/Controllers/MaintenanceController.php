@@ -118,7 +118,11 @@ class MaintenanceController extends Controller
         $request['value'] = str_replace(',', '.', $request->value);
 
         $tools = Maintenance::findOrFail($id);
-        
+
+        $maintenance = Maintenance::findOrFail($id);
+
+        $maintenance->update($request->all());
+
         if($tools->update($request->all()))
             $message = "Ferramenta atualizado com sucesso!";
         else

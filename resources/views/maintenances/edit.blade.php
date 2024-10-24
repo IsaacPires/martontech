@@ -9,8 +9,8 @@
             </div>
 
             <div class="col-md-4">
-                <label for="return_date" class="form-label">Data de saída</label>
-                <input type="date" class="form-control" id="return_date" name="return_date" value="{{$maintenance->output_date ? date('Y-m-d', strtotime($maintenance->output_date)) : ''}}" required>
+                <label for="output_date" class="form-label">Data de saída</label>
+                <input type="date" class="form-control" id="output_date" name="output_date" value="{{$maintenance->output_date ? date('Y-m-d', strtotime($maintenance->output_date)) : ''}}" required>
             </div>
 
             <div class="col-md-4">
