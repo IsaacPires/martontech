@@ -27,7 +27,7 @@ class ToolsSeeder extends Seeder
 
         foreach ($tools as $key => $tool)
         {
-            dd(date('Y-m-d H:i:s', strtotime($tool['Date'])));
+
             Tools::create([
                 'Name' => array_key_exists('Name', $tool) ? $tool['Name'] : 'NI',
                 'Date'        => array_key_exists('Date', $tool) ? date('Y-m-d H:i:s', strtotime($tool['Date'])) : date('Y-m-d H:i:s'),
