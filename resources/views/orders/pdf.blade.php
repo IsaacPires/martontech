@@ -16,7 +16,7 @@
             <td width="33%" class="company-info">
                 <strong>Marton Tech Industria e Comércio LTDA</strong>
                 <p>CNPJ: 19.080.716/0001-74</p>
-                <p>Inscrição Municipal: 219.112.881.116</p>
+                <p>Inscrição Estadual: 219.112.881.116</p>
                 <a href="https://www.martontech.com.br">https://www.martontech.com.br</a>
 
             </td>
@@ -24,7 +24,7 @@
                 <p>Av. Vereador José Angelo Biagione, N°573</p>
                 <p>Boituva - SP, 18550-071</p>
                 <p>martontech@martontech.com.br</p>
-                <p>Telefone: (11) 1234-5678</p>
+                <p>Telefone: (15) 3268-2641</p>
 
             </td>
         </tr>
