@@ -299,7 +299,6 @@ class OrderController extends Controller
         $data['supplier'] = $supplier;
         $data['requests']  = $requests;
         $data['counter']  = $counter;
-
         //return view('orders.pdf')
             //->with('order', $order)
             //->with('supplier', $supplier)
@@ -307,7 +306,7 @@ class OrderController extends Controller
             //->with('requests', $requests);
 
         $pdf = Pdf::loadView('orders.pdf', $data);
-        return $pdf->download("pedido_compra_marton_tech_$order->getKey().pdf");
+        return $pdf->download("pedido_compra_marton_tech_N°{$order->getKey()}.pdf");
     }
 
 }
