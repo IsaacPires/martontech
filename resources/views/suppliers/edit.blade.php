@@ -66,7 +66,7 @@
 
             <div class="col-md-4">
                 <label for="ContactPhoneOne" class="form-label">Telefone 1</label>
-                <input type="tel" class="form-control" id="ContactPhoneOne" name="ContactPhoneOne" value='{{$supplier->ContactPhoneOne}}' required>
+                <input type="tel" maxlength='15' class="form-control" id="ContactPhoneOne" name="ContactPhoneOne" value='{{$supplier->ContactPhoneOne}}' required>
             </div>
 
             <div class="col-md-4">
@@ -85,7 +85,7 @@
 
             <div class="col-md-4">
                 <label for="ContactPhoneTwo" class="form-label">Telefone 2</label>
-                <input type="tel" class="form-control" id="ContactPhoneTwo" name="ContactPhoneTwo" value='{{$supplier->ContactPhoneTwo}}'>
+                <input type="tel" maxlength='15' class="form-control" id="ContactPhoneTwo" name="ContactPhoneTwo" value='{{$supplier->ContactPhoneTwo}}'>
             </div>
 
             <div class="col-md-4">
@@ -101,3 +101,4 @@
     </form>
 
 </x-layout>
+<script src="{{ asset('js/suppliers/script.js') }}"></script>

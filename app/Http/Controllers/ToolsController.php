@@ -27,6 +27,7 @@ class ToolsController extends Controller
                 t.id,
                 t.Name AS 'Ferramenta',
                 s.Name AS 'Fornecedor',
+                t.Owner AS 'Responsável',
                 DATE_FORMAT(t.Date, '%d/%m/%Y') AS 'Data',
                 t.Quantity AS 'Quantidade',
                 t.Number AS 'N°',
@@ -38,6 +39,16 @@ class ToolsController extends Controller
         if (!empty($_GET['toolsName']))
         {
         $tools->where('Name', 'like', '%' . $_GET['toolsName'] . '%');
+        }
+
+        if (!empty($_GET['number']))
+        {
+            $tools->where('t.Number', 'like', '%' . $_GET['number'] . '%');
+        }
+
+        if (!empty($_GET['owner']))
+        {
+            $tools->where('Owner', 'like', '%' . $_GET['owner'] . '%');
         }
 
         if (!empty($_GET['State']))
@@ -132,32 +143,45 @@ class ToolsController extends Controller
     public function csv()
     {
         $tools = DB::table('tools', 't')
+        ->leftJoin('suppliers as s', 't.suppliers_id', '=', 's.id')
         ->selectRaw("
             t.id,
-            t.Name AS 'Nome',
+            t.Name AS 'Ferramenta',
+            s.Name AS 'Fornecedor',
+            t.Owner AS 'Responsável',
             DATE_FORMAT(t.Date, '%d/%m/%Y') AS 'Data',
             t.Quantity AS 'Quantidade',
             t.Number AS 'N°',
             t.State AS 'Estado',
-            t.Status AS 'Status',
-            t.Note as 'Observacao'
+            t.Status AS 'Status'
         ")
         ->orderByDesc('t.id');
 
         if (!empty($_GET['toolsName']))
         {
-        $tools->where('Name', 'like', '%' . $_GET['toolsName'] . '%');
+            $tools->where('Name', 'like', '%' . $_GET['toolsName'] . '%');
         }
+
+        if (!empty($_GET['number']))
+        {
+            $tools->where('t.Number', 'like', '%' . $_GET['number'] . '%');
+        }
+
+        if (!empty($_GET['owner']))
+        {
+            $tools->where('Owner', 'like', '%' . $_GET['owner'] . '%');
+        }
+
 
         if (!empty($_GET['State']))
         {
-        $tools->where('State', 'like', '%' . $_GET['State'] . '%');
+            $tools->where('State', 'like', '%' . $_GET['State'] . '%');
         }
 
         
         if (!empty($_GET['Status']))
         {
-        $tools->where('Status', 'like', '%' . $_GET['Status'] . '%');
+            $tools->where('Status', 'like', '%' . $_GET['Status'] . '%');
         }
 
         $tools = $tools->get();

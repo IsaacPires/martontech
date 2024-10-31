@@ -7,6 +7,16 @@
                 <label for="ProductName" class="form-label">Nome da Ferramenta</label>
                 <input value="{{isset($_GET['toolsName']) && !empty($_GET['toolsName']) ? $_GET['toolsName'] : ''}}" type="text" class="form-control" id="toolsName" name="toolsName" placeholder="Digite para filtrar...">
             </div>
+
+            <div class="col-md-4">
+                <label for="owner" class="form-label">Responsável</label>
+                <input value="{{isset($_GET['owner']) && !empty($_GET['owner']) ? $_GET['owner'] : ''}}" type="text" class="form-control" id="owner" name="owner" placeholder="Digite para filtrar...">
+            </div>
+
+            <div class="col-md-4">
+                <label for="number" class="form-label">N°</label>
+                <input value="{{isset($_GET['number']) && !empty($_GET['number']) ? $_GET['number'] : ''}}" type="text" class="form-control" id="number" name="number" placeholder="Digite para filtrar...">
+            </div>
     
             <div class="col-md-4">
                 <label for="limiter" class="form-label">Retorno por página</label>

@@ -307,7 +307,7 @@ class OrderController extends Controller
             //->with('requests', $requests);
 
         $pdf = Pdf::loadView('orders.pdf', $data);
-        return $pdf->download('orders.pdf');
+        return $pdf->download("pedido_compra_marton_tech_$order->getKey().pdf");
     }
 
 }

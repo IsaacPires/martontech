@@ -28,20 +28,31 @@ class MaintenanceController extends Controller
         m.id,
         t.Name AS 'Ferramenta',
         s.Name AS 'Fornecedor',
+        t.Owner as 'Responsável',
         m.technical_assistance as 'Assistência Técnica',
         DATE_FORMAT(m.output_date, '%d/%m/%Y') AS 'Data de saída',
         DATE_FORMAT(m.return_date, '%d/%m/%Y') AS 'Data de retorno',
         t.Number AS 'N°',
         m.defect AS 'Defeito',
         m.value as 'Valor',
-        m.obs AS 'Obs'
-    ")
-    ->orderByDesc('m.id');
+        m.obs AS 'Obs'")
+        ->orderByDesc('m.id');
 
-    if (!empty($_GET['toolsName']))
-    {
-        $maintenance->where('t.Name', 'like', '%' . $_GET['toolsName'] . '%');
-    }
+        if (!empty($_GET['toolsName']))
+        {
+            $maintenance->where('t.Name', 'like', '%' . $_GET['toolsName'] . '%');
+        }
+
+        if (!empty($_GET['number']))
+        {
+            $maintenance->where('t.Number', 'like', '%' . $_GET['number'] . '%');
+        }
+
+        if (!empty($_GET['owner']))
+        {
+            $maintenance->where('t.Owner', 'like', '%' . $_GET['owner'] . '%');
+        }
+
 
 
         $maintenance = $maintenance->paginate($retornoPorPage);
@@ -142,6 +153,7 @@ class MaintenanceController extends Controller
             m.id,
             t.Name AS 'Ferramenta',
             s.Name AS 'Fornecedor',
+            t.Owner as 'Responsável',
             DATE_FORMAT(m.output_date, '%d/%m/%Y') AS 'Data de saída',
             DATE_FORMAT(m.return_date, '%d/%m/%Y') AS 'Data de retorno',
             t.Number AS 'N°',
@@ -151,10 +163,15 @@ class MaintenanceController extends Controller
         ")
         ->orderByDesc('t.id');
 
-    if (!empty($_GET['toolsName']))
-    {
-        $maintenance->where('t.Name', 'like', '%' . $_GET['toolsName'] . '%');
-    }
+        if (!empty($_GET['toolsName']))
+        {
+            $maintenance->where('t.Name', 'like', '%' . $_GET['toolsName'] . '%');
+        }
+
+        if (!empty($_GET['number']))
+        {
+            $maintenance->where('t.Number', 'like', '%' . $_GET['number'] . '%');
+        }
 
         $maintenance = $maintenance->get();
 

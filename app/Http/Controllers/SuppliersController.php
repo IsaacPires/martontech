@@ -110,6 +110,14 @@ class SuppliersController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request['Cnpj'] =  str_replace(['.', '/', '-'], '', $request['Cnpj']);
+
+        $request['ContactPhoneOne'] =  str_replace(['.', '/', '-', ' ', '(', ')'], '', $request['ContactPhoneOne']);
+        if (isset($request['ContactPhoneTwo']) && !empty($request['ContactPhoneTwo']))
+        {
+            $request['ContactPhoneTwo'] =  str_replace(['.', '/', '-', ' ', '(', ')'], '', $request['ContactPhoneTwo']);
+        }
+        
         $supplier = Suppliers::findOrFail($id);
         $supplier->update($request->all());
 
@@ -122,20 +130,20 @@ class SuppliersController extends Controller
     {
         $suppliers = DB::table('suppliers')
             ->selectRaw('
-      id, 
-      Name as "Fornecedor",
-      Segments as Segmento,
-      Cnpj, 
-      AddressNumber as "N° do endereço", 
-      AddressNeighborhood as Bairro, 
-      AddressStreet as Rua,
-      AddressCity as Cidade, 
-      AddressState as Estado, 
-      ContactNameOne as Contato,
-      ContactPhoneOne as Telefone,
-      ContactEmailOne as Email,
-      DATE_FORMAT(created_at, "%d/%m/%Y %H:%i") AS "Data Criação"
-      ')
+                id, 
+                Name as "Fornecedor",
+                Segments as Segmento,
+                Cnpj, 
+                AddressNumber as "N° do endereço", 
+                AddressNeighborhood as Bairro, 
+                AddressStreet as Rua,
+                AddressCity as Cidade, 
+                AddressState as Estado, 
+                ContactNameOne as Contato,
+                ContactPhoneOne as Telefone,
+                ContactEmailOne as Email,
+                DATE_FORMAT(created_at, "%d/%m/%Y %H:%i") AS "Data Criação"
+                ')
             ->orderByDesc('id');;
 
         if (!empty($_GET['ordenacao']))
