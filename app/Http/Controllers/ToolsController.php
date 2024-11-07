@@ -38,7 +38,7 @@ class ToolsController extends Controller
 
         if (!empty($_GET['toolsName']))
         {
-        $tools->where('Name', 'like', '%' . $_GET['toolsName'] . '%');
+        $tools->where('t.Name', 'like', '%' . $_GET['toolsName'] . '%');
         }
 
         if (!empty($_GET['number']))
@@ -48,18 +48,18 @@ class ToolsController extends Controller
 
         if (!empty($_GET['owner']))
         {
-            $tools->where('Owner', 'like', '%' . $_GET['owner'] . '%');
+            $tools->where('t.Owner', 'like', '%' . $_GET['owner'] . '%');
         }
 
         if (!empty($_GET['State']))
         {
-            $tools->where('State', 'like', '%' . $_GET['State'] . '%');
+            $tools->where('t.State', 'like', '%' . $_GET['State'] . '%');
         }
 
         
         if (!empty($_GET['Status']))
         {
-            $tools->where('Status', 'like', '%' . $_GET['Status'] . '%');
+            $tools->where('t.Status', 'like', '%' . $_GET['Status'] . '%');
         }
 
         $tools = $tools->paginate($retornoPorPage);
