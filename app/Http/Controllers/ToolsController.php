@@ -216,9 +216,10 @@ class ToolsController extends Controller
 
     public function changeOwner()
     {
-        $tools = Tools::all();
+        $tools = Tools::select('Owner') 
+        ->distinct('owner')
+        ->get();
         $msg = session('msg');
-
         return view('tools.change')
             ->with('tools', $tools)
             ->with('msg', $msg);
