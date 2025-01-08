@@ -9,7 +9,6 @@ class Discord
 
     public function sendMensagem(int $ownerId, string $content, int $pendingId)
     {
-
         $channelOwner = match ($ownerId) {
             1 => env('MARCIO_DISCORD'),
             2 => env('AIRTON_DISCORD'),
